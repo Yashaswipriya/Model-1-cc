@@ -8,9 +8,9 @@ export default function Page() {
       {/* Aurora background */}
       <div className="absolute inset-0 -z-10">
         <Aurora
-          colorStops={["#8e84fa", "#FF94B4", "#71cafe"]}
-          blend={1.0}
-          amplitude={1.0}
+          colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
+          blend={0.7}
+          amplitude={2.0}
           speed={1.0}
         />
       </div>
