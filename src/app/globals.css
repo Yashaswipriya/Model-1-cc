@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+
 
 @layer base {
   body,p{
@@ -11,36 +14,19 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
+
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  font-family: sans-serif;
-  overflow: hidden;
-}
-
-.hero-container {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-}
-
-.hero-content h1,
-.hero-content p {
-  color: white;
-}
 
 canvas {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   display: block;
+  z-index: 0;
 }
-
 
 

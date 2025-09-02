@@ -176,6 +176,16 @@ export default function Aurora(props: AuroraProps) {
     const mesh = new Mesh(gl, { geometry, program });
     ctn.appendChild(gl.canvas);
 
+    Object.assign(gl.canvas.style, {
+  position: "absolute",
+  top: "0",
+  left: "0",
+  width: "100%",
+  height: "100%",
+  zIndex: "0", // sits behind
+  pointerEvents: "none", // avoid blocking Hero interactions
+});
+
     let animateId = 0;
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
@@ -206,5 +216,5 @@ export default function Aurora(props: AuroraProps) {
     };
   }, [amplitude]);
 
-  return <div ref={ctnDom} className="w-full h-full" />;
+  return <div ref={ctnDom} className="w-full h-full relative" />;
 }
