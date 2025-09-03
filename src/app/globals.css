@@ -29,4 +29,18 @@ canvas {
   z-index: 0;
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.scroll-stack-container {
+  position: relative; /* not fixed! */
+  height: auto;       /* let content flow */
+}
+
+
+
 

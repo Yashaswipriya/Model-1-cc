@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 
 interface ColorRGB {
   r: number;
@@ -52,7 +52,7 @@ function pointerPrototype(): Pointer {
   };
 }
 
-export default function SplashCursor({
+function SplashCursor({
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1440,
   CAPTURE_RESOLUTION = 512,
@@ -1286,3 +1286,4 @@ export default function SplashCursor({
     </div>
   );
 }
+export default memo(SplashCursor);

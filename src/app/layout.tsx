@@ -24,7 +24,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${bricolage.variable} ${syne.variable}`}>
-      <body className="font-sans">
+      <body className={`${bricolage.className} bg-[#fdfaf6]`}>
         <SplashCursor />
         {children}
       </body>
