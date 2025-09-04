@@ -13,7 +13,7 @@ export default function ServicesHeading() {
           if (entry.isIntersecting) controls.start("visible");
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.5 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();

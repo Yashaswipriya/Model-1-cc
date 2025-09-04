@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-
+@custom-variant dark (&:is(.dark *));
 
 @layer base {
   body,p{
@@ -17,7 +17,6 @@
 
   box-sizing: border-box;
 }
-
 
 canvas {
   position: fixed;
@@ -40,7 +39,4 @@ canvas {
   position: relative; /* not fixed! */
   height: auto;       /* let content flow */
 }
-
-
-
 

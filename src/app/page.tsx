@@ -2,9 +2,55 @@
 import Aurora from "../components/Aurora"; 
 import Hero from "../components/Hero"; 
 import ServicesHeading from "../components/ServiceHeading"; 
-import ScrollStack, { ScrollStackItem } from "../components/ScrollStack"; 
-import { motion, useScroll, useTransform } from "framer-motion"; 
+import ScrollStack  from "../components/ScrollStack"; 
+import { motion, useScroll, useTransform } from "framer-motion";
+import CardContent from "../components/CardContent"; 
 import { useRef } from "react";  
+
+const cardsData = [
+  {
+    title: "Web Design & Development",
+    tags: ["Wordpress", "Blogs", "Potfolio", "E-Commerce"],
+    description:
+      "Crafting digital experiences where beauty meets ROI, turning heads and unlocking revenue potential with every click.",
+    videoSrc: "/WebDesign.mp4",
+  },
+  {
+    title: "SEO & Marketing",
+    tags: ["Website", "Social Media", "Google Ads", "Email Marketing"],
+    description:
+      "Boost your online visibility and drive real results with data-driven marketing strategies.",
+    videoSrc: "/seo.mp4",
+  },
+  {
+    title: "Brand Strategy",
+    tags: ["Brand Identity", "Positioning", "Storytelling", "Visual Design"],
+    description:
+      "Build a memorable brand that resonates with your audience and grows your business.",
+    videoSrc: "/brandStrategy.mp4",
+  },
+  {
+    title: "Video Editing",
+    tags: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects", "DaVinci Resolve"],
+    description:
+      "Transform raw footage into captivating videos that tell your story, engage your audience, and leave a lasting impression.",
+    videoSrc: "/videoEditing.mp4",
+  },
+  {
+    title: "Paid Advertising",
+    tags: ["Google Ads", "Facebook Ads", "Instagram Ads", "LinkedIn Ads"],
+    description:"Design and run powerful, attention-grabbing ads that connect with your audience, boost engagement, and drive measurable results for your business.",
+      
+    videoSrc: "/PaidAds.mp4",
+  },
+  {
+    title: "Social Media Management",
+    tags: ["Content Creation", "Scheduling", "Analytics", "Community Engagement"],
+    description:"Build and nurture a vibrant online community that amplifies your brand message, fosters loyalty, and drives meaningful interactions across all your social platforms.",
+      
+    videoSrc: "/socialMedia.mp4",
+  },
+];
 
 export default function Page() {   
   const sectionRef = useRef(null);    
@@ -34,38 +80,31 @@ export default function Page() {
         <Hero />       
       </section>        
 
-      {/* Services Section */}       
-      <section ref={sectionRef} className="relative min-h-[200vh]">         
-        {/* Heading stays in place and fades out */}         
-        <motion.div           
-          style={{ opacity: headingOpacity }}           
-          className="sticky top-24 z-30 w-full flex justify-center pointer-events-none"         
-        >           
-          <ServicesHeading />         
-        </motion.div>          
+      <section ref={sectionRef} className="relative h-[200vh] flex flex-col items-center">
+  {/* Sticky heading */}
+  <motion.div
+    style={{ opacity: headingOpacity }}
+    className="sticky top-24 z-30 w-full flex justify-center pointer-events-none"
+  >
+    <ServicesHeading />
+  </motion.div>
 
-        {/* ScrollStack takes full width and height */}         
-        <div className="relative z-20 h-screen">           
-          <ScrollStack className="no-scrollbar">             
-            <ScrollStackItem itemClassName="text-black">               
-              <h2 className="text-3xl font-bold mb-4">Card 1</h2>               
-              <p className="text-lg">This is the first card in the stack</p>             
-            </ScrollStackItem>             
-            <ScrollStackItem itemClassName="text-black">               
-              <h2 className="text-3xl font-bold mb-4">Card 2</h2>               
-              <p className="text-lg">This is the second card in the stack</p>             
-            </ScrollStackItem>             
-            <ScrollStackItem itemClassName="text-black">               
-              <h2 className="text-3xl font-bold mb-4">Card 3</h2>               
-              <p className="text-lg">This is the third card in the stack</p>             
-            </ScrollStackItem>
-            <ScrollStackItem itemClassName="text-black">               
-              <h2 className="text-3xl font-bold mb-4">Card 4</h2>               
-              <p className="text-lg">This is the fourth card in the stack</p>             
-            </ScrollStackItem>           
-          </ScrollStack>         
-        </div>       
-      </section>     
+  {/* Cards container */}
+  <div className="mt-40 w-full flex justify-center">
+    <ScrollStack sectionHeightMultiplier={6}>
+      {cardsData.map((card, idx) => (
+        <CardContent
+          key={idx}
+          title={card.title}
+          tags={card.tags}
+          description={card.description}
+          videoSrc={card.videoSrc}
+        />
+      ))}
+    </ScrollStack>
+  </div>
+</section>
+
     </main>   
   ); 
 }
