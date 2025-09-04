@@ -11,7 +11,7 @@ interface ScrollStackProps {
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
-  cardHeight = "80vh",
+  cardHeight = "35rem",
   animationDuration = "1s",
   sectionHeightMultiplier = 3,
   className = "",
@@ -62,7 +62,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const getCardStyle = (index: number) => {
     const isVisible = activeIndex >= index;
     const translateY = isVisible ? "0px" : "100px";
-    const scale = 1 - (cardCount - index - 1) * 0.03;
+    const scale = 1;
     const opacity = isVisible ? 1 : 0;
     return {
       transform: `translateX(-50%) translateY(${translateY}) scale(${scale})`,
@@ -73,7 +73,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       top: "10%",
       left: "50%",
       width: "100%",
-      maxWidth: "100%",
+      maxWidth: "70rem",
       pointerEvents: isVisible ? "auto" as React.CSSProperties['pointerEvents'] : "none" as React.CSSProperties['pointerEvents'],
       height: cardHeight,
     };
@@ -90,8 +90,8 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         className="relative w-full"
         style={{ height: `${sectionHeightMultiplier * 100}vh` }}
       >
-        <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden">
-          <div className="relative w-full max-w-5xl h-full">
+        <div className="sticky top-0  h-screen flex items-center justify-center overflow-hidden">
+          <div className="relative w-full h-full">
             {children.map((child, index) => (
               <div key={index} style={getCardStyle(index)}>
                 {child}

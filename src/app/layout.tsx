@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Syne } from "next/font/google";
 import "./globals.css";
+import { Bricolage_Grotesque, Syne } from "next/font/google";
 import SplashCursor from "@/components/SplashCursor";
 
 const bricolage = Bricolage_Grotesque({
@@ -21,7 +21,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={`${bricolage.variable} ${syne.variable}`}>
       <body className={`${bricolage.className} bg-[#fdfaf6]`}>
@@ -31,4 +33,5 @@ export default function RootLayout({
     </html>
   );
 }
+
 

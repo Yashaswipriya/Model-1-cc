@@ -45,7 +45,7 @@ export default function ServicesHeading() {
   return (
     <section
       ref={ref}
-      className="relative flex flex-col items-start justify-center min-h-[80vh] px-20 md:px-50"
+      className="relative flex flex-col items-start justify-center min-h-[10vh] px-20 md:px-50"
     >
       {/* Heading */}
       <motion.h2

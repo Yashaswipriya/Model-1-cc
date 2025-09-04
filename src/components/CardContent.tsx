@@ -22,7 +22,7 @@ export default function CardContent({
     <div className="bg-white h-full rounded-3xl shadow-lg overflow-hidden p-8 flex flex-col md:flex-row items-center gap-8">
       {/* Left Side */}
       <div className="flex-1 min-h-0 space-y-4">
-        <h2 className="text-3xl md:text-7xl font-bold leading-tight text-gray-900">
+        <h2 className="text-3xl md:text-7xl font-bold leading-tight text-gray-900 ">
           {title}
         </h2>
 
@@ -48,8 +48,8 @@ export default function CardContent({
 
       {/* Right Side (Fixed Size) */}
       {(videoSrc || imgSrc) && (
-        <div className="shrink-0 w-[500px] h-[350px] max-w-full flex justify-center items-center">
-          <div className="rounded-3xl overflow-hidden shadow-2xl w-full h-full aspect-[16/9]">
+        <div className="shrink-0 w-[550px] h-[450px] max-w-full flex justify-center items-center">
+          <div className="rounded-3xl overflow-hidden shadow-2xl w-full h-full">
             {videoSrc ? (
               <video
                 autoPlay

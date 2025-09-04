@@ -16,13 +16,6 @@ const cardsData = [
     videoSrc: "/WebDesign.mp4",
   },
   {
-    title: "SEO & Marketing",
-    tags: ["Website", "Social Media", "Google Ads", "Email Marketing"],
-    description:
-      "Boost your online visibility and drive real results with data-driven marketing strategies.",
-    videoSrc: "/seo.mp4",
-  },
-  {
     title: "Brand Strategy",
     tags: ["Brand Identity", "Positioning", "Storytelling", "Visual Design"],
     description:
@@ -91,7 +84,7 @@ export default function Page() {
 
   {/* Cards container */}
   <div className="mt-40 w-full flex justify-center">
-    <ScrollStack sectionHeightMultiplier={6}>
+    <ScrollStack sectionHeightMultiplier={5}>
       {cardsData.map((card, idx) => (
         <CardContent
           key={idx}
