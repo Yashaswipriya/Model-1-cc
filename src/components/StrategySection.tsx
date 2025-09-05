@@ -40,7 +40,6 @@ export default function IlluminationJourney() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const targetPos = useRef({ x: 0, y: 0 });
 
-  // Smooth lerp animation
   useEffect(() => {
     let frame: number;
     const lerp = () => {
@@ -58,8 +57,8 @@ export default function IlluminationJourney() {
     <section className="relative w-full py-100">
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Heading */}
-        <div className="pt-20 pb-60 text-center">
-          <h2 className="text-8xl font-bold mb-4">Our Illumination Journey</h2>
+        <div className="pt-20 pb-40 text-center">
+          <h2 className="text-8xl font-bold mb-4 mt-10">Our Illumination Journey</h2>
           <p className="text-2xl text-gray-800 max-w-3xl text-center mx-auto">
             Our process is simple, transparent and designed to illuminate your
             path from vision to brand.
@@ -67,42 +66,40 @@ export default function IlluminationJourney() {
         </div>
 
         {/* Steps */}
-        <div className="flex flex-col gap-32 relative">
+        <div className="flex flex-col gap-25 relative">
           {steps.map((step, index) => {
             const isActive = activeStep === index;
             return (
               <div
                 key={index}
-                className="relative grid grid-cols-1 md:grid-cols-3 items-center gap-10"
+                className="relative"
                 onMouseEnter={() => setActiveStep(index)}
                 onMouseLeave={() => setActiveStep(null)}
                 onMouseMove={(e) => {
                   if (!isActive) return;
                   const rect = e.currentTarget.getBoundingClientRect();
-                  const clampedX = Math.min(
-                    Math.max(e.clientX - rect.left, 0),
-                    rect.width
-                  );
-                  const clampedY = Math.min(
-                    Math.max(e.clientY - rect.top, 0),
-                    rect.height
-                  );
-                  targetPos.current.x = clampedX;
-                  targetPos.current.y = clampedY;
+                  targetPos.current.x = e.clientX - rect.left;
+                  targetPos.current.y = e.clientY - rect.top;
                 }}
               >
-                {/* Left: Number + Title */}
-                <div className="">
-                  <span className="text-3xl font-semibold text-black mb-2">
-                    {String(index + 1).padStart(2, "0")}/
-                  </span>
-                  <h3 className="text-6xl font-semibold">{step.title}</h3>
+                {/* Section Content */}
+                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-10 py-8">
+                  {/* Left: Number + Title */}
+                  <div>
+                    <span className="text-3xl font-semibold text-black mb-4 block">
+                      {String(index + 1).padStart(2, "0")}/
+                    </span>
+                    <h3 className="text-6xl font-semibold">{step.title}</h3>
+                  </div>
+
+                  {/* Right: Description */}
+                  <p className="md:col-span-1 text-2xl leading-relaxed text-gray-900">
+                    {step.description}
+                  </p>
                 </div>
 
-                {/* Right: Description */}
-                <p className="md:col-span-1 text-2xl leading-relaxed text-gray-900">
-                  {step.description}
-                </p>
+                {/* Bottom Divider */}
+                <div className="w-270 h-px bg-black"></div>
 
                 {/* Cursor-following image */}
                 <AnimatePresence>
@@ -125,8 +122,6 @@ export default function IlluminationJourney() {
                     />
                   )}
                 </AnimatePresence>
-
-                <div className="w-270 h-px bg-black my-10 md:col-span-3"></div>
               </div>
             );
           })}
