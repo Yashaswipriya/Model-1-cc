@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Bricolage_Grotesque, Syne } from "next/font/google";
 import SplashCursor from "@/components/SplashCursor";
+import GlobalButtons from "@/components/GlobalButtons";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -28,6 +29,7 @@ export default function RootLayout({
     <html lang="en" className={`${bricolage.variable} ${syne.variable}`}>
       <body className={`${bricolage.className} bg-[#fdfaf6]`}>
         <SplashCursor />
+        <GlobalButtons />
         {children}
       </body>
     </html>

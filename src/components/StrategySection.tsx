@@ -1,0 +1,137 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+type Step = {
+  title: string;
+  description: string;
+  image: string;
+};
+
+const steps: Step[] = [
+  {
+    title: "Discovery & research",
+    description:
+      "We start by understanding your business, goals, competitors, and target audience.",
+    image: "/research.avif",
+  },
+  {
+    title: "Strategy & Planning",
+    description:
+      "We design a custom roadmap tailored to your brand's needs and budget.",
+    image: "/planning.avif",
+  },
+  {
+    title: "Monitoring & Optimization",
+    description:
+      "We track performance using analytics, adjust campaigns, and optimize strategies for better ROI",
+    image: "/optimization.avif",
+  },
+  {
+    title: "Reporting & Growth",
+    description:
+      "You get transparent reports that show real results leads, sales and growth. We refine and scale what works.",
+    image: "/growth.avif",
+  },
+];
+
+export default function IlluminationJourney() {
+  const [activeStep, setActiveStep] = useState<number | null>(null);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
+  const targetPos = useRef({ x: 0, y: 0 });
+
+  // Smooth lerp animation
+  useEffect(() => {
+    let frame: number;
+    const lerp = () => {
+      setPos((prev) => ({
+        x: prev.x + (targetPos.current.x - prev.x) * 0.15,
+        y: prev.y + (targetPos.current.y - prev.y) * 0.15,
+      }));
+      frame = requestAnimationFrame(lerp);
+    };
+    frame = requestAnimationFrame(lerp);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  return (
+    <section className="relative w-full py-100">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Section Heading */}
+        <div className="pt-20 pb-60 text-center">
+          <h2 className="text-8xl font-bold mb-4">Our Illumination Journey</h2>
+          <p className="text-2xl text-gray-800 max-w-3xl text-center mx-auto">
+            Our process is simple, transparent and designed to illuminate your
+            path from vision to brand.
+          </p>
+        </div>
+
+        {/* Steps */}
+        <div className="flex flex-col gap-32 relative">
+          {steps.map((step, index) => {
+            const isActive = activeStep === index;
+            return (
+              <div
+                key={index}
+                className="relative grid grid-cols-1 md:grid-cols-3 items-center gap-10"
+                onMouseEnter={() => setActiveStep(index)}
+                onMouseLeave={() => setActiveStep(null)}
+                onMouseMove={(e) => {
+                  if (!isActive) return;
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const clampedX = Math.min(
+                    Math.max(e.clientX - rect.left, 0),
+                    rect.width
+                  );
+                  const clampedY = Math.min(
+                    Math.max(e.clientY - rect.top, 0),
+                    rect.height
+                  );
+                  targetPos.current.x = clampedX;
+                  targetPos.current.y = clampedY;
+                }}
+              >
+                {/* Left: Number + Title */}
+                <div className="">
+                  <span className="text-3xl font-semibold text-black mb-2">
+                    {String(index + 1).padStart(2, "0")}/
+                  </span>
+                  <h3 className="text-6xl font-semibold">{step.title}</h3>
+                </div>
+
+                {/* Right: Description */}
+                <p className="md:col-span-1 text-2xl leading-relaxed text-gray-900">
+                  {step.description}
+                </p>
+
+                {/* Cursor-following image */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.img
+                      key={step.image}
+                      src={step.image}
+                      alt=""
+                      className="pointer-events-none absolute w-64 md:w-80 h-48 md:h-60 object-cover rounded-xl shadow-2xl"
+                      style={{
+                        top: pos.y,
+                        left: pos.x,
+                        transform: "translate(-50%, -50%)",
+                        zIndex: 50,
+                      }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                    />
+                  )}
+                </AnimatePresence>
+
+                <div className="w-270 h-px bg-black my-10 md:col-span-3"></div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

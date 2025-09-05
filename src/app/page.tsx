@@ -5,6 +5,7 @@ import ServicesHeading from "../components/ServiceHeading";
 import ScrollStack  from "../components/ScrollStack"; 
 import { motion, useScroll, useTransform } from "framer-motion";
 import CardContent from "../components/CardContent"; 
+import StrategySection from "../components/StrategySection";
 import { useRef } from "react";  
 
 const cardsData = [
@@ -45,6 +46,7 @@ const cardsData = [
   },
 ];
 
+
 export default function Page() {   
   const sectionRef = useRef(null);    
   
@@ -54,7 +56,7 @@ export default function Page() {
     offset: ["start center", "end start"],   
   });    
   
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);    
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);   
   
   return (     
     <main className="relative w-full">       
@@ -73,7 +75,11 @@ export default function Page() {
         <Hero />       
       </section>        
 
-      <section ref={sectionRef} className="relative h-[200vh] flex flex-col items-center">
+    <section
+  ref={sectionRef}
+  className={`relative flex flex-col items-center`}
+  style={{ height: `${cardsData.length * 100}vh` }} // dynamically set height
+>
   {/* Sticky heading */}
   <motion.div
     style={{ opacity: headingOpacity }}
@@ -84,7 +90,7 @@ export default function Page() {
 
   {/* Cards container */}
   <div className="mt-40 w-full flex justify-center">
-    <ScrollStack sectionHeightMultiplier={5}>
+    <ScrollStack sectionHeightMultiplier={cardsData.length}>
       {cardsData.map((card, idx) => (
         <CardContent
           key={idx}
@@ -96,6 +102,11 @@ export default function Page() {
       ))}
     </ScrollStack>
   </div>
+</section>
+
+{/* Strategy Section — starts AFTER all cards scroll */}
+<section className="h-screen">
+  <StrategySection />
 </section>
 
     </main>   

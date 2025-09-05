@@ -18,7 +18,8 @@ export default function ServicesHeading() {
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [controls]);
-
+  
+  
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
