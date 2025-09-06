@@ -25,7 +25,7 @@ export default function ServicesHeading() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.05, duration: 0.4, ease: easeOut },
+      transition: { delay:  0.05, duration: 0.4, ease: easeOut },
     }),
   };
 
@@ -46,7 +46,7 @@ export default function ServicesHeading() {
   return (
     <section
       ref={ref}
-      className="relative flex flex-col items-start justify-center min-h-[10vh] px-20 md:px-50"
+      className="relative flex flex-col items-start justify-center min-h-[50vh] px-20 md:px-50"
     >
       {/* Heading */}
       <motion.h2

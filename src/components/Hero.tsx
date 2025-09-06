@@ -1,13 +1,13 @@
 "use client";
 import { motion, easeOut } from "framer-motion";
-
+import Image from "next/image";
 export default function Hero() {
   return (
     <main className="relative flex h-screen items-center justify-center">
       {/* Hero Text Section */}
   <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-2">
   {/* Heading */}
-  <h1 className="font-syne text-[10vw] md:text-[15vw] leading-[0.9] font-bold mx-auto text-center">
+  <h1 className="font-syne text-[10vw] md:text-[15vw] leading-[0.9] font-bold mx-auto text-center mb-20">
     <motion.span
       className="block transform md:-translate-x-40"
       initial="hidden"
@@ -49,7 +49,7 @@ export default function Hero() {
 
   {/* Paragraph box next to "glow" */}
   <motion.p
-    className="max-w-xs md:max-w-sm text-base md:text-lg text-black md:ml-2 font-bricolage text-3xl"
+    className="max-w-xs md:max-w-sm text-base md:text-xl text-black md:ml-2 font-bricolage text-3xl mb-20"
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.6, ease: easeOut } }}
   >
@@ -57,6 +57,16 @@ export default function Hero() {
     <span className="font-bold"> shine in every digital space.</span>
   </motion.p>
 </div>
+{/* ✅ Bottom-left logo */}
+      <div className="absolute bottom-4 left-2">
+        <Image
+          src="/Logo.png" // <-- place logo.png inside /public folder
+          alt="Logo"
+          width={200}
+          height={200}
+          className="opacity-90 hover:opacity-100 transition-opacity"
+        />
+      </div>
 
     </main>
   );

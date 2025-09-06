@@ -11,7 +11,7 @@ interface ScrollStackProps {
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
-  cardHeight = "35rem",
+  cardHeight = "40rem",
   animationDuration = "1s",
   sectionHeightMultiplier = 3,
   className = "",
@@ -70,10 +70,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       zIndex: 10 + index,
       transition: `transform ${animationDuration} cubic-bezier(0.19, 1, 0.22, 1), opacity ${animationDuration}`,
       position: "absolute" as const,
-      top: "10%",
+      top: "3%",
       left: "50%",
       width: "100%",
-      maxWidth: "70rem",
+      maxWidth: "75rem",
       pointerEvents: isVisible ? "auto" as React.CSSProperties['pointerEvents'] : "none" as React.CSSProperties['pointerEvents'],
       height: cardHeight,
     };
