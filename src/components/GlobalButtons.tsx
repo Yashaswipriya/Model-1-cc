@@ -24,7 +24,7 @@ export default function GlobalButtons() {
 
   return (
     // Top-right buttons
-    <div className="absolute top-6 right-6 flex items-center gap-4 z-20">
+    <div className="fixed top-6 right-6 flex items-center gap-4 z-999">
       {/* Hire Us Button */}
         <div className="flex gap-2">
           <button className="group flex items-center px-10 py-3 rounded-full text-md bg-black text-white font-medium shadow-lg hover:bg-pink-600 transition">
