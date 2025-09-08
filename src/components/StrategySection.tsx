@@ -100,28 +100,6 @@ export default function IlluminationJourney() {
 
                 {/* Bottom Divider */}
                 <div className="w-270 h-px bg-black"></div>
-
-                {/* Cursor-following image */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.img
-                      key={step.image}
-                      src={step.image}
-                      alt=""
-                      className="pointer-events-none absolute w-64 md:w-80 h-48 md:h-60 object-cover rounded-xl shadow-2xl"
-                      style={{
-                        top: pos.y,
-                        left: pos.x,
-                        transform: "translate(-50%, -50%)",
-                        zIndex: 50,
-                      }}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                    />
-                  )}
-                </AnimatePresence>
               </div>
             );
           })}

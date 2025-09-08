@@ -50,13 +50,13 @@ const cardsData = [
 export default function Page() {   
   const sectionRef = useRef(null);    
   
-  // Track scroll progress relative to this outer section   
+  //Track scroll progress relative to this outer section   
   const { scrollYProgress } = useScroll({     
     target: sectionRef,     
     offset: ["start center", "end start"],   
   });    
   
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);   
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);   
   
   return (     
     <main className="relative w-full">       
