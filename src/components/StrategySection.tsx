@@ -58,7 +58,9 @@ export default function IlluminationJourney() {
 
   return (
     <section className="relative w-full py-200 md:py-200 lg:py-200">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="mx-auto 
+  px-4 sm:px-6 lg:px-8 
+  max-w-full md:max-w-[90rem] lg:max-w-[100rem] xl:max-w-[110rem]">
         {/* Heading */}
         <div className="pt-12 pb-16 text-center mb-20 md:mb-32 lg:mb-40 xl:mb-48">
           <motion.h2

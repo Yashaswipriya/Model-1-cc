@@ -7,9 +7,9 @@ export default function Hero() {
       {/* Hero Text Section */}
   <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-2">
   {/* Heading */}
-  <h1 className="font-syne text-[10vw] md:text-[15vw] leading-[0.9] font-bold mx-auto text-center mb-20">
+  <h1 className="font-syne text-[8vw] md:text-[12vw] leading-[1.2] font-bold mx-auto text-center mb-20">
     <motion.span
-      className="block transform md:-translate-x-40"
+      className="block transform md:translate-x-10"
       initial="hidden"
       animate="visible"
       variants={{
@@ -17,11 +17,11 @@ export default function Hero() {
         visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: easeOut } },
       }}
     >
-      Step
+      Illuminate
     </motion.span>
 
     <motion.span
-      className="block transform md:translate-x-20 text-center md:text-right"
+      className="block transform md:translate-x-40 text-center md:text-right"
       initial="hidden"
       animate="visible"
       variants={{
@@ -30,7 +30,7 @@ export default function Hero() {
       }}
       transition={{ delay: 0.2 }}
     >
-      into the
+      Elevate
     </motion.span>
 
     <motion.span
@@ -43,17 +43,20 @@ export default function Hero() {
       }}
       transition={{ delay: 0.4 }}
     >
-      glow
+      Dominate
     </motion.span>
   </h1>
 
   {/* Paragraph box next to "glow" */}
   <motion.p
-    className="max-w-xs md:max-w-sm text-base md:text-2xl text-black md:ml-2 font-bricolage text-3xl mb-20 font-bold"
+    className="max-w-xs md:max-w-sm text-base md:text-xl text-black md:ml-15 font-bricolage text-3xl mb-20"
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.6, ease: easeOut } }}
   >
-    Illuminate. Elevate. Dominate.
+   
+     Illuminating brands with vibrant creativity, full spectrum strategy and innovative solutions to help your brand 
+     <span className="font-bold"> shine in every digital space </span>
+   
   </motion.p>
 </div>
 {/* ✅ Bottom-left logo */}

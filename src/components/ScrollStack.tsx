@@ -8,6 +8,16 @@ interface ScrollStackProps {
   className?: string;
 }
 
+type Breakpoint = "xl" | "2xl" | "3xl" | "4xl";
+
+const getBreakpoint = (width: number): Breakpoint => {
+  if (width >= 2560) return "4xl";
+  if (width >= 1920) return "3xl";
+  if (width >= 1536) return "2xl";
+  if (width >= 1280) return "xl";
+  return "xl"; // default fallback
+};
+
 const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
   animationDuration = "1s",
@@ -17,8 +27,17 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [breakpoint, setBreakpoint] = useState<Breakpoint>("xl");
   const ticking = useRef(false);
   const cardCount = children.length;
+
+  // Update breakpoint on resize
+  useEffect(() => {
+    const handleResize = () => setBreakpoint(getBreakpoint(window.innerWidth));
+    handleResize(); // initialize
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,20 +79,42 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     const translateY = isVisible ? "0px" : "40px";
     const opacity = isVisible ? 1 : 0;
 
+    // Tailwind-like responsive adjustments
+    let width = "95%";
+    let maxWidth = "1400px";
+    let height = "90vh";
+
+    switch (breakpoint) {
+      case "2xl":
+        maxWidth = "1600px";
+        height = "85vh";
+        break;
+      case "3xl":
+        maxWidth = "1920px";
+        height = "90vh";
+        break;
+      case "4xl":
+        maxWidth = "2560px";
+        height = "90vh";
+        break;
+      default: // xl
+        maxWidth = "1400px";
+        height = "90vh";
+    }
+
     return {
       position: "absolute" as const,
       top: "50%",
       left: "50%",
       transform: `translate(-50%, -50%) translateY(${translateY})`,
-      width: "95%",                // 90% of viewport width
-      maxWidth: "1400px",          // cap on large screens
-      height: "90vh",              // ~80% viewport height
+      width,
+      maxWidth,
+      height,
       opacity,
       zIndex: 10 + index,
       pointerEvents: isVisible ? "auto" : "none",
-      borderRadius: "1rem",        // optional: rounded corners
+      borderRadius: "1rem",
       overflow: "hidden",
-      
       transition: `all ${animationDuration} cubic-bezier(0.19, 1, 0.22, 1)`,
     } as React.CSSProperties;
   };
