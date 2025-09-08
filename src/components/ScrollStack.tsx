@@ -2,16 +2,14 @@
 import React, { useEffect, useRef, useState } from "react";
 
 interface ScrollStackProps {
-  children: React.ReactNode[];         // array of card components
-  cardHeight?: string;                  // height of each card
-  animationDuration?: string;           // CSS transition duration
-  sectionHeightMultiplier?: number;    // how much scroll space
+  children: React.ReactNode[];
+  animationDuration?: string;
+  sectionHeightMultiplier?: number;
   className?: string;
 }
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
-  cardHeight = "40rem",
   animationDuration = "1s",
   sectionHeightMultiplier = 3,
   className = "",
@@ -22,7 +20,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const ticking = useRef(false);
   const cardCount = children.length;
 
-  // Scroll handler
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current || !sectionRef.current) return;
@@ -53,36 +50,38 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
       ticking.current = true;
     };
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [cardCount]);
 
-  // Generate card styles
   const getCardStyle = (index: number) => {
     const isVisible = activeIndex >= index;
-    const translateY = isVisible ? "0px" : "100px";
-    const scale = 1;
+    const translateY = isVisible ? "0px" : "40px";
     const opacity = isVisible ? 1 : 0;
+
     return {
-      transform: `translateX(-50%) translateY(${translateY}) scale(${scale})`,
+      position: "absolute" as const,
+      top: "50%",
+      left: "50%",
+      transform: `translate(-50%, -50%) translateY(${translateY})`,
+      width: "95%",                // 90% of viewport width
+      maxWidth: "1400px",          // cap on large screens
+      height: "90vh",              // ~80% viewport height
       opacity,
       zIndex: 10 + index,
-      transition: `transform ${animationDuration} cubic-bezier(0.19, 1, 0.22, 1), opacity ${animationDuration}`,
-      position: "absolute" as const,
-      top: "3%",
-      left: "50%",
-      width: "100%",
-      maxWidth: "75rem",
-      pointerEvents: isVisible ? "auto" as React.CSSProperties['pointerEvents'] : "none" as React.CSSProperties['pointerEvents'],
-      height: cardHeight,
-    };
+      pointerEvents: isVisible ? "auto" : "none",
+      borderRadius: "1rem",        // optional: rounded corners
+      overflow: "hidden",
+      
+      transition: `all ${animationDuration} cubic-bezier(0.19, 1, 0.22, 1)`,
+    } as React.CSSProperties;
   };
 
   return (
     <section
       ref={containerRef}
-      className={`relative w-full max-h-screen ${className}`}
+      className={`relative w-full ${className}`}
       style={{ scrollBehavior: "smooth" }}
     >
       <div
@@ -90,7 +89,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         className="relative w-full"
         style={{ height: `${sectionHeightMultiplier * 100}vh` }}
       >
-        <div className="sticky top-0  h-screen flex items-center justify-center overflow-hidden">
+        <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden">
           <div className="relative w-full h-full">
             {children.map((child, index) => (
               <div key={index} style={getCardStyle(index)}>

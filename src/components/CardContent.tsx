@@ -19,37 +19,39 @@ export default function CardContent({
   description,
 }: CardContentProps) {
   return (
-    <div className="bg-white h-full rounded-4xl shadow-md overflow-hidden p-8 flex flex-col md:flex-row items-center gap-8">
+    <div className="bg-white h-full rounded-4xl overflow-hidden p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-12">
       {/* Left Side */}
       <div className="flex-1 min-h-0 space-y-4">
-        <h2 className="text-3xl md:text-7xl font-bold leading-tight text-gray-900 ">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900">
           {title}
         </h2>
 
-        <p className="text-gray-600">{subtitle}</p>
+        {subtitle && <p className="text-gray-600 text-sm md:text-base lg:text-lg">{subtitle}</p>}
 
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-4 py-3 bg-gray-100 rounded-full text-md font-medium hover:bg-black hover:text-white"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 sm:px-4 sm:py-2 bg-gray-100 rounded-full text-xs sm:text-sm md:text-md font-medium hover:bg-black hover:text-white transition"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
-        <p className="text-gray-700 max-w-md">{description}</p>
+        {description && <p className="text-gray-700 max-w-full md:max-w-md text-sm md:text-base lg:text-lg">{description}</p>}
 
-        <Button variant="outline" className="rounded-full bg-black text-white hover:bg-pink-600">
+        <Button className="rounded-full bg-black text-white hover:bg-pink-600 px-6 py-3 text-sm md:text-base">
           Find out more →
         </Button>
       </div>
 
-      {/* Right Side (Fixed Size) */}
+      {/* Right Side (Responsive Media) */}
       {(videoSrc || imgSrc) && (
-        <div className="shrink-0 w-[600px] h-[500px] max-w-full flex justify-center items-center">
-          <div className="rounded-tr-[10rem] rounded-bl-none rounded-br-none rounded-tl-none overflow-hidden shadow-2xl w-full h-full">
+        <div className="flex-shrink-0 w-full md:w-[45%] lg:w-[50%] h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[700px] flex justify-center items-center">
+          <div className="rounded-tr-[4rem] rounded-bl-none rounded-br-none rounded-tl-none overflow-hidden shadow-2xl w-full h-full">
             {videoSrc ? (
               <video
                 autoPlay

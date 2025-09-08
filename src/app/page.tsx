@@ -56,7 +56,7 @@ export default function Page() {
     offset: ["start center", "end start"],   
   });    
   
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);   
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);   
   
   return (     
     <main className="relative w-full">       
