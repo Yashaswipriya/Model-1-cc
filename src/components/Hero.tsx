@@ -49,12 +49,11 @@ export default function Hero() {
 
   {/* Paragraph box next to "glow" */}
   <motion.p
-    className="max-w-xs md:max-w-sm text-base md:text-xl text-black md:ml-2 font-bricolage text-3xl mb-20"
+    className="max-w-xs md:max-w-sm text-base md:text-2xl text-black md:ml-2 font-bricolage text-3xl mb-20 font-bold"
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.6, ease: easeOut } }}
   >
-    Illuminating brands with vibrant creativity, full spectrum strategy and innovative solutions to help your brand
-    <span className="font-bold"> shine in every digital space.</span>
+    Illuminate. Elevate. Dominate.
   </motion.p>
 </div>
 {/* ✅ Bottom-left logo */}
