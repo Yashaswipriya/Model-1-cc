@@ -57,7 +57,7 @@ export default function IlluminationJourney() {
     ));
 
   return (
-    <section className="relative w-full py-200 md:py-200 lg:py-200">
+    <section className="relative w-full pt-32 md:pt-60 lg:pt-48 pb-40">
       <div className="mx-auto 
   px-4 sm:px-6 lg:px-8 
   max-w-full md:max-w-[90rem] lg:max-w-[100rem] xl:max-w-[110rem]">

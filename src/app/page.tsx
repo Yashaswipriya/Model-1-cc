@@ -6,6 +6,7 @@ import ScrollStack  from "../components/ScrollStack";
 import { motion, useScroll, useTransform } from "framer-motion";
 import CardContent from "../components/CardContent"; 
 import StrategySection from "../components/StrategySection";
+import OurWorkSection from "@/components/OurWorks";
 import { useRef } from "react";  
 
 const cardsData = [
@@ -103,12 +104,15 @@ export default function Page() {
     </ScrollStack>
   </div>
 </section>
-
+<div className="h-screen"></div>
 {/* Strategy Section — starts AFTER all cards scroll */}
-<section className="h-screen">
-  <StrategySection />
-</section>
-
+    <section className="relative z-10">
+      <StrategySection />
+    </section>
+     
+    <section id="dark-section" className="relative z-20 bg-black text-white min-h-screen">
+    <OurWorkSection />
+    </section>
     </main>   
   ); 
 }
