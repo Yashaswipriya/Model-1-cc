@@ -105,17 +105,15 @@ export default function Page() {
     </ScrollStack>
   </div>
 </section>
-<div className="h-screen"></div>
-{/* Strategy Section — starts AFTER all cards scroll */}
-    <section className="relative z-10">
-      <StrategySection />
-    </section>
-     
     <section className="dark-section relative z-20 bg-black text-white min-h-screen">
     <OurWorkSection />
     </section>
     <section className="dark-section relative z-20 bg-black text-white">
     < OurResults/>
+    </section>
+    <div className="h-screen"></div>
+    <section className="relative z-10">
+      <StrategySection />
     </section>
     </main>   
   ); 
