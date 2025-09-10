@@ -9,8 +9,8 @@ export default function GlobalButtons() {
 
   //  Detect if "dark-section" is in view
   useEffect(() => {
-    const darkSection = document.getElementById("dark-section");
-    if (!darkSection) return;
+    const darkSections = document.querySelectorAll<HTMLElement>(".dark-section");
+    if (!darkSections) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -24,7 +24,7 @@ export default function GlobalButtons() {
       } // fires when at least 10% of section is visible
     );
 
-    observer.observe(darkSection);
+    darkSections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 

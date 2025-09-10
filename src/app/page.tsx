@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import CardContent from "../components/CardContent"; 
 import StrategySection from "../components/StrategySection";
 import OurWorkSection from "@/components/OurWorks";
+import OurResults from "@/components/OurResults";
 import { useRef } from "react";  
 
 const cardsData = [
@@ -110,8 +111,11 @@ export default function Page() {
       <StrategySection />
     </section>
      
-    <section id="dark-section" className="relative z-20 bg-black text-white min-h-screen">
+    <section className="dark-section relative z-20 bg-black text-white min-h-screen">
     <OurWorkSection />
+    </section>
+    <section className="dark-section relative z-20 bg-black text-white">
+    < OurResults/>
     </section>
     </main>   
   ); 
