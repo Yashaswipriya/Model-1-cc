@@ -2,53 +2,52 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { link } from "fs";
 
 const projects = [
   {
     id: 1,
-    title: "Main Project",
+    title: "ComputerChacha",
     year: "2025",
-    video: "/videos/main.mp4",
+    video: "/Project-1.mp4",
     description: "This is a brief description of the main project.",
     tags: ["UI/UX", "Branding"],
-    link: "https://www.computerchacha.in/",
+    link: "http://www.computerchacha.in",
   },
   {
     id: 2,
-    title: "Project 2",
+    title: "WhyNotTravel",
     year: "2024",
-    video: "/videos/p2.mp4",
+    video: "/Project-2.mp4",
     description: "Brief about project 2.",
     tags: ["Design"],
-    link: "https://www.computerchacha.in/",
+    link: "https://www.instagram.com/_whynotravel_/",
   },
   {
     id: 3,
-    title: "Project 3",
+    title: "GopalEstate",
     year: "2024",
-    video: "/videos/p3.mp4",
+    video: "/Project-3.mp4",
     description: "Brief about project 3.",
     tags: ["Web"],
-    link: "https://www.computerchacha.in/",
+    link: "https://www.instagram.com/gopalestate/",
   },
   {
     id: 4,
-    title: "Project 4",
+    title: "NityaVibes",
     year: "2023",
-    video: "/videos/p4.mp4",
+    video: "/Project-4.mp4",
     description: "Brief about project 4.",
     tags: ["Motion"],
-    link: "https://www.computerchacha.in/",
+    link: "https://www.instagram.com/nitya.vibes/",
   },
   {
     id: 5,
-    title: "Project 5",
+    title: "MintyRead",
     year: "2023",
-    video: "/videos/p5.mp4",
+    video: "/Project-5.mp4",
     description: "Brief about project 5.",
     tags: ["Branding"],
-    link: "https://www.computerchacha.in/",
+    link: "https://mintyread.com/",
   },
 ];
 
