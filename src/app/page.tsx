@@ -111,7 +111,7 @@ export default function Page() {
     <section className="dark-section relative z-20 bg-black text-white">
     < OurResults/>
     </section>
-    <div className="h-screen"></div>
+    
     <section className="relative z-10">
       <StrategySection />
     </section>
