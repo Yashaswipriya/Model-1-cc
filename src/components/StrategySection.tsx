@@ -76,7 +76,7 @@ export default function IlluminationJourney() {
             className="text-lg sm:text-xl md:text-2xl text-gray-800 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6, ease: "easeOut" }}
+            transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.2 }}
           >
             Our process is simple, transparent and designed to illuminate your
