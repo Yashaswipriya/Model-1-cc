@@ -113,10 +113,10 @@ export default function OurResults() {
       >
         <motion.h2
           style={{ opacity: headingOpacity }}
-          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-10xl 2xl:text-[10rem] font-bold tracking-tight text-white leading-[1.05]"
+          className="text-[10rem] font-bold tracking-tight text-white leading-[1.05]"
         >
-          <div className="text-left ml-[4rem]">{renderLetters("Our")}</div>
-          <div className="text-left mt-2 ml-[10rem]">{renderLetters("Results", 3)}</div>
+          <div className="text-left ml-[4rem]">{renderLetters("Radiant")}</div>
+          <div className="text-left mt-2 ml-[15rem]">{renderLetters("Results", 3)}</div>
         </motion.h2>
       </div>
 
