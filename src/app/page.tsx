@@ -10,6 +10,7 @@ import OurWorkSection from "@/components/OurWorks";
 import OurResults from "@/components/OurResults";
 import { useRef } from "react";  
 import OurPartners from "@/components/OurPartners";
+import FaqSection from "@/components/FaqSection";
 
 const cardsData = [
   {
@@ -114,6 +115,9 @@ export default function Page() {
     </section>
     <section className="dark-section relative z-20 bg-black text-white">
     < OurPartners/>
+    </section>
+    <section className="dark-section relative z-20 bg-black text-white">
+    < FaqSection/>
     </section>
     
     <section className="relative z-10">
