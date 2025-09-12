@@ -3,7 +3,7 @@ import Aurora from "../components/Aurora";
 import Hero from "../components/Hero"; 
 import ServicesHeading from "../components/ServiceHeading"; 
 import ScrollStack  from "../components/ScrollStack"; 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import CardContent from "../components/CardContent"; 
 import StrategySection from "../components/StrategySection";
 import OurWorkSection from "@/components/OurWorks";
@@ -11,6 +11,8 @@ import OurResults from "@/components/OurResults";
 import { useRef } from "react";  
 import OurPartners from "@/components/OurPartners";
 import FaqSection from "@/components/FaqSection";
+import ThreeBlob from "@/components/ThreeBlob";
+
 
 const cardsData = [
   {
@@ -61,9 +63,23 @@ export default function Page() {
   });    
   
   const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);   
+
+  const blobRef = useRef(null);
+  const isInView = useInView(blobRef, { margin: "-100px" });
+
   
   return (     
-    <main className="relative w-full">       
+    <main className="relative w-full">      
+    <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Ensure smooth transitions between sections */
+        section {
+          transition: all 0.3s ease-in-out;
+        }
+      `}</style> 
       {/* Aurora Background */}       
       <div className="fixed inset-0 -z-10">         
         <Aurora           
@@ -119,7 +135,9 @@ export default function Page() {
     <section className="dark-section relative z-20 bg-black text-white">
     < FaqSection/>
     </section>
-    
+     <section ref={blobRef} className="w-full h-screen relative">
+        <ThreeBlob startAnimation={isInView} />
+      </section>
     <section className="relative z-10">
       <StrategySection />
     </section>
