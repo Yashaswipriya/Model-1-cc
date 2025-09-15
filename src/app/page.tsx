@@ -1,8 +1,6 @@
 "use client";
-
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-
 import Aurora from "../components/Aurora";
 import Hero from "../components/Hero";
 import ServicesHeading from "../components/ServiceHeading";
@@ -14,6 +12,7 @@ import OurResults from "@/components/OurResults";
 import OurPartners from "@/components/OurPartners";
 import FaqSection from "@/components/FaqSection";
 import ThreeBlob from "@/components/ThreeBlob";
+import Footer from "@/components/Footer";
 
 const cardsData = [
   {
@@ -68,16 +67,7 @@ export default function Page() {
 
   return (
     <main className="relative w-full">
-      {/* Global Styles */}
-      <style jsx global>{`
-        html {
-          scroll-behavior: smooth;
-        }
-
-        section {
-          transition: all 0.3s ease-in-out;
-        }
-      `}</style>
+     
 
       {/* Aurora Background */}
       <div className="fixed inset-0 -z-10">
@@ -122,31 +112,34 @@ export default function Page() {
         </div>
       </section>
 
+      <section className="relative z-20 bg-transparent">
+        <StrategySection />
+      </section>
+
       {/* Other Sections */}
-      <section className="relative z-20 bg-black text-white min-h-screen">
+      <section className="dark-section relative z-20 bg-black text-white min-h-screen">
         <OurWorkSection />
       </section>
 
-      <section className="relative z-20 bg-black text-white">
+      <section className="dark-section relative z-20 bg-black text-white">
         <OurResults />
       </section>
 
-      <section className="relative z-20 bg-black text-white">
+      <section className="dark-section relative z-20 bg-black text-white">
         <OurPartners />
       </section>
 
-      <section className="relative z-20 bg-black text-white">
+      <section id="faq" className="dark-section relative z-20 bg-black text-white">
         <FaqSection />
       </section>
 
       {/* ThreeBlob Section */}
-      <section ref={blobRef} className="relative w-full h-screen bg-black z-10">
+      <section ref={blobRef} className="dark-section relative w-full h-screen bg-black z-10">
         <ThreeBlob startAnimation={isInView} />
       </section>
 
-      {/* Strategy Section flows naturally after ThreeBlob */}
-      <section className="relative z-20 h-screen bg-transparent">
-        <StrategySection />
+      <section className="dark-section relative z-20 bg-black text-white">
+        <Footer />
       </section>
     </main>
   );
