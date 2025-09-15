@@ -216,7 +216,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         {/* Button below the belt */}
         <div className="absolute top-[65%] left-1/2 -translate-x-1/2">
           <button className="group inline-flex items-center bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-pink-600 transition">
-            View Project
+            About Us
             <ArrowRight
               className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
               size={25}

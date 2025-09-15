@@ -64,9 +64,9 @@ export default function IlluminationJourney() {
   px-4 sm:px-6 lg:px-8 
   max-w-full md:max-w-[90rem] lg:max-w-[100rem] xl:max-w-[110rem]">
         {/* Heading */}
-        <div className="pt-12 pb-16 text-center mb-20 md:mb-32 lg:mb-40 xl:mb-48">
+        <div className="pt-12 pb-16 text-center mb-20 md:mb-32 lg:mb-40 xl:mb-48 2xl:mb-50 3xl:mb-60">
           <motion.h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 md:mb-10 whitespace-nowrap"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 sm:mb-8 md:mb-10 lg:mb-10 whitespace-nowrap"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.4 }}
