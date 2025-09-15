@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, memo } from "react";
 import * as THREE from "three";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 interface ThreeBlobProps {
   triangleCount?: number;      // default 160000
@@ -198,18 +199,29 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         
         {/* Illuminora Text Belt */}
         <div className="absolute top-1/2 left-0 w-full overflow-hidden pointer-events-none -translate-y-1/2">
-            <motion.div
+          <motion.div
             className="flex whitespace-nowrap text-white text-[6rem] font-bold"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 5,
-                ease: "linear",
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 5,
+              ease: "linear",
             }}
-            >
+          >
             {"ILLUMINORA • ".repeat(20)}
-            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Button below the belt */}
+        <div className="absolute top-[65%] left-1/2 -translate-x-1/2">
+          <button className="group inline-flex items-center bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-pink-600 transition">
+            View Project
+            <ArrowRight
+              className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
+              size={25}
+            />
+          </button>
         </div>
       </div>
     );
