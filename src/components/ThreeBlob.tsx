@@ -159,6 +159,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(width, height);
+      renderer.setClearColor(0x000000, 0);
       mountRef.current.appendChild(renderer.domElement);
 
       // Animate
@@ -192,7 +193,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
     }, [triangleCount, rotationSpeedX, rotationSpeedY, startAnimation]);
 
     return (
-      <div className="relative w-full h-screen">
+      <div className="relative w-full h-full">
         <div ref={mountRef} className="w-full h-full" />
         
         {/* Illuminora Text Belt */}

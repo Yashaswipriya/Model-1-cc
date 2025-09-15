@@ -1,23 +1,24 @@
-"use client";  
-import Aurora from "../components/Aurora"; 
-import Hero from "../components/Hero"; 
-import ServicesHeading from "../components/ServiceHeading"; 
-import ScrollStack  from "../components/ScrollStack"; 
+"use client";
+
+import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import CardContent from "../components/CardContent"; 
-import StrategySection from "../components/StrategySection";
+
+import Aurora from "../components/Aurora";
+import Hero from "../components/Hero";
+import ServicesHeading from "../components/ServiceHeading";
+import ScrollStack from "../components/ScrollStack";
+import CardContent from "../components/CardContent";
+import StrategySection from "@/components/StrategySection";
 import OurWorkSection from "@/components/OurWorks";
 import OurResults from "@/components/OurResults";
-import { useRef } from "react";  
 import OurPartners from "@/components/OurPartners";
 import FaqSection from "@/components/FaqSection";
 import ThreeBlob from "@/components/ThreeBlob";
 
-
 const cardsData = [
   {
     title: "Web Design & Development",
-    tags: ["Wordpress", "Blogs", "Potfolio", "E-Commerce"],
+    tags: ["Wordpress", "Blogs", "Portfolio", "E-Commerce"],
     description:
       "Crafting digital experiences where beauty meets ROI, turning heads and unlocking revenue potential with every click.",
     videoSrc: "/WebDesign.mp4",
@@ -39,113 +40,117 @@ const cardsData = [
   {
     title: "Paid Advertising",
     tags: ["Google Ads", "Facebook Ads", "Instagram Ads", "LinkedIn Ads"],
-    description:"Design and run powerful, attention-grabbing ads that connect with your audience, boost engagement, and drive measurable results for your business.",
-      
+    description:
+      "Design and run powerful, attention-grabbing ads that connect with your audience, boost engagement, and drive measurable results for your business.",
     videoSrc: "/PaidAds.mp4",
   },
   {
     title: "Social Media Management",
     tags: ["Content Creation", "Scheduling", "Analytics", "Community Engagement"],
-    description:"Build and nurture a vibrant online community that amplifies your brand message, fosters loyalty, and drives meaningful interactions across all your social platforms.",
-      
+    description:
+      "Build and nurture a vibrant online community that amplifies your brand message, fosters loyalty, and drives meaningful interactions across all your social platforms.",
     videoSrc: "/socialMedia.mp4",
   },
 ];
 
-
-export default function Page() {   
-  const sectionRef = useRef(null);    
-  
-  //Track scroll progress relative to this outer section   
-  const { scrollYProgress } = useScroll({     
-    target: sectionRef,     
-    offset: ["start center", "end start"],   
-  });    
-  
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);   
-
+export default function Page() {
+  const sectionRef = useRef(null);
   const blobRef = useRef(null);
+
+  // Track scroll progress relative to the cards section
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end start"],
+  });
+
+  const headingOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const isInView = useInView(blobRef, { margin: "-100px" });
 
-  
-  return (     
-    <main className="relative w-full">      
-    <style jsx global>{`
+  return (
+    <main className="relative w-full">
+      {/* Global Styles */}
+      <style jsx global>{`
         html {
           scroll-behavior: smooth;
         }
-        
-        /* Ensure smooth transitions between sections */
+
         section {
           transition: all 0.3s ease-in-out;
         }
-      `}</style> 
-      {/* Aurora Background */}       
-      <div className="fixed inset-0 -z-10">         
-        <Aurora           
-          colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}           
-          blend={0.3}           
-          amplitude={2.0}           
-          speed={1.0}         
-        />       
-      </div>        
+      `}</style>
 
-      {/* Hero Section */}       
-      <section className="h-screen flex items-center justify-center">         
-        <Hero />       
-      </section>        
-
-    <section
-  ref={sectionRef}
-  className={`relative flex flex-col items-center`}
-  style={{ height: `${cardsData.length * 100}vh` }} // dynamically set height
->
-  {/* Sticky heading */}
-  <motion.div
-    style={{ opacity: headingOpacity }}
-    className="sticky top-24 z-30 w-full flex justify-center pointer-events-none"
-  >
-    <ServicesHeading />
-  </motion.div>
-
-  {/* Cards container */}
-  <div className="mt-40 w-full flex justify-center">
-    <ScrollStack sectionHeightMultiplier={cardsData.length}>
-      {cardsData.map((card, idx) => (
-        <CardContent
-          key={idx}
-          title={card.title}
-          tags={card.tags}
-          description={card.description}
-          videoSrc={card.videoSrc}
+      {/* Aurora Background */}
+      <div className="fixed inset-0 -z-10">
+        <Aurora
+          colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
+          blend={0.3}
+          amplitude={2.0}
+          speed={1.0}
         />
-      ))}
-    </ScrollStack>
-  </div>
-</section>
-    <section className="dark-section relative z-20 bg-black text-white min-h-screen">
-    <OurWorkSection />
-    </section>
-    <section className="dark-section relative z-20 bg-black text-white">
-    < OurResults/>
-    </section>
-    <section className="dark-section relative z-20 bg-black text-white">
-    < OurPartners/>
-    </section>
-    <section className="dark-section relative z-20 bg-black text-white">
-    < FaqSection/>
-    </section>
-     <section ref={blobRef} className="w-full h-screen relative">
+      </div>
+
+      {/* Hero Section */}
+      <section className="h-screen flex items-center justify-center">
+        <Hero />
+      </section>
+
+      {/* Services Section with Cards */}
+      <section
+        ref={sectionRef}
+        className="relative flex flex-col items-center"
+        style={{ height: `${cardsData.length * 100}vh` }}
+      >
+        <motion.div
+          style={{ opacity: headingOpacity }}
+          className="sticky top-24 z-30 w-full flex justify-center pointer-events-none"
+        >
+          <ServicesHeading />
+        </motion.div>
+
+        <div className="mt-40 w-full flex justify-center">
+          <ScrollStack sectionHeightMultiplier={cardsData.length}>
+            {cardsData.map((card, idx) => (
+              <CardContent
+                key={idx}
+                title={card.title}
+                tags={card.tags}
+                description={card.description}
+                videoSrc={card.videoSrc}
+              />
+            ))}
+          </ScrollStack>
+        </div>
+      </section>
+
+      {/* Other Sections */}
+      <section className="relative z-20 bg-black text-white min-h-screen">
+        <OurWorkSection />
+      </section>
+
+      <section className="relative z-20 bg-black text-white">
+        <OurResults />
+      </section>
+
+      <section className="relative z-20 bg-black text-white">
+        <OurPartners />
+      </section>
+
+      <section className="relative z-20 bg-black text-white">
+        <FaqSection />
+      </section>
+
+      {/* ThreeBlob Section */}
+      <section ref={blobRef} className="relative w-full h-screen bg-black z-10">
         <ThreeBlob startAnimation={isInView} />
       </section>
-    <section className="relative z-10">
-      <StrategySection />
-    </section>
-    </main>   
-  ); 
+
+      {/* Strategy Section flows naturally after ThreeBlob */}
+      <section className="relative z-20 h-screen bg-transparent">
+        <StrategySection />
+      </section>
+    </main>
+  );
 }
-
-
 
 
 

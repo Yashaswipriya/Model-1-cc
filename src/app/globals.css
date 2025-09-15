@@ -36,7 +36,12 @@ canvas {
   display: none;
 }
 .scroll-stack-container {
-  position: relative; /* not fixed! */
-  height: auto;       /* let content flow */
+  position: relative; 
+  height: auto;   
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 
