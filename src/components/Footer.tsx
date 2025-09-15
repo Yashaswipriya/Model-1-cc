@@ -25,7 +25,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-black text-white w-full">
-      <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col gap-16">
+      <div className="max-w-7xl mx-auto px-6 py-16 flex flex-col gap-16 ml-10 mr-10">
 
         {/* Top Row */}
         <div className="flex flex-col md:flex-row justify-between gap-12">
@@ -44,9 +44,8 @@ const Footer = () => {
                 href="/logos/caterpillar.svg"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, color: "#FF94B4" }}
+                whileHover={{ scale: 1.2, color: "#0A66C2" }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="invert fill"
               >
                 <Linkedin size={40} />
               </motion.a>
@@ -54,7 +53,7 @@ const Footer = () => {
                 href="/logos/cafepress.svg"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, color: "#FF94B4" }}
+                whileHover={{ scale: 1.2, color: "#1877F2" }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <Facebook size={40} />
@@ -63,7 +62,7 @@ const Footer = () => {
                 href="/logos/calendly.svg"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ scale: 1.2, color: "#FF94B4" }}
+                whileHover={{ scale: 1.2, color: "#E4405F" }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <Instagram size={40} />
@@ -81,7 +80,7 @@ const Footer = () => {
           <div className="flex flex-col gap-6 items-start md:items-end relative">
             <button
               onClick={handleCopyEmail}
-              className="text-6xl font-semibold hover:text-pink-400 transition"
+              className="text-6xl font-semibold hover:text-pink-400 transition pb-6"
             >
               hello@illuminora.com
             </button>
@@ -93,7 +92,7 @@ const Footer = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute -top-6 right-0 text-md text-black bg-white px-2 py-1 rounded"
+                  className="absolute -top-8 right-0 text-md text-black bg-white px-2 py-1 rounded"
                 >
                   Copied!
                 </motion.span>
@@ -110,11 +109,11 @@ const Footer = () => {
         </div>
 
         {/* Awards Row */}
-        <div className="flex flex-wrap gap-6 justify-start md:justify-end items-center">
-          <Image src="/dan-logo.png" alt="DAN Award" width={120} height={40} />
-          <Image src="/clutch.svg" alt="Clutch" width={80} height={40} />
-          <Image src="/awwwards.svg" alt="Awwwards" width={80} height={40} />
-          <Image src="/cssda.svg" alt="CSSDA" width={80} height={40} />
+        <div className="flex flex-wrap gap-10 justify-start md:justify-end items-center invert fill-white">
+          <Image src="/logos/cafepress.svg" alt="DAN Award" width={80} height={40} />
+          <Image src="/logos/calendly.svg" alt="Clutch" width={80} height={40} />
+          <Image src="/logos/oreilly.svg" alt="Awwwards" width={80} height={40} />
+          <Image src="/logos/caterpillar.svg" alt="CSSDA" width={80} height={40} />
         </div>
 
         {/* Sectors Row */}
