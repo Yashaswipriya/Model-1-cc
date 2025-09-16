@@ -105,43 +105,40 @@ export default function OurResults() {
     };
   }, []);
 
-  const getCardProps = (cardIndex: number) => {
-    const diff = (cardIndex - index + results.length) % results.length;
-    
-    if (diff === 0) {
-      // Current card - full size and opacity
-      return {
-        scale: 1,
-        x: 0,
-        opacity: 1,
-        zIndex: 10,
-      };
-    } else if (diff === 1) {
-      // Next card - slightly smaller, shifted left, semi-transparent
+  const [screenWidth, setScreenWidth] = useState(1024); // safe default for SSR
+
+useEffect(() => {
+  const updateWidth = () => setScreenWidth(window.innerWidth);
+  updateWidth(); // initial value
+  window.addEventListener("resize", updateWidth);
+  return () => window.removeEventListener("resize", updateWidth);
+}, []);
+
+// Updated getCardProps
+const getCardProps = (cardIndex: number) => {
+  const diff = (cardIndex - index + results.length) % results.length;
+
+  switch (diff) {
+    case 0:
+      return { scale: 1, x: 0, opacity: 1, zIndex: 10 };
+    case 1:
       return {
         scale: 0.9,
-        x: window.innerWidth > 1800 ? -100 : -80,
+        x: screenWidth > 1800 ? -100 : -80,
         opacity: 0.7,
         zIndex: 9,
       };
-    } else if (diff === 2) {
-      // Second next card - even smaller, more shifted, more transparent
+    case 2:
       return {
         scale: 0.8,
-        x: window.innerWidth > 1800 ? -200 : -160,
+        x: screenWidth > 1800 ? -200 : -160,
         opacity: 0.4,
         zIndex: 8,
       };
-    } else {
-      // Hidden cards
-      return {
-        scale: 0.7,
-        x: -240,
-        opacity: 0,
-        zIndex: 7,
-      };
-    }
-  };
+    default:
+      return { scale: 0.7, x: -240, opacity: 0, zIndex: 7 };
+  }
+};
 
   return (
     <section
