@@ -130,7 +130,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         className="relative w-full"
         style={{ height: `${sectionHeightMultiplier * 100}vh` }}
       >
-        <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden">
+        <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden -mt-40">
           <div className="relative w-full h-full">
             {children.map((child, index) => (
               <div key={index} style={getCardStyle(index)}>

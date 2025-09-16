@@ -3,7 +3,7 @@ import { CircleArrowRightIcon, CircleArrowLeftIcon, ArrowRight } from "lucide-re
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useAnimation, easeOut } from "framer-motion";
 import Image from "next/image";
-import Aurora from "./Aurora";
+import Aurora from "@/components/Aurora";
 
 interface ResultCardProps {
   logo: string;
@@ -28,6 +28,20 @@ const results: ResultCardProps[] = [
     images: ["/img4.jpg", "/img5.jpg", "/img6.jpg"],
     link: "#",
   },
+  {
+    logo: "/logo.svg",
+    percentage: "180%",
+    text: "increase in conversions after redesign.",
+    images: ["/img4.jpg", "/img5.jpg", "/img6.jpg"],
+    link: "#",
+  },
+  {
+    logo: "/logo.svg",
+    percentage: "150%",
+    text: "increase in conversions after redesign.",
+    images: ["/img4.jpg", "/img5.jpg", "/img6.jpg"],
+    link: "#",
+  },
 ];
 
 export default function OurResults() {
@@ -39,7 +53,6 @@ export default function OurResults() {
 
   const nextCard = () => setIndex((prev) => (prev + 1) % results.length);
   const prevCard = () => setIndex((prev) => (prev - 1 + results.length) % results.length);
-  const current = results[index];
 
   // Animate heading letters
   useEffect(() => {
@@ -55,15 +68,6 @@ export default function OurResults() {
     return () => observer.disconnect();
   }, [controls]);
 
-  const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.05, duration: 1.0, ease: easeOut },
-    }),
-  };
-
   const renderLetters = (text: string, offset = 0) =>
     text.split("").map((char, i) => (
       <motion.span
@@ -71,7 +75,7 @@ export default function OurResults() {
         style={{ display: "inline-block" }}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: headingOpacity, y: 0 }}
-        transition={{ delay: i * 0.01, duration: 0.6 }}
+        transition={{ delay: i * 0.01, duration: 0.4 }}
       >
         {char === " " ? "\u00A0" : char}
       </motion.span>
@@ -101,6 +105,44 @@ export default function OurResults() {
     };
   }, []);
 
+  const getCardProps = (cardIndex: number) => {
+    const diff = (cardIndex - index + results.length) % results.length;
+    
+    if (diff === 0) {
+      // Current card - full size and opacity
+      return {
+        scale: 1,
+        x: 0,
+        opacity: 1,
+        zIndex: 10,
+      };
+    } else if (diff === 1) {
+      // Next card - slightly smaller, shifted left, semi-transparent
+      return {
+        scale: 0.9,
+        x: -80,
+        opacity: 0.7,
+        zIndex: 9,
+      };
+    } else if (diff === 2) {
+      // Second next card - even smaller, more shifted, more transparent
+      return {
+        scale: 0.8,
+        x: -160,
+        opacity: 0.4,
+        zIndex: 8,
+      };
+    } else {
+      // Hidden cards
+      return {
+        scale: 0.7,
+        x: -240,
+        opacity: 0,
+        zIndex: 7,
+      };
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -121,90 +163,105 @@ export default function OurResults() {
       </div>
 
       {/* Card Stack */}
-      <div className="w-full flex items-center justify-center max-w-[1600px]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.6 }}
-            className="relative w-full w-[40rem] h-[90vh] md:h-[90vh] lg:h-[90vh] xl:h-[90vh] 2xl:h-[90vh] 3xl:h-[90vh] 4xl:h-[90vh] bg-black rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] flex flex-col md:flex-row px-8 md:px-16 py-8 md:py-12 shadow-2xl border border-white/40 overflow-hidden"
-          >
-            {/* Aurora Background - Now scoped to the card */}
-            <div className="absolute inset-0 rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] overflow-hidden">
-              <Aurora
-                colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
-                blend={0.7}
-                amplitude={2.0}
-                speed={1.0}
-              />
-            </div>
-
-            {/* Content Container - with relative positioning to appear above aurora */}
-            <div className="relative z-10 flex flex-col md:flex-row w-full h-full">
-              {/* Left Side */}
-              <div className="flex flex-col justify-between w-full md:w-1/2 pr-0 md:pr-10 mb-8 md:mb-0">
-                {/* Logo */}
-                <div className="mb-6 md:mb-8">
-                  <Image src={current.logo} alt="logo" width={120} height={60} />
-                </div>
-
-                {/* Percentage */}
-                <h3 className="text-[9rem] font-extrabold bg-gradient-to-r from-pink-500 to-rose-700 bg-clip-text text-transparent mb-2 md:mb-1">
-                  {current.percentage}
-                </h3>
-
-                {/* Text */}
-                <p className="text-[2rem] text-gray-300 max-w-md mb-6 md:mb-8">
-                  {current.text}
-                </p>
-
-                {/* Button */}
-                <a
-                  href={current.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex gap-2 border border-white/60 px-4 py-3 rounded-full hover:bg-white hover:text-black transition-colors w-fit"
-                >
-                  View Project
-                  <ArrowRight
-                    className="ml-4 transform transition-transform duration-300 group-hover:translate-x-1"
-                    size={25}
-                  />
-                </a>
+      <div className="w-full flex items-center justify-center max-w-[1600px] relative h-[90vh]">
+        {results.map((current, cardIndex) => {
+          const cardProps = getCardProps(cardIndex);
+          
+          return (
+            <motion.div
+              key={cardIndex}
+              initial={false}
+              animate={{
+                scale: cardProps.scale,
+                x: cardProps.x,
+                opacity: cardProps.opacity,
+              }}
+              
+              transition={{ 
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+              style={{ zIndex: cardProps.zIndex }}
+              className="absolute w-full h-full bg-black rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] flex flex-col md:flex-row px-8 md:px-16 py-8 md:py-12 shadow-2xl border border-white/40 overflow-hidden"
+            >
+              {/* Aurora Background - Now scoped to the card */}
+              <div className="absolute w-full inset-0 rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] overflow-hidden">
+                <Aurora
+                  colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
+                  blend={0.7}
+                  amplitude={2.0}
+                  speed={1.0}
+                />
               </div>
 
-              {/* Right Side Images */}
-              <div className="flex items-center gap-6 w-full h-full">
-                {/* Left Image */}
-                <div className="relative flex-1 aspect-[9/16] rounded-sm overflow-hidden">
-                  <Image src={current.images[0]} alt="img1" fill className="object-cover" />
+              {/* Content Container - with relative positioning to appear above aurora */}
+              <div className="relative z-10 flex flex-col md:flex-row w-full h-full">
+                {/* Left Side */}
+                <div className="flex flex-col justify-between w-full md:w-1/2 pr-0 md:pr-10 mb-8 md:mb-0">
+                  {/* Logo */}
+                  <div className="mb-6 md:mb-8">
+                    <Image src={current.logo} alt="logo" width={120} height={60} />
+                  </div>
+
+                  {/* Percentage */}
+                  <h3 className="text-[9rem] font-extrabold bg-gradient-to-r from-pink-500 to-rose-700 bg-clip-text text-transparent mb-2 md:mb-1">
+                    {current.percentage}
+                  </h3>
+
+                  {/* Text */}
+                  <p className="text-[2rem] text-gray-300 max-w-md mb-6 md:mb-8">
+                    {current.text}
+                  </p>
+
+                  {/* Button */}
+                  <a
+                    href={current.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex gap-2 border border-white/60 px-4 py-3 rounded-full hover:bg-white hover:text-black transition-colors w-fit"
+                  >
+                    View Project
+                    <ArrowRight
+                      className="ml-4 transform transition-transform duration-300 group-hover:translate-x-1"
+                      size={25}
+                    />
+                  </a>
                 </div>
 
-                {/* Middle (Bigger) Image */}
-                <div className="relative flex-[1.4] aspect-[9/16] rounded-sm overflow-hidden">
-                  <Image src={current.images[1]} alt="img2" fill className="object-cover" />
-                </div>
+                {/* Right Side Images */}
+                <div className="flex items-center gap-6 w-full h-full">
+                  {/* Left Image */}
+                  <div className="relative flex-1 aspect-[9/16] rounded-sm overflow-hidden">
+                    <Image src={current.images[0]} alt="img1" fill className="object-cover" />
+                  </div>
 
-                {/* Right Image */}
-                <div className="relative flex-1 aspect-[9/16] rounded-sm overflow-hidden">
-                  <Image src={current.images[2]} alt="img3" fill className="object-cover" />
+                  {/* Middle (Bigger) Image */}
+                  <div className="relative flex-[1.4] aspect-[9/16] rounded-sm overflow-hidden">
+                    <Image src={current.images[1]} alt="img2" fill className="object-cover" />
+                  </div>
+
+                  {/* Right Image */}
+                  <div className="relative flex-1 aspect-[9/16] rounded-sm overflow-hidden">
+                    <Image src={current.images[2]} alt="img3" fill className="object-cover" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Navigation - Also with relative positioning to appear above aurora */}
-            <div className="absolute bottom-6 right-8 flex gap-[2rem] z-20">
-              <button onClick={nextCard}>
-                <CircleArrowLeftIcon size={30} />
-              </button>
-              <button onClick={prevCard}>
-                <CircleArrowRightIcon size={30} />
-              </button>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+              {/* Navigation - Only show on current card */}
+              {cardIndex === index && (
+                <div className="absolute bottom-6 right-8 flex gap-[2rem] z-20">
+                  <button onClick={nextCard}>
+                    <CircleArrowLeftIcon size={30} />
+                  </button>
+                  <button onClick={prevCard}>
+                    <CircleArrowRightIcon size={30} />
+                  </button>
+                </div>
+              )}
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

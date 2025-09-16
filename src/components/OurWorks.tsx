@@ -120,17 +120,6 @@ export default function OurWorkSection() {
           ))}
         </div>
       </div>
-
-      {/* View All Projects Button */}
-        <div className="flex justify-center mt-20">
-          <button className="group flex items-center px-10 py-3 rounded-full text-md bg-white text-black font-medium shadow-lg hover:bg-pink-600 transition">
-            View All Projects
-            <ArrowRight
-              className="ml-4 transform transition-transform duration-300 group-hover:translate-x-1"
-              size={25}
-            />
-          </button>
-        </div>
     </section>
   );
 }

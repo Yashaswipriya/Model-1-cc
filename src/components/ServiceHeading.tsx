@@ -1,12 +1,12 @@
 "use client";
-import { motion, useAnimation, easeOut } from "framer-motion";
+import { motion, useAnimation, easeOut, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 export default function ServicesHeading() {
   const ref = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
 
-  // Animate letters when heading enters viewport
+  // Letter animation trigger
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -14,18 +14,25 @@ export default function ServicesHeading() {
           if (entry.isIntersecting) controls.start("visible");
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.7 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, [controls]);
+
+  // Fade heading out as it scrolls
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end 65%"], // fade while section passes viewport
+  });
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
 
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.05, duration: 0.4, ease: easeOut },
+      transition: { delay: i * 0.05, duration: 0.6, ease: easeOut },
     }),
   };
 
@@ -44,15 +51,16 @@ export default function ServicesHeading() {
     ));
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className="relative flex flex-col items-start justify-center min-h-[60vh] px-20 md:px-50"
+      style={{ opacity }}
+      className="relative flex flex-col items-start justify-center min-h-[50vh] px-20 md:px-50"
     >
       <div className="relative -translate-x-40">
-      <motion.h2 className="text-8xl md:text-9xl font-semibold uppercase leading-[0.98]">
-        <div className="text-left">{renderLetters("Our")}</div>
-        <div className="text-left md:ml-25 mt-2">{renderLetters("Radiance", 3)}</div>
-      </motion.h2>
+        <motion.h2 className="text-8xl md:text-9xl font-semibold uppercase leading-[0.98]">
+          <div className="text-left">{renderLetters("Our")}</div>
+          <div className="text-left md:ml-25 mt-2">{renderLetters("Radiance", 3)}</div>
+        </motion.h2>
       </div>
 
       {/* Arrow */}
@@ -65,7 +73,6 @@ export default function ServicesHeading() {
           <polygon points="13.65 102.66 109.53 6.67 103.87 1.02 8 97 8 0 0 0 0 110.66 111.42 110.66 111.42 102.66 13.65 102.66"></polygon>
         </svg>
       </div>
-    </div>
+    </motion.div>
   );
 }
-

@@ -6,10 +6,11 @@ import Hero from "../components/Hero";
 import ServicesHeading from "../components/ServiceHeading";
 import ScrollStack from "../components/ScrollStack";
 import CardContent from "../components/CardContent";
-import StrategySection from "@/components/StrategySection";
+// import StrategySection from "@/components/StrategySection";
 import OurWorkSection from "@/components/OurWorks";
 import OurResults from "@/components/OurResults";
 import OurPartners from "@/components/OurPartners";
+import OurClientsSay from "@/components/Testimonials";
 import FaqSection from "@/components/FaqSection";
 import ThreeBlob from "@/components/ThreeBlob";
 import Footer from "@/components/Footer";
@@ -112,9 +113,9 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative z-20 bg-transparent">
+      {/* <section className="relative z-20 bg-transparent">
         <StrategySection />
-      </section>
+      </section> */}
 
       {/* Other Sections */}
       <section className="dark-section relative z-20 bg-black text-white min-h-screen">
@@ -127,6 +128,10 @@ export default function Page() {
 
       <section className="dark-section relative z-20 bg-black text-white">
         <OurPartners />
+      </section>
+
+      <section className="dark-section relative z-20 bg-black text-white">
+        <OurClientsSay />
       </section>
 
       <section id="faq" className="dark-section relative z-20 bg-black text-white">
