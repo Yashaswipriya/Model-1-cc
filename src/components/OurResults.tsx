@@ -120,7 +120,7 @@ export default function OurResults() {
       // Next card - slightly smaller, shifted left, semi-transparent
       return {
         scale: 0.9,
-        x: -80,
+        x: window.innerWidth > 1800 ? -100 : -80,
         opacity: 0.7,
         zIndex: 9,
       };
@@ -128,7 +128,7 @@ export default function OurResults() {
       // Second next card - even smaller, more shifted, more transparent
       return {
         scale: 0.8,
-        x: -160,
+        x: window.innerWidth > 1800 ? -200 : -160,
         opacity: 0.4,
         zIndex: 8,
       };
@@ -163,7 +163,7 @@ export default function OurResults() {
       </div>
 
       {/* Card Stack */}
-      <div className="w-full flex items-center justify-center max-w-[1600px] relative h-[90vh]">
+      <div className="w-full max-w-[1600px] relative h-[90vh]">
         {results.map((current, cardIndex) => {
           const cardProps = getCardProps(cardIndex);
           
@@ -183,7 +183,10 @@ export default function OurResults() {
                 damping: 30,
               }}
               style={{ zIndex: cardProps.zIndex }}
-              className="absolute w-full h-full bg-black rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] flex flex-col md:flex-row px-8 md:px-16 py-8 md:py-12 shadow-2xl border border-white/40 overflow-hidden"
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full 
+             bg-black rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] 
+             rounded-bl-[2rem] flex flex-col md:flex-row px-8 md:px-16 py-8 md:py-12 
+             shadow-2xl border border-white/40 overflow-hidden"
             >
               {/* Aurora Background - Now scoped to the card */}
               <div className="absolute w-full inset-0 rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] overflow-hidden">
