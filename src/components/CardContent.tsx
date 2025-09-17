@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 
 interface CardContentProps {
   imgSrc?: string;
@@ -73,15 +72,6 @@ export default function CardContent({
             {description}
           </p>
         )}
-
-        <Button
-          className="
-            rounded-full bg-black text-white hover:bg-pink-600 
-            px-6 py-3 text-sm md:text-base 2xl:text-lg 3xl:text-xl 4xl:text-2xl
-          "
-        >
-          Find out more →
-        </Button>
       </div>
 
       {/* Right Side (Responsive Media) */}

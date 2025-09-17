@@ -21,35 +21,35 @@ const cardsData = [
     tags: ["Wordpress", "Blogs", "Portfolio", "E-Commerce"],
     description:
       "Crafting digital experiences where beauty meets ROI, turning heads and unlocking revenue potential with every click.",
-    videoSrc: "/WebDesign.mp4",
+    videoSrc: "/servicesVideos/WebDesign.mp4",
   },
   {
     title: "Brand Strategy",
     tags: ["Brand Identity", "Positioning", "Storytelling", "Visual Design"],
     description:
       "Build a memorable brand that resonates with your audience and grows your business.",
-    videoSrc: "/brandStrategy.mp4",
+    videoSrc: "/servicesVideos/brandStrategy.mp4",
   },
   {
-    title: "Video Editing",
-    tags: ["Adobe Premiere Pro", "Final Cut Pro", "After Effects", "DaVinci Resolve"],
+    title: "Content Creation",
+    tags: ["Travel", "Real Estate", "Beauty", "Food"],
     description:
-      "Transform raw footage into captivating videos that tell your story, engage your audience, and leave a lasting impression.",
-    videoSrc: "/videoEditing.mp4",
+      "We craft compelling content that amplifies your brand, connects with your audience, and drives real results.",
+    videoSrc: "/servicesVideos/contentCreation.mp4",
   },
   {
     title: "Paid Advertising",
     tags: ["Google Ads", "Facebook Ads", "Instagram Ads", "LinkedIn Ads"],
     description:
       "Design and run powerful, attention-grabbing ads that connect with your audience, boost engagement, and drive measurable results for your business.",
-    videoSrc: "/PaidAds.mp4",
+    videoSrc: "/servicesVideos/PaidAds.mp4",
   },
   {
     title: "Social Media Management",
     tags: ["Content Creation", "Scheduling", "Analytics", "Community Engagement"],
     description:
       "Build and nurture a vibrant online community that amplifies your brand message, fosters loyalty, and drives meaningful interactions across all your social platforms.",
-    videoSrc: "/socialMedia.mp4",
+    videoSrc: "/servicesVideos/socialMedia.mp4",
   },
 ];
 
