@@ -18,30 +18,24 @@ const results: ResultCardProps[] = [
     logo: "https://kota-content.b-cdn.net/app/uploads/2025/04/Pison-Logo-White.svg",
     percentage: "67.6%",
     text: "rise in engaged sessions per user after 1 month.",
-    images: ["/results/project1-1.png", "/results/project1-2.png", "/results/project1-3.png"],
+    images: ["/results/1.png", "/results/2.png", "/results/3.png"],
     link: "https://www.computerchacha.in/",
   },
   {
     logo: "/logo.svg",
     percentage: "120%",
     text: "increase in conversions after redesign.",
-    images: ["/img4.jpg", "/img5.jpg", "/img6.jpg"],
+    images: ["/results/4.png", "/results/5.png", "/results/6.png"],
     link: "#",
   },
   {
     logo: "/logo.svg",
     percentage: "180%",
     text: "increase in conversions after redesign.",
-    images: ["/img4.jpg", "/img5.jpg", "/img6.jpg"],
+    images: ["/results/7.png", "/results/8.png", "/results/9.png"],
     link: "#",
   },
-  {
-    logo: "/logo.svg",
-    percentage: "150%",
-    text: "increase in conversions after redesign.",
-    images: ["/img4.jpg", "/img5.jpg", "/img6.jpg"],
-    link: "#",
-  },
+  
 ];
 
 export default function OurResults() {
@@ -230,7 +224,7 @@ const getCardProps = (cardIndex: number) => {
                 </div>
 
                 {/* Right Side Images */}
-                <div className="flex items-center gap-6 w-full h-full">
+                <div className="flex items-center gap-2 w-full h-full">
                   {/* Left Image */}
                   <div className="relative flex-1 aspect-[9/16] rounded-sm overflow-hidden">
                     <Image src={current.images[0]} alt="img1" fill className="object-cover" />
