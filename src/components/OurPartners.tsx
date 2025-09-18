@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const logos = [
   { src: "/logos/Adventure.png", name: "Adventure" },
@@ -25,12 +26,22 @@ export default function Partners() {
     <section className="bg-black py-20 px-6 md:px-12 lg:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto text-left mb-[10rem] lg:mb-[12rem] 2xl:mb-[15rem]">
         <h2 className="text-white font-bold text-[6rem] md:text-[10rem] leading-[1.1] mb-[8rem] whitespace-pre-line">
-          {text}
+           {text.split("").map((char, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05, duration: 0.4 }}
+            viewport={{ once: true }}
+          >
+            {char}
+          </motion.span>
+        ))}
         </h2>
 
         {/* wrapper captures hover/touch and toggles pause */}
         <div
-          className="relative w-full overflow-hidden"
+          className="relative w-screen overflow-hidden -mx-6 md:-mx-12 lg:-mx-20"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onTouchStart={() => setPaused(true)}
@@ -38,13 +49,14 @@ export default function Partners() {
         >
           {/* duplicated list for seamless loop */}
           <div
-            className="flex gap-20 animate-marquee"
+            className="inline-flex w-auto animate-marquee"
             style={{ animationPlayState: paused ? "paused" : "running" }}
           >
             {[...logos, ...logos].map(({ src, name }, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 flex justify-center items-center w-45 h-24 md:w-60 md:h-30 lg:w-72 lg:h-36 2xl:w-80 2xl:h-40 3xl:w-96 3xl:h-48 relative"
+                className="flex-shrink-0 flex justify-center items-center mr-20 w-45 h-24 
+                           md:w-60 md:h-30 lg:w-72 lg:h-36 2xl:w-80 2xl:h-40 3xl:w-96 3xl:h-48 relative"
               >
                 <Image
                   src={src}
