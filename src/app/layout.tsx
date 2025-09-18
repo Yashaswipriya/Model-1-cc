@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Bricolage_Grotesque, Syne } from "next/font/google";
 import SplashCursor from "@/components/SplashCursor";
 import GlobalButtons from "@/components/GlobalButtons";
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${bricolage.className} bg-[#fdfaf6]`}>
         <SplashCursor />
         <GlobalButtons />
+        <SpeedInsights/>
         {children}
       </body>
     </html>
