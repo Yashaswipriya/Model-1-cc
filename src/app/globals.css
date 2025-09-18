@@ -44,4 +44,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* marquee keyframes & class */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* apply to the row that contains duplicated logos */
+.animate-marquee {
+  display: flex;
+  align-items: center;
+  /* animation duration: change 20s to speed up/slow down */
+  animation: marquee 20s linear infinite;
+  will-change: transform;
+}
+
 
