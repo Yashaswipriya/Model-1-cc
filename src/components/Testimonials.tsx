@@ -59,10 +59,13 @@ export default function OurClientsSay() {
     max-w-none 3xl:max-w-[2400px]">
         {/* Left Side Heading */}
        
-          <h2 className="text-6xl md:text-7xl font-bold mb-6 3xl:mb-2 text-center leading-[0.8] md:leading-[1.0] lg:leading-[1.2] 2xl:leading-[1.5] 3xl:leading-[1.6]">
-            What<br/> Our <br/>Clients <br/>Say
-          </h2>
-        
+         <h2 className="text-6xl md:text-7xl font-bold text-left leading-tight">
+  <div className="ml-0">What</div>
+  <div className="ml-8 md:ml-12 lg:ml-30 2xl:ml-20">Our</div>
+  <div className="ml-16 md:ml-24 lg:ml-40 2xl:ml-40">Clients</div>
+  <div className="ml-30 md:ml-40 lg:ml-80 2xl:ml-80">Say</div>
+</h2>
+
 
         {/* Right Side Cards */}
         <div className="w-52 sm:w-60 md:w-72 lg:w-80 xl:w-96 3xl:w-[400px] relative flex items-center justify-center min-h-[400px] 2xl:min-h-[600px] 3xl:min-h-[1200px]">
