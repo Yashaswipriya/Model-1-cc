@@ -54,11 +54,13 @@ export default function OurClientsSay() {
 
   return (
     <section className="relative w-full bg-black text-white py-24 px-6 md:px-16 lg:px-24 min-h-[100vh]">
-      <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center md:items-start gap-[20rem] ">
+      <div className="mx-auto flex flex-col md:flex-row items-center md:items-center justify-center 
+    gap-[8rem] lg:gap-[20rem] 2xl:gap-[30rem] 3xl:gap-[0rem] 
+    max-w-none 3xl:max-w-[2400px]">
         {/* Left Side Heading */}
        
-          <h2 className="text-6xl md:text-7xl  font-bold mb-6 3xl:mb-2 text-center">
-            What Our Clients Say
+          <h2 className="text-6xl md:text-7xl font-bold mb-6 3xl:mb-2 text-center leading-[0.8] md:leading-[1.0] lg:leading-[1.2] 2xl:leading-[1.5] 3xl:leading-[1.6]">
+            What<br/> Our <br/>Clients <br/>Say
           </h2>
         
 

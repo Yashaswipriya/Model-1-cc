@@ -57,7 +57,7 @@ export default function ServicesHeading() {
       className="relative flex flex-col items-start justify-center min-h-[50vh] px-20 md:px-50"
     >
       <div className="relative -translate-x-40">
-        <motion.h2 className="text-8xl md:text-9xl font-semibold uppercase leading-[0.98]">
+        <motion.h2 className="text-8xl md:text-9xl 3xl:text-9xl font-semibold uppercase leading-[0.98]">
           <div className="text-left">{renderLetters("Our")}</div>
           <div className="text-left md:ml-25 mt-2">{renderLetters("Radiance", 3)}</div>
         </motion.h2>
