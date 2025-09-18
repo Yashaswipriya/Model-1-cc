@@ -2,16 +2,18 @@ import { motion, easeOut } from "framer-motion";
 import Image from "next/image";
 
 const logos = [
-  { src: "/logos/cafepress.svg", name: "CafePress" },
-  { src: "/logos/calendly.svg", name: "Calendly" },
-  { src: "/logos/caterpillar.svg", name: "Caterpillar" },
-  { src: "/logos/edx.svg", name: "Edx" },
-  { src: "/logos/jfrog.svg", name: "Jfrog" },
-  { src: "/logos/kicad.svg", name: "Kicad" },
-  { src: "/logos/oreilly.svg", name: "Oreilly" },
-  { src: "/logos/petsathome.svg", name: "Pets At Home" },
-  { src: "/logos/quickbooks.svg", name: "QuickBooks" },
-  { src: "/logos/themoviedatabase.svg", name: "TheMovieDatabase" },
+  { src: "/logos/Adventure.png", name: "Adventure" },
+  { src: "/logos/cc.png", name: "ComputerChacha" },
+  { src: "/logos/deutschvibes.png", name: "Duetschvibes" },
+  { src: "/logos/enjoy.png", name: "EnjoyYourFeed" },
+  { src: "/logos/gopal.png", name: "GopalEstate" },
+  { src: "/logos/minty-read.png", name: "MintyRead" },
+  { src: "/logos/newztrail.png", name: "NewzTrail" },
+  { src: "/logos/nykaa.png", name: "Nykaa" },
+  { src: "/logos/thebrandrumours.png", name: "The Brand Rumours" },
+  { src: "/logos/TheUrbanRead.png", name: "TheUrbanRead" },
+  { src: "/logos/urbantrnd.png", name: "TheUrbanTrend" },
+  { src: "/logos/WhynoTravel.png", name: "WhyNoTravel" },
 ];
 
 const container = {
@@ -80,7 +82,7 @@ export default function Partners() {
                 src={src}
                 alt={name}
                 fill
-                className="object-contain invert" 
+                className="object-contain" 
                 sizes="(max-width: 768px) 8rem, (max-width: 1024px) 10rem, 12rem"
               />
             </motion.div>

@@ -109,11 +109,11 @@ const Footer = () => {
         </div>
 
         {/* Awards Row */}
-        <div className="flex flex-wrap gap-10 justify-start md:justify-end items-center invert fill-white">
-          <Image src="/logos/cafepress.svg" alt="DAN Award" width={80} height={40} />
-          <Image src="/logos/calendly.svg" alt="Clutch" width={80} height={40} />
-          <Image src="/logos/oreilly.svg" alt="Awwwards" width={80} height={40} />
-          <Image src="/logos/caterpillar.svg" alt="CSSDA" width={80} height={40} />
+        <div className="flex flex-wrap gap-10 justify-start md:justify-end items-center">
+          <Image src="/logos/cc.png" alt="ComputerChacha" width={100} height={60} />
+          <Image src="/logos/minty-read.png" alt="MintyRead" width={100} height={60} />
+          <Image src="/logos/TheUrbanRead.png" alt="TheUrbanRead" width={100} height={60} />
+          <Image src="/logos/WhynoTravel.png" alt="WhyNoTravel" width={100} height={60} />
         </div>
 
         {/* Sectors Row */}
