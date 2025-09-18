@@ -25,14 +25,21 @@ const results: ResultCardProps[] = [
     logo: "/logo.svg",
     percentage: "120%",
     text: "increase in conversions after redesign.",
-    images: ["/results/4.png", "/results/5.png", "/results/6.png"],
+    images: ["/results/4.png", "/results/5.png"],
     link: "#",
   },
   {
     logo: "/logo.svg",
     percentage: "180%",
     text: "increase in conversions after redesign.",
-    images: ["/results/7.png", "/results/8.png", "/results/9.png"],
+    images: ["/results/6.png", "/results/7.png"],
+    link: "#",
+  },
+  {
+    logo: "/logo.svg",
+    percentage: "180%",
+    text: "increase in conversions after redesign.",
+    images: ["/results/8.png", "/results/9.png"],
     link: "#",
   },
   
