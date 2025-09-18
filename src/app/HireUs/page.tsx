@@ -1,4 +1,6 @@
 "use client";
+import Aurora from "../../components/Aurora";
+import Footer from "@/components/Footer";
 
 import { useState } from "react";
 
@@ -24,49 +26,81 @@ export default function HireUsPage() {
   };
 
   return (
-    <main className="w-full min-h-screen bg-black text-white">
-      {/* Hero Section */}
-      <section className="py-20 px-6 lg:px-16">
-        <h1 className="text-6xl lg:text-8xl font-bold leading-tight">
-          Start Your Project
-        </h1>
-        <p className="mt-6 text-lg max-w-xl">
-          Tell us about your project idea, budget, and goals. We’ll get back to
-          you with how we can help.
-        </p>
-        <div className="mt-8 text-lg">
-          <p>📞 +44 (0)20 7112 8880</p>
-          <p>📧 hello@kota.co.uk</p>
-        </div>
-      </section>
+    <main className="w-full min-h-screen bg-black text-white relative">
+      {/* Aurora Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Aurora
+          colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
+          blend={0.3}
+          amplitude={2.0}
+          speed={1.0}
+        />
+      </div>
 
-      {/* Pills Section */}
-      <section className="py-10 px-6 lg:px-16">
-        <h2 className="text-2xl font-semibold mb-6">What do you need?</h2>
-        <div className="flex flex-wrap gap-3">
-          {["Website", "Branding", "Marketing", "Other"].map((option) => (
-            <button
-              key={option}
-              onClick={() => setSelectedProject(option)}
-              className={`px-6 py-3 rounded-full border transition-colors ${
-                selectedProject === option
-                  ? "bg-white text-black"
-                  : "border-white text-white hover:bg-white hover:text-black"
-              }`}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </section>
+      {/* Hero Section */}
+<section className="relative z-10 py-20 px-4 lg:px-16 flex flex-col lg:flex-row justify-between min-h-screen items-center">
+  {/* Left Side: Heading + Paragraph */}
+  <div className="max-w-lg lg:max-w-xl flex flex-col justify-center h-full">
+    <h1 className="text-4xl lg:text-5xl 2xl:text-7xl font-bold leading-tight">
+      Let's get your<br />project started
+    </h1>
+    <p className="mt-6 text-lg max-w-xl">
+      Tell us about your project idea, budget, and goals. We'll get back to
+      you with how we can help.
+    </p>
+  </div>
+
+  {/* Right Side: Contact Details */}
+  <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full">
+    <p className="text-gray-500">New Buisness?</p>
+    <p>+44 (0)20 7112 8880</p>
+    <p>
+      {" "}
+      <a
+        href="mailto:hello@kota.co.uk"
+        className="underline hover:text-pink-400 transition"
+      >
+        hello@kota.co.uk
+      </a>
+    </p>
+    <p className="text-lg mt-4">
+      Have a quick question you need answering?<br /> Check-Out:{" "}
+      <a href="/#faq" className="underline hover:text-pink-400 transition">
+        FAQ's
+      </a>
+    </p>
+  </div>
+</section>
+
+
+{/* Pills Section */}
+<section className="relative z-10 py-10 px-6 lg:px-16">
+  <h2 className="text-2xl font-semibold mb-6">What do you need?</h2>
+  <div className="flex flex-wrap gap-3">
+    {["Website", "Branding", "Marketing", "Content Creation", "Paid Ads", "E-commerce", "Social Media"].map((option) => (
+      <button
+        key={option}
+        onClick={() => setSelectedProject(option)}
+        className={`px-6 py-3 rounded-full border transition-colors cursor-pointer ${
+          selectedProject === option
+            ? "bg-white text-black"
+            : "border-white text-white hover:bg-white hover:text-black"
+        }`}
+      >
+        {option}
+      </button>
+    ))}
+  </div>
+</section>
+
 
       {/* Form Section */}
-      <section className="py-20 px-6 lg:px-16">
+      <section className="relative z-10 py-20 px-6 lg:px-16">
         <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
           <input
             type="text"
             name="name"
-            placeholder="Your Name"
+            placeholder="Your Name*"
             value={formData.name}
             onChange={handleChange}
             className="w-full p-4 bg-transparent border-b border-white outline-none"
@@ -75,7 +109,7 @@ export default function HireUsPage() {
           <input
             type="email"
             name="email"
-            placeholder="Your Email"
+            placeholder="Your Email*"
             value={formData.email}
             onChange={handleChange}
             className="w-full p-4 bg-transparent border-b border-white outline-none"
@@ -113,6 +147,9 @@ export default function HireUsPage() {
             Send Request
           </button>
         </form>
+      </section>
+      <section className="relative z-10">
+      <Footer/>
       </section>
     </main>
   );

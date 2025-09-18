@@ -2,12 +2,13 @@
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link"; // ✅ import Link
 
 export default function GlobalButtons() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-  //  Detect if "dark-section" is in view
+  // Detect if "dark-section" is in view
   useEffect(() => {
     const darkSections = document.querySelectorAll<HTMLElement>(".dark-section");
     if (!darkSections) return;
@@ -15,13 +16,13 @@ export default function GlobalButtons() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          setDarkMode(entry.isIntersecting); // true if we scroll into dark section
+          setDarkMode(entry.isIntersecting);
         });
       },
-      { 
+      {
         rootMargin: "-30% 0px -30% 0px",
         threshold: 0.1,
-      } // fires when at least 10% of section is visible
+      }
     );
 
     darkSections.forEach((section) => observer.observe(section));
@@ -40,20 +41,22 @@ export default function GlobalButtons() {
     <div className="fixed top-6 right-6 flex items-center gap-4 z-[999]">
       {/* Hire Us Button */}
       <div className="flex gap-2">
-        <button
-          className={`group flex items-center px-10 py-3 rounded-full text-md font-medium shadow-lg transition
-          ${
-            darkMode
-              ? "bg-white text-black hover:bg-gray-200"
-              : "bg-black text-white hover:bg-pink-600"
-          }`}
-        >
-          Hire Us
-          <ArrowRight
-            className="ml-4 transform transition-transform duration-300 group-hover:translate-x-1"
-            size={25}
-          />
-        </button>
+        <Link href="/HireUs">
+          <button
+            className={`group flex items-center px-10 py-3 rounded-full text-md font-medium shadow-lg transition
+            ${
+              darkMode
+                ? "bg-white text-black hover:bg-gray-200"
+                : "bg-black text-white hover:bg-pink-600"
+            }`}
+          >
+            Hire Us
+            <ArrowRight
+              className="ml-4 transform transition-transform duration-300 group-hover:translate-x-1"
+              size={25}
+            />
+          </button>
+        </Link>
       </div>
 
       {/* Menu Button */}
@@ -62,7 +65,6 @@ export default function GlobalButtons() {
         className={`w-12 h-12 flex items-center justify-center rounded-full transition
           ${darkMode ? "bg-white text-black" : "bg-black text-white"}`}
       >
-        {/* Burger / Close animation */}
         <span
           className={`absolute h-0.5 w-6 transition-transform duration-300 ${
             darkMode ? "bg-black" : "bg-white"
