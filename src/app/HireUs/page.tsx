@@ -4,15 +4,18 @@ import Footer from "@/components/Footer";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function HireUsPage() {
   const [selectedProject, setSelectedProject] = useState("");
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName:"",
     email: "",
     company: "",
     budget: "",
     message: "",
+    attachments: null as FileList | null,
   });
 
   const handleChange = (
@@ -27,7 +30,7 @@ export default function HireUsPage() {
   };
 
   return (
-    <main className="w-full min-h-screen bg-black text-white relative">
+    <main className="dark-section w-full min-h-screen bg-black text-white relative">
       {/* Aurora Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Aurora
@@ -57,8 +60,8 @@ export default function HireUsPage() {
       Let's get your project started
     </h1>
     <p className="mt-6 text-lg max-w-xl">
-      Tell us about your project idea, budget, and goals. We'll get back to
-      you with how we can help.
+      Tell us about your project idea, budget, and goals. We'll get back to you with how we can help.
+      
     </p>
   </div>
 
@@ -107,59 +110,139 @@ export default function HireUsPage() {
 
 
       {/* Form Section */}
-      <section className="relative z-10 py-20 px-6 lg:px-16">
-        <form onSubmit={handleSubmit} className="max-w-3xl space-y-6">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name*"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full p-4 bg-transparent border-b border-white outline-none"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email*"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full p-4 bg-transparent border-b border-white outline-none"
-            required
-          />
-          <input
-            type="text"
-            name="company"
-            placeholder="Your Company"
-            value={formData.company}
-            onChange={handleChange}
-            className="w-full p-4 bg-transparent border-b border-white outline-none"
-          />
-          <input
-            type="text"
-            name="budget"
-            placeholder="Your Budget"
-            value={formData.budget}
-            onChange={handleChange}
-            className="w-full p-4 bg-transparent border-b border-white outline-none"
-          />
-          <textarea
-            name="message"
-            placeholder="Tell us about your project"
-            value={formData.message}
-            onChange={handleChange}
-            rows={4}
-            className="w-full p-4 bg-transparent border-b border-white outline-none"
-            required
-          />
-          <button
-            type="submit"
-            className="px-8 py-4 bg-white text-black rounded-full hover:bg-gray-200 transition"
-          >
-            Send Request
-          </button>
-        </form>
-      </section>
+<section className="relative z-10 py-20 px-6 lg:px-16">
+  <form onSubmit={handleSubmit} className="w-full max-w-screen-3xl mx-auto space-y-10 px-4 lg:px-16">
+    {/* Row 1: First, Last, Email */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <label className="block mb-2 text-sm font-medium">First name*</label>
+        <input
+          type="text"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+          className="w-full bg-transparent border-b border-white py-2 outline-none"
+        />
+      </div>
+      <div>
+        <label className="block mb-2 text-sm font-medium">Last name*</label>
+        <input
+          type="text"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+          className="w-full bg-transparent border-b border-white py-2 outline-none"
+        />
+      </div>
+      <div>
+        <label className="block mb-2 text-sm font-medium">Email*</label>
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full bg-transparent border-b border-white py-2 outline-none"
+        />
+      </div>
+    </div>
+
+    {/* Row 2: Budget + Attachments */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+  {/* Budget */}
+  <div>
+    <label className="block mb-2 text-sm font-medium">Budget (£)</label>
+    <input
+      type="text"
+      name="budget"
+      value={formData.budget}
+      onChange={handleChange}
+      className="w-full bg-transparent border-b border-white py-2 outline-none"
+    />
+    <p className="mt-2 text-xs text-gray-300">
+      More info on minimum/typical budget sizes can be found{" "}
+      <a href="#" className="underline">
+        here
+      </a>.
+    </p>
+  </div>
+
+  {/* Attachments */}
+  <div>
+    <label className="block mb-2 text-sm font-medium flex items-center gap-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="w-5 h-5"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 9.828a4 4 0 10-5.657-5.657L6.343 10.172a6 6 0 108.485 8.485L20.657 12"
+        />
+      </svg>
+      Attachments
+    </label>
+    <input
+      type="file"
+      name="attachments"
+      multiple
+      onChange={(e) =>
+        setFormData({ ...formData, attachments: e.target.files })
+      }
+      className="w-full bg-transparent border-b border-white py-2 outline-none file:hidden"
+    />
+  </div>
+</div>
+
+
+    {/* Message */}
+    <div>
+      <label className="block mb-2 text-sm font-medium">Message</label>
+      <textarea
+        name="message"
+        value={formData.message}
+        onChange={handleChange}
+        rows={4}
+        className="w-full bg-transparent border-b border-white py-2 outline-none"
+      />
+    </div>
+
+    {/* Radio Options */}
+    <div className="space-y-4">
+      <label className="flex items-center gap-3">
+        <input type="radio" name="consent" className="w-5 h-5" />
+        <span>I'm happy to receive a monthly newsletter from Illuminora</span>
+      </label>
+      <label className="flex items-center gap-3">
+        <input type="radio" name="consent" className="w-5 h-5" />
+        <span>
+          I understand that Illumiora will securely hold my data in accordance with their privacy policy.
+        </span>
+      </label>
+    </div>
+
+    {/* Submit Button */}
+    <div className="flex justify-end">
+      <button
+        type="submit"
+        className="group bg-white text-black flex items-center px-10 py-3 rounded-full text-md font-medium shadow-lg transition"
+      >
+        Submit
+        <ArrowRight
+              className="ml-4 transform transition-transform duration-300 group-hover:translate-x-1"
+              size={25}
+            />
+      </button>
+    </div>
+  </form>
+</section>
+
       <section className="relative z-10">
       <Footer/>
       </section>

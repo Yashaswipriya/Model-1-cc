@@ -46,7 +46,7 @@ export default function GlobalButtons() {
             className={`group flex items-center px-10 py-3 rounded-full text-md font-medium shadow-lg transition
             ${
               darkMode
-                ? "bg-white text-black hover:bg-gray-200"
+                ? "bg-white text-black hover:bg-pink-600"
                 : "bg-black text-white hover:bg-pink-600"
             }`}
           >
