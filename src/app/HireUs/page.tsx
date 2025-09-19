@@ -1,8 +1,9 @@
 "use client";
 import Aurora from "../../components/Aurora";
 import Footer from "@/components/Footer";
-
+import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function HireUsPage() {
   const [selectedProject, setSelectedProject] = useState("");
@@ -40,9 +41,20 @@ export default function HireUsPage() {
       {/* Hero Section */}
 <section className="relative z-10 py-20 px-4 lg:px-16 flex flex-col lg:flex-row justify-between min-h-screen items-center">
   {/* Left Side: Heading + Paragraph */}
+ <div className="absolute top-10 left-2 invert fill">
+  <Link href="/">
+    <Image
+      src="/Logo.png" // <-- place logo.png inside /public folder
+      alt="Logo"
+      width={200}
+      height={200}
+      className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+    />
+  </Link>
+</div>
   <div className="max-w-lg lg:max-w-xl flex flex-col justify-center h-full">
-    <h1 className="text-4xl lg:text-5xl 2xl:text-7xl font-bold leading-tight">
-      Let's get your<br />project started
+    <h1 className="whitespace-nowrap text-4xl lg:text-5xl 2xl:text-7xl font-bold leading-tight">
+      Let's get your project started
     </h1>
     <p className="mt-6 text-lg max-w-xl">
       Tell us about your project idea, budget, and goals. We'll get back to
@@ -74,7 +86,7 @@ export default function HireUsPage() {
 
 
 {/* Pills Section */}
-<section className="relative z-10 py-10 px-6 lg:px-16">
+<section className="relative z-10 py-2 px-6 lg:px-16 -mt-30 2xl:-mt-50">
   <h2 className="text-2xl font-semibold mb-6">What do you need?</h2>
   <div className="flex flex-wrap gap-3">
     {["Website", "Branding", "Marketing", "Content Creation", "Paid Ads", "E-commerce", "Social Media"].map((option) => (
