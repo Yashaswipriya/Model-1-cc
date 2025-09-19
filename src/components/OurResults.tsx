@@ -25,21 +25,21 @@ const results: ResultCardProps[] = [
     logo: "/logo.svg",
     percentage: "120%",
     text: "increase in conversions after redesign.",
-    images: ["/results/4.png", "/results/5.png"],
+    images: ["/results/4.png", "/results/5.png", "/results/5.png"],
     link: "#",
   },
   {
     logo: "/logo.svg",
     percentage: "180%",
     text: "increase in conversions after redesign.",
-    images: ["/results/6.png", "/results/7.png"],
+    images: ["/results/6.png", "/results/7.png", "/results/5.png"],
     link: "#",
   },
   {
     logo: "/logo.svg",
     percentage: "180%",
     text: "increase in conversions after redesign.",
-    images: ["/results/8.png", "/results/9.png"],
+    images: ["/results/8.png", "/results/9.png", "/results/5.png"],
     link: "#",
   },
   
@@ -70,41 +70,50 @@ export default function OurResults() {
   }, [controls]);
 
   const renderLetters = (text: string, offset = 0) =>
-    text.split("").map((char, i) => (
-      <motion.span
-        key={i}
-        style={{ display: "inline-block" }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: headingOpacity, y: 0 }}
-        transition={{ delay: i * 0.01, duration: 0.4 }}
-      >
-        {char === " " ? "\u00A0" : char}
-      </motion.span>
-    ));
+  text.split("").map((char, i) => (
+    <motion.span
+      key={i}
+      style={{ display: "inline-block" }}
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: headingOpacity, y: 0 }}
+      transition={{ duration: 0 }} // no fade-in effect
+    >
+      {char === " " ? "\u00A0" : char}
+    </motion.span>
+  ));
+
+
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (!headingRef.current) return;
-      const rect = headingRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+  const handleScroll = () => {
+    if (!headingRef.current) return;
+    const rect = headingRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
 
-      // Calculate opacity based on distance from center of viewport
-      const centerOffset = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
-      const maxOffset = windowHeight / 2 + rect.height / 2;
+    // Distance from center
+    const centerOffset = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
+    const maxOffset = windowHeight / 2 + rect.height / 2;
 
-      let opacity = 1 - centerOffset / maxOffset;
-      opacity = Math.min(Math.max(opacity, 0), 1); // Clamp 0-1
-      setHeadingOpacity(opacity);
-    };
+    let opacity = 1 - centerOffset / maxOffset;
+    opacity = Math.min(Math.max(opacity, 0), 1);
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleScroll);
-    handleScroll(); // Initialize
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
+    // Force full opacity when first entering viewport
+    if (rect.top > 0 && rect.top < windowHeight * 0.4) {
+      opacity = 1;
+    }
+
+    setHeadingOpacity(opacity);
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("resize", handleScroll);
+  handleScroll();
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+    window.removeEventListener("resize", handleScroll);
+  };
+}, []);
+
 
   const [screenWidth, setScreenWidth] = useState(1024); // safe default for SSR
 
