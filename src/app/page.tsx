@@ -90,6 +90,7 @@ export default function Page() {
         ref={sectionRef}
         className="relative flex flex-col items-center"
         style={{ height: `${cardsData.length * 100}vh` }}
+        id = "#services"
       >
         <motion.div
           style={{ opacity: headingOpacity }}

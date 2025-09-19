@@ -83,23 +83,47 @@ export default function GlobalButtons() {
       </button>
 
       {/* Menu Dialog */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className="absolute top-14 right-0 bg-white p-8 rounded-2xl shadow-2xl flex flex-col gap-6 z-30 min-w-[280px]"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={dialogVariants}
-          >
-            {menuItems.map((item) => (
-              <a key={item} href="#" className="text-black text-xl font-medium hover:text-gray-600">
-                {item}
-              </a>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Menu Dialog */}
+<AnimatePresence>
+  {menuOpen && (
+    <motion.div
+      className="absolute top-14 right-0 bg-white p-8 rounded-2xl shadow-2xl flex flex-col gap-6 z-30 min-w-[280px]"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={dialogVariants}
+    >
+      {menuItems.map((item) =>
+        item === "Start your project" ? (
+          <Link key={item} href="/HireUs">
+            <button
+              className="group whitespace-nowrap flex items-center justify-center px-8 py-3 rounded-full text-md font-medium shadow-lg transition bg-black text-white hover:bg-pink-600 w-full"
+            >
+              {item}
+              <ArrowRight
+                className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
+                size={20}
+              />
+            </button>
+          </Link>
+        ) : item === "Services" ? (
+          <Link key={item} href="/#services">
+            <span className="text-black text-xl font-medium hover:text-gray-600 cursor-pointer">
+              {item}
+            </span>
+          </Link>
+        ) : (
+          <Link key={item} href={`/${item.toLowerCase()}`}>
+            <span className="text-black text-xl font-medium hover:text-gray-600 cursor-pointer">
+              {item}
+            </span>
+          </Link>
+        )
+      )}
+    </motion.div>
+  )}
+</AnimatePresence>
+
     </div>
   );
 }
