@@ -4,6 +4,7 @@ import React, { useRef, useEffect, memo } from "react";
 import * as THREE from "three";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 interface ThreeBlobProps {
   triangleCount?: number;      // default 160000
@@ -215,6 +216,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
 
         {/* Button below the belt */}
         <div className="absolute top-[65%] left-1/2 -translate-x-1/2">
+          <Link href="/AboutUs">
           <button className="group inline-flex items-center bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-pink-600 transition">
             About Us
             <ArrowRight
@@ -222,6 +224,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
               size={25}
             />
           </button>
+          </Link>
         </div>
       </div>
     );

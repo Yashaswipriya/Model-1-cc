@@ -47,7 +47,7 @@ export default function HireUsPage() {
  <div className="absolute top-10 left-2 invert fill">
   <Link href="/">
     <Image
-      src="/Logo.png" // <-- place logo.png inside /public folder
+      src="/Logo.png"
       alt="Logo"
       width={200}
       height={200}

@@ -79,7 +79,7 @@ export default function OurClientsSay() {
                 style={{ zIndex: style.zIndex }}
                 className={`absolute 
                     w-52 sm:w-60 md:w-72 lg:w-80 xl:w-96 2xl:w-[28rem] 3xl:w-[32rem] 
-                    aspect-[9/16] rounded-tr-[6rem] p-6 flex flex-col justify-between 
+                    aspect-[3/4] rounded-tr-[6rem] p-6 flex flex-col justify-between 
                     ${client.bgColor}`}
               >
                 <div className="flex items-center gap-4">
