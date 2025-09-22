@@ -68,14 +68,14 @@ export default function HireUsPage() {
   {/* Right Side: Contact Details */}
   <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full">
     <p className="text-gray-500">New Buisness?</p>
-    <p>+44 (0)20 7112 8880</p>
+    <p>+91 9310674298</p>
     <p>
       {" "}
       <a
         href="mailto:hello@kota.co.uk"
         className="underline hover:text-pink-400 transition"
       >
-        hello@kota.co.uk
+        Hello@illuminora.co.in
       </a>
     </p>
     <p className="text-lg mt-4">

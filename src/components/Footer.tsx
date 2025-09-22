@@ -82,7 +82,7 @@ const Footer = () => {
               onClick={handleCopyEmail}
               className="text-6xl font-semibold hover:text-pink-400 transition pb-6"
             >
-              hello@illuminora.com
+              Hello@illuminora.co.in
             </button>
 
             {/* Tooltip */}
