@@ -1,32 +1,81 @@
 "use client";
 import { motion, useAnimation, easeOut, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ServicesHeading() {
   const ref = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
 
-  // Letter animation trigger
+  // ---------- Letter animation trigger (only on scroll entry, not on refresh) ----------
+  // We keep flags in a ref so checks don't re-trigger the effect loops.
+  const enterFlags = useRef({
+    initiallyVisible: false,
+    canAnimateOnReenter: false,
+  });
+
   useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    // detect if element is inside viewport right after mount (initial page load)
+    const rect = node.getBoundingClientRect();
+    enterFlags.current.initiallyVisible =
+      rect.top < window.innerHeight && rect.bottom > 0;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) controls.start("visible");
+          // If the heading was initially visible, wait for it to leave then re-enter.
+          if (enterFlags.current.initiallyVisible) {
+            if (!entry.isIntersecting) {
+              // user scrolled away — now allow animation on next enter
+              enterFlags.current.canAnimateOnReenter = true;
+            } else if (entry.isIntersecting && enterFlags.current.canAnimateOnReenter) {
+              controls.start("visible");
+              observer.disconnect();
+            }
+          } else {
+            // Not initially visible: animate on first intersection
+            if (entry.isIntersecting) {
+              controls.start("visible");
+              observer.disconnect();
+            }
+          }
         });
       },
       { threshold: 0.7 }
     );
-    if (ref.current) observer.observe(ref.current);
+
+    observer.observe(node);
     return () => observer.disconnect();
   }, [controls]);
 
-  // Fade heading out as it scrolls
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end 65%"], // fade while section passes viewport
-  });
-  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
+  // ---------- Scroll-based floating + scale + disappear ----------
+  const [startScroll, setStartScroll] = useState(0);
+  const [endScroll, setEndScroll] = useState(0);
+  const { scrollY } = useScroll();
 
+  useEffect(() => {
+    const calc = () => {
+      if (!ref.current) return;
+      const top = ref.current.offsetTop;
+      const height = ref.current.offsetHeight;
+      // start when heading is around the middle of viewport, end after it's well above cards
+      setStartScroll(top + window.innerHeight / 1.2);
+      setEndScroll(top + window.innerHeight + height * 0.8); // adjust 0.8 → 0.7/0.9 as needed
+    };
+
+    calc();
+    window.addEventListener("resize", calc);
+    return () => window.removeEventListener("resize", calc);
+  }, []);
+
+  // only apply transforms once endScroll is calculated to avoid initial flicker
+  const scale = useTransform(scrollY, [startScroll, endScroll], [1, 0.6], { clamp: true });
+  const y = useTransform(scrollY, [startScroll, endScroll], [0, -210], { clamp: true }); // floats up as it shrinks
+  const opacity = useTransform(scrollY, [endScroll - 1, endScroll], [1, 0]); // fully disappears at the end
+
+  // ---------- Letter variants & renderer ----------
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -39,7 +88,7 @@ export default function ServicesHeading() {
   const renderLetters = (text: string, offset = 0) =>
     text.split("").map((char, i) => (
       <motion.span
-        key={i}
+        key={`${text}-${i}`}
         custom={i + offset}
         variants={letterVariants}
         initial="hidden"
@@ -50,10 +99,13 @@ export default function ServicesHeading() {
       </motion.span>
     ));
 
+  // Avoid passing transforms before endScroll is set (to prevent transient effects)
+  const motionStyle = endScroll > 0 ? { scale, y, opacity } : {};
+
   return (
     <motion.div
       ref={ref}
-      style={{ opacity }}
+      style={motionStyle}
       className="relative flex flex-col items-start justify-center min-h-[50vh] px-20 md:px-50"
     >
       <div className="relative -translate-x-40">
