@@ -2,7 +2,7 @@
 import { AnimatePresence, motion, easeIn, easeOut } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link"; // ✅ import Link
+import Link from "next/link";
 
 export default function GlobalButtons() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -29,7 +29,13 @@ export default function GlobalButtons() {
     return () => observer.disconnect();
   }, []);
 
-  const menuItems = ["Home", "About", "Services", "Contact", "Start your project"];
+  const menuItems = [
+    { label: "Home", href: "/" },
+    { label: "About", href: "/AboutUs" },
+    { label: "Services", href: "/#services" },
+    { label: "Contact", href: "/HireUs" },
+    { label: "Start your project", href: "/HireUs", cta: true },
+  ];
 
   const dialogVariants = {
     hidden: { opacity: 0, scale: 0.95, y: -10 },
@@ -41,7 +47,7 @@ export default function GlobalButtons() {
     <div className="fixed top-6 right-6 flex items-center gap-4 z-[999]">
       {/* Hire Us Button */}
       <div className="flex gap-2">
-        <Link href="/HireUs">
+        <Link href="/HireUs" onClick={() => setMenuOpen(false)}>
           <button
             className={`group flex items-center px-10 py-3 rounded-full text-md font-medium shadow-lg transition
             ${
@@ -83,47 +89,37 @@ export default function GlobalButtons() {
       </button>
 
       {/* Menu Dialog */}
-      {/* Menu Dialog */}
-<AnimatePresence>
-  {menuOpen && (
-    <motion.div
-      className="absolute top-14 right-0 bg-white p-8 rounded-2xl shadow-2xl flex flex-col gap-6 z-30 min-w-[280px]"
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      variants={dialogVariants}
-    >
-      {menuItems.map((item) =>
-        item === "Start your project" ? (
-          <Link key={item} href="/HireUs">
-            <button
-              className="group whitespace-nowrap flex items-center justify-center px-8 py-3 rounded-full text-md font-medium shadow-lg transition bg-black text-white hover:bg-pink-600 w-full"
-            >
-              {item}
-              <ArrowRight
-                className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
-                size={20}
-              />
-            </button>
-          </Link>
-        ) : item === "Services" ? (
-          <Link key={item} href="/#services">
-            <span className="text-black text-xl font-medium hover:text-gray-600 cursor-pointer">
-              {item}
-            </span>
-          </Link>
-        ) : (
-          <Link key={item} href={`/${item.toLowerCase()}`}>
-            <span className="text-black text-xl font-medium hover:text-gray-600 cursor-pointer">
-              {item}
-            </span>
-          </Link>
-        )
-      )}
-    </motion.div>
-  )}
-</AnimatePresence>
-
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="absolute top-14 right-0 bg-white p-8 rounded-2xl shadow-2xl flex flex-col gap-6 z-30 min-w-[280px]"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={dialogVariants}
+          >
+            {menuItems.map((item) =>
+              item.cta ? (
+                <Link key={item.label} href={item.href} onClick={() => setMenuOpen(false)}>
+                  <button className="group flex items-center justify-center px-8 py-3 rounded-full text-md font-medium shadow-lg transition bg-black text-white hover:bg-pink-600 w-full whitespace-nowrap">
+                    {item.label}
+                    <ArrowRight
+                      className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
+                      size={20}
+                    />
+                  </button>
+                </Link>
+              ) : (
+                <Link key={item.label} href={item.href} onClick={() => setMenuOpen(false)} scroll={true}>
+                  <span className="text-black text-xl font-medium hover:text-gray-600 cursor-pointer">
+                    {item.label}
+                  </span>
+                </Link>
+              )
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

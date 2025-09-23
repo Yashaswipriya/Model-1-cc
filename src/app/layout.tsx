@@ -17,7 +17,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Modern Agency",
+  title: "Web Design Agency | Creative Agency",
   description: "Design. Build. Grow.",
 };
 
