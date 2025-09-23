@@ -72,7 +72,7 @@ const Footer = () => {
             <ul className="flex flex-col md:flex-row gap-6 text-white text-xl">
               <li><a href="/HireUs" className="hover:text-white transition">Contact</a></li>
               <li><a href="#faq" className="hover:text-white transition">FAQs</a></li>
-              <li><a href="/privacy-policy" className="hover:text-white transition">Privacy Policy</a></li>
+              <li><a href="/PrivacyPolicy" className="hover:text-white transition">Privacy Policy</a></li>
             </ul>
           </div>
 
