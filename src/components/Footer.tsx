@@ -70,7 +70,7 @@ const Footer = () => {
             </div>
             <div className="h-[1rem]"></div>
             <ul className="flex flex-col md:flex-row gap-6 text-white text-xl">
-              <li><a href="/contact" className="hover:text-white transition">Contact</a></li>
+              <li><a href="/HireUs" className="hover:text-white transition">Contact</a></li>
               <li><a href="#faq" className="hover:text-white transition">FAQs</a></li>
               <li><a href="/privacy-policy" className="hover:text-white transition">Privacy Policy</a></li>
             </ul>
@@ -82,7 +82,7 @@ const Footer = () => {
               onClick={handleCopyEmail}
               className="text-6xl font-semibold hover:text-pink-400 transition pb-6"
             >
-              Hello@illuminora.co.in
+              hello@illuminora.co.in
             </button>
 
             {/* Tooltip */}
@@ -98,13 +98,6 @@ const Footer = () => {
                 </motion.span>
               )}
             </AnimatePresence>
-
-            <a
-              href="/newsletter"
-              className="bg-black border border-white/60 text-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition"
-            >
-              Sign up to our newsletter
-            </a>
           </div>
         </div>
 

@@ -67,15 +67,15 @@ export default function HireUsPage() {
 
   {/* Right Side: Contact Details */}
   <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full">
-    <p className="text-gray-500">New Buisness?</p>
-    <p>+91 9310674298</p>
+    <p className="text-gray-500">New Business?</p>
+    <p>+91-9310674298</p>
     <p>
       {" "}
       <a
-        href="mailto:hello@kota.co.uk"
+        href="mailto:hello@illuminora.co.in"
         className="underline hover:text-pink-400 transition"
       >
-        Hello@illuminora.co.in
+        hello@illuminora.co.in
       </a>
     </p>
     <p className="text-lg mt-4">
@@ -149,57 +149,6 @@ export default function HireUsPage() {
       </div>
     </div>
 
-    {/* Row 2: Budget + Attachments */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-  {/* Budget */}
-  <div>
-    <label className="block mb-2 text-sm font-medium">Budget (£)</label>
-    <input
-      type="text"
-      name="budget"
-      value={formData.budget}
-      onChange={handleChange}
-      className="w-full bg-transparent border-b border-white py-2 outline-none"
-    />
-    <p className="mt-2 text-xs text-gray-300">
-      More info on minimum/typical budget sizes can be found{" "}
-      <a href="#" className="underline">
-        here
-      </a>.
-    </p>
-  </div>
-
-  {/* Attachments */}
-  <div>
-    <label className="block mb-2 text-sm font-medium flex items-center gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-5 h-5"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828L18 9.828a4 4 0 10-5.657-5.657L6.343 10.172a6 6 0 108.485 8.485L20.657 12"
-        />
-      </svg>
-      Attachments
-    </label>
-    <input
-      type="file"
-      name="attachments"
-      multiple
-      onChange={(e) =>
-        setFormData({ ...formData, attachments: e.target.files })
-      }
-      className="w-full bg-transparent border-b border-white py-2 outline-none file:hidden"
-    />
-  </div>
-</div>
-
 
     {/* Message */}
     <div>
@@ -216,13 +165,9 @@ export default function HireUsPage() {
     {/* Radio Options */}
     <div className="space-y-4">
       <label className="flex items-center gap-3">
-        <input type="radio" name="consent" className="w-5 h-5" />
-        <span>I'm happy to receive a monthly newsletter from Illuminora</span>
-      </label>
-      <label className="flex items-center gap-3">
-        <input type="radio" name="consent" className="w-5 h-5" />
+        <input type="radio" name="consent" className="w-5 h-5" required/>
         <span>
-          I understand that Illumiora will securely hold my data in accordance with their privacy policy.
+          I understand that Illumiora will securely hold my data in accordance with their privacy policy*.
         </span>
       </label>
     </div>

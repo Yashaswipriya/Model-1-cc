@@ -58,9 +58,9 @@ export default function FAQ() {
                 transition={{ duration: 0.2 }}
                 className="flex-shrink-0 mr-3"
                 >
-                <Plus className="w-8 h-8" />
+                <Plus className="w-8 h-8 hover:cursor-pointer" />
                 </motion.div>
-                <h3 className="text-[2rem] flex-1">{faq.question}</h3>
+                <h3 className="text-[2rem] 2xl:text-[4rem]flex-1">{faq.question}</h3>
             </div>
             <AnimatePresence>
               {openIndex === index && (

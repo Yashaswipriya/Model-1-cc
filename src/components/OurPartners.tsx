@@ -26,7 +26,7 @@ export default function Partners() {
   const text = "Bright\nConnections";
 
   return (
-    <section className="bg-black py-20 pb-[20rem] overflow-hidden">
+    <section className="bg-black py-20 pb-[10rem] overflow-hidden">
       <div className="px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto text-left ">
           <h2 className="text-white font-bold text-[6rem] md:text-[10rem] leading-[1.1] mb-[8rem] whitespace-pre-line">

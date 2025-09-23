@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CircleArrowLeftIcon, CircleArrowRightIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface ClientCard {
   name: string;
@@ -12,27 +12,27 @@ interface ClientCard {
 
 const clients: ClientCard[] = [
   {
-    name: "Alice Johnson",
-    role: "CEO, StartupX",
-    testimonial: "Illuminora helped us transform our brand identity with unmatched creativity.",
+    name: "Shubham Singh",
+    role: " Founder, GopalEstate",
+    testimonial: "Illuminora has been a game-changer for GopalEstate. Their content strategy and social media management helped us stand out in a crowded real estate market. The team's creativity and consistency not only grew our audience but also built genuine trust with our clients.",
     bgColor: "bg-pink-200",
   },
   {
-    name: "Bob Smith",
-    role: "CTO, InnovateLabs",
-    testimonial: "The team delivered an amazing website experience. Highly recommended!",
+    name: "Nitya",
+    role: " Beauty Influencer, @nitya.vibes",
+    testimonial: "Working with Illuminora has been amazing! They truly understood my vibe and helped me create content that felt authentic while still reaching a wider audience. From motion edits to strategy, they made my brand presence stronger and more consistent.",
     bgColor: "bg-blue-200",
   },
   {
-    name: "Carol Lee",
-    role: "Founder, NextGen",
-    testimonial: "Smooth collaboration and impressive results every single time.",
+    name: "Divyank Atwal",
+    role: "Founder, ComputerChacha",
+    testimonial: "Illuminora played a vital role in shaping ComputerChacha's digital journey. From building our website to managing social media, paid ads, and overall digital marketing, they helped us grow from a simple idea into a recognized custom PC brand. Their strategies were clear, creative, and always result-driven.",
     bgColor: "bg-yellow-200",
   },
   {
-    name: "David Kim",
-    role: "Marketing Lead, BrightCorp",
-    testimonial: "Professional, creative, and punctual. The results speak for themselves.",
+    name: "Deepshikha Sharma",
+    role: "Marketing Head, WhyNoTravel",
+    testimonial: "Illuminora has been a true partner in our growth. From content creation to paid ads and brand strategy, their team brought fresh ideas that aligned perfectly with our vision at WhyNoTravel. The consistency, creativity, and attention to detail helped us connect better with our audience and elevate our brand presence.",
     bgColor: "bg-green-200",
   },
 ];
@@ -53,7 +53,7 @@ export default function OurClientsSay() {
   };
 
   return (
-    <section className="relative w-full bg-black text-white py-24 px-6 md:px-16 lg:px-24 min-h-[100vh]">
+    <section className="relative w-full bg-black text-white px-6 md:px-16 lg:px-24 min-h-[100vh]">
       <div className="mx-auto flex flex-col md:flex-row items-center md:items-center justify-center 
     gap-[8rem] lg:gap-[20rem] 2xl:gap-[30rem] 3xl:gap-[0rem] 
     max-w-none 3xl:max-w-[2400px]">
@@ -66,9 +66,8 @@ export default function OurClientsSay() {
   <div className="ml-30 md:ml-40 lg:ml-80 2xl:ml-80">Say</div>
 </h2>
 
-
         {/* Right Side Cards */}
-        <div className="w-52 sm:w-60 md:w-72 lg:w-80 xl:w-96 3xl:w-[400px] relative flex items-center justify-center min-h-[400px] 2xl:min-h-[600px] 3xl:min-h-[1200px]">
+        <div className="w-52 sm:w-60 md:w-72 lg:w-80 xl:w-96 3xl:w-[400px] relative flex items-center justify-center min-h-[500px] sm:min-h-[550px] md:min-h-[600px] lg:min-h-[650px] xl:min-h-[700px] 2xl:min-h-[750px] 3xl:min-h-[800px]">
           {clients.map((client, i) => {
             const style = getCardStyle(i);
             return (
@@ -79,25 +78,35 @@ export default function OurClientsSay() {
                 style={{ zIndex: style.zIndex }}
                 className={`absolute 
                     w-52 sm:w-60 md:w-72 lg:w-80 xl:w-96 2xl:w-[28rem] 3xl:w-[32rem] 
-                    aspect-[3/4] rounded-tr-[6rem] p-6 flex flex-col justify-between 
+                    h-[500px] sm:h-[550px] md:h-[600px] lg:h-[650px] xl:h-[700px] 2xl:h-[750px] 3xl:h-[800px]
+                    rounded-tr-[6rem] p-6 flex flex-col justify-between
                     ${client.bgColor}`}
               >
-                <div className="flex items-center gap-4">
-                  <div>
-                    <h4 className="font-bold text-5xl text-black">{client.name}</h4>
-                    <p className="text-xl text-gray-700">{client.role}</p>
-                    <p className="text-gray-900 text-2xl mt-4">{client.testimonial}</p>
+                {/* Content Container with proper spacing */}
+                <div className="flex-1 flex flex-col justify-start space-y-4">
+                  {/* Header Section */}
+                  <div className="flex-shrink-0">
+                    <h4 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-black leading-tight">{client.name}</h4>
+                    <p className="text-sm sm:text-base lg:text-lg text-gray-700 mt-1">{client.role}</p>
+                  </div>
+                  
+                  {/* Testimonial Section */}
+                  <div className="flex-1">
+                    <p className="text-gray-900 text-sm sm:text-base lg:text-lg leading-relaxed">
+                      {client.testimonial}
+                    </p>
                   </div>
                 </div>
-                {/* Navigation */}
-                    <div className="absolute bottom-0 right-0 flex gap-4 mt-6 z-20">
-                        <button onClick={prev} className="invert fill p-3 rounded-full">
-                        <CircleArrowLeftIcon size={28} />
-                        </button>
-                        <button onClick={next} className="invert fill p-3 rounded-full">
-                        <CircleArrowRightIcon size={28} />
-                        </button>
-                    </div> 
+                
+                {/* Navigation - Fixed Position */}
+                <div className="absolute bottom-4 right-4 flex gap-3 z-20">
+                  <button onClick={prev} className="invert fill p-2 rounded-full hover:bg-black/10 transition-colors">
+                    <ArrowLeft size={24} />
+                  </button>
+                  <button onClick={next} className="invert fill p-2 rounded-full hover:bg-black/10 transition-colors">
+                    <ArrowRight size={24} />
+                  </button>
+                </div> 
               </motion.div>
             );
           })}

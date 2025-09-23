@@ -9,17 +9,17 @@ const projects = [
     title: "ComputerChacha",
     year: "2025",
     video: "/WorkVideos/Project-1.mp4",
-    description: "This is a brief description of the main project.",
-    tags: ["UI/UX", "Branding"],
+    description: "We crafted a gaming web experience for a customised PC builder",
+    tags: ["UI/UX", "Web Design"],
     link: "http://www.computerchacha.in",
   },
   {
     id: 2,
-    title: "WhyNotTravel",
+    title: "WhyNoTravel",
     year: "2024",
     video: "/WorkVideos/Project-2.mp4",
-    description: "Brief about project 2.",
-    tags: ["Design"],
+    description: "Wanderers - We created eye-catching content for a travel page",
+    tags: ["Social Media", "Content Creation"],
     link: "https://www.instagram.com/_whynotravel_/",
   },
   {
@@ -27,8 +27,8 @@ const projects = [
     title: "GopalEstate",
     year: "2024",
     video: "/WorkVideos/Project-3.mp4",
-    description: "Brief about project 3.",
-    tags: ["Web"],
+    description: "A future ready Real Estate Social Media",
+    tags: ["Web Design", "Branding"],
     link: "https://www.instagram.com/gopalestate/",
   },
   {
@@ -36,8 +36,8 @@ const projects = [
     title: "NityaVibes",
     year: "2023",
     video: "/WorkVideos/Project-4.mp4",
-    description: "Brief about project 4.",
-    tags: ["Motion"],
+    description: "Working with Beauty Influencer's Social Media",
+    tags: ["Social Media", "Content Creation"],
     link: "https://www.instagram.com/nitya.vibes/",
   },
   {
@@ -45,8 +45,8 @@ const projects = [
     title: "MintyRead",
     year: "2023",
     video: "/WorkVideos/Project-5.mp4",
-    description: "Brief about project 5.",
-    tags: ["Branding"],
+    description: "Designed a Blog Website for Fashion & Everyday stuff.",
+    tags: ["Web Design", "Branding"],
     link: "https://mintyread.com/",
   },
 ];
@@ -160,7 +160,7 @@ function ProjectCard({ title, year, video, description, tags, link, large = fals
           initial={{ opacity: 0, y: 20 }}
           animate={hovered ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.4 }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg text-gray-200 px-4 max-w-[80%]"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-xl text-gray-200 px-4 max-w-[80%]"
         >
           {description}
         </motion.p>
