@@ -12,11 +12,9 @@ export default function HireUsPage() {
     firstName: "",
     lastName:"",
     email: "",
-    company: "",
-    budget: "",
     message: "",
-    attachments: null as FileList | null,
   });
+  const [consent, setConsent] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,10 +22,35 @@ export default function HireUsPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ ...formData, selectedProject });
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    setConsent(false);
+  e.preventDefault();
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...formData, selectedProject }),
+    });
+
+    if (res.ok) {
+      alert("Your query has been sent!");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        message: "",
+      });
+      setSelectedProject("");
+    } else {
+      alert("Something went wrong. Please try again later.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong. Please try again later.");
+  }
+};
+
 
   return (
     <main className="dark-section w-full min-h-screen bg-black text-white relative">
@@ -165,7 +188,13 @@ export default function HireUsPage() {
     {/* Radio Options */}
     <div className="space-y-4">
       <label className="flex items-center gap-3">
-        <input type="radio" name="consent" className="w-5 h-5" required/>
+        <input type="radio" 
+        name="consent" 
+        className="w-5 h-5" 
+        checked={consent} 
+        onChange={() => setConsent(!consent)} 
+        required
+        />
         <span>
           I understand that Illumiora will securely hold my data in accordance with their privacy policy*.
         </span>
