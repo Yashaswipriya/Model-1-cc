@@ -7,7 +7,7 @@ export default function Hero() {
       {/* Hero Text Section */}
   <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-2">
   {/* Heading */}
-  <h1 className="font-syne text-[8vw] md:text-[12vw] leading-[1.2] font-bold mx-auto text-center mb-20">
+  <h1 className="font-syne text-[14vw] sm:text-[10vw] md:text-[12vw] leading-[1.2] font-bold mx-auto text-center mb-20">
     <motion.span
       className="block transform md:translate-x-10"
       initial="hidden"

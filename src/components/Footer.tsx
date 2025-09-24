@@ -34,9 +34,9 @@ const Footer = () => {
             <Image
               src="/Logo.png"
               alt="Illuminora Logo"
-              width={200}
-              height={200}
-              className="object-contain filter invert"
+              width={150}
+              height={150}
+              className="w-[150px] sm:w-[180px] md:w-[200px] h-auto object-contain filter invert"
             />
             <div className="h-[1rem]"></div>
             <div className="flex gap-4 text-gray-400">
@@ -80,7 +80,7 @@ const Footer = () => {
           <div className="flex flex-col gap-6 items-start md:items-end relative">
             <button
               onClick={handleCopyEmail}
-              className="text-6xl font-semibold hover:text-pink-400 transition pb-6"
+              className="text-[clamp(1.8rem,6vw,6rem)] sm:text-[clamp(2.5rem,5vw,6rem)] md:text-6xl font-semibold hover:text-pink-400 transition pb-6 text-left md:text-right break-all"
             >
               hello@illuminora.co.in
             </button>
@@ -92,7 +92,7 @@ const Footer = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute -top-8 right-0 text-md text-black bg-white px-2 py-1 rounded"
+                  className="absolute -top-8 left-0 md:right-0 md:left-auto text-md text-black bg-white px-2 py-1 rounded"
                 >
                   Copied!
                 </motion.span>

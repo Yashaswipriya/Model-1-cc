@@ -106,21 +106,23 @@ export default function ServicesHeading() {
     <motion.div
       ref={ref}
       style={motionStyle}
-      className="relative flex flex-col items-start justify-center min-h-[50vh] px-20 md:px-50"
+      className="relative flex flex-col items-start justify-center min-h-[50vh] px-6 sm:px-12 md:px-20 lg:px-32"
     >
-      <div className="relative -translate-x-40">
-        <motion.h2 className="text-8xl md:text-9xl 3xl:text-9xl font-semibold uppercase leading-[0.98]">
+      <div className="relative -translate-x-6 sm:-translate-x-12 md:-translate-x-20 lg:-translate-x-40">
+        <motion.h2 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold uppercase leading-[1]">
           <div className="text-left">{renderLetters("Our")}</div>
-          <div className="text-left md:ml-25 mt-2">{renderLetters("Radiance", 3)}</div>
+          <div className="text-left mt-2 sm:mt-3 md:mt-4 md:ml-10 lg:ml-25">
+            {renderLetters("Radiance", 3)}
+          </div>
         </motion.h2>
       </div>
 
       {/* Arrow */}
-      <div className="absolute right-6 md:right-5 top-1/2 -translate-y-1/2">
+      <div className="hidden sm:block sm:absolute sm:right-5 sm:top-1/2 sm:-translate-y-1/2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 111.42 110.66"
-          className="w-[100px] h-[350px] fill-black"
+          className="w-[40px] h-[120px] sm:w-[60px] sm:h-[200px] md:w-[80px] md:h-[280px] lg:w-[100px] lg:h-[350px] fill-black"
         >
           <polygon points="13.65 102.66 109.53 6.67 103.87 1.02 8 97 8 0 0 0 0 110.66 111.42 110.66 111.42 102.66 13.65 102.66"></polygon>
         </svg>

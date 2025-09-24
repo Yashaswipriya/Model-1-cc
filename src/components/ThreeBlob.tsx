@@ -201,7 +201,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         {/* Illuminora Text Belt */}
         <div className="absolute top-1/2 left-0 w-full overflow-hidden pointer-events-none -translate-y-1/2">
           <motion.div
-            className="flex whitespace-nowrap text-white text-[9rem] 3xl:text-[10rem] font-bold"
+            className="flex whitespace-nowrap text-white text-[5rem] lg:text-9rem 2xl:text-[10rem] font-bold"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
               repeat: Infinity,

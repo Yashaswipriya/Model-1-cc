@@ -29,7 +29,7 @@ export default function Partners() {
     <section className="bg-black py-20 pb-[10rem] overflow-hidden">
       <div className="px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto text-left ">
-          <h2 className="text-white font-bold text-[6rem] md:text-[10rem] leading-[1.1] mb-[8rem] whitespace-pre-line">
+          <h2 className="text-white font-bold text-[clamp(3rem,10vw,6rem)] md:text-[10rem] leading-[1.1] mb-[3rem] sm:mb-[5rem] md:mb-[8rem] whitespace-pre-line">
             {text.split("").map((char, i) => (
               <motion.span
                 key={i}

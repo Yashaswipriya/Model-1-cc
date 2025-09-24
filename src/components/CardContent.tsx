@@ -20,7 +20,7 @@ export default function CardContent({
   return (
     <div
       className="
-        bg-white h-full rounded-4xl overflow-hidden p-6 md:p-8 
+        bg-white h-full rounded-4xl overflow-hidden p-3 sm:p-6 md:p-8 
         flex flex-col md:flex-row items-center gap-6 md:gap-12
         w-[90vw] 2xl:w-[90vw] 3xl:w-[90vw] 4xl:w-[90vw]
         max-w-[1400px] 2xl:max-w-none 3xl:max-w-none 4xl:max-w-none
@@ -79,7 +79,7 @@ export default function CardContent({
         <div
           className="
             flex-shrink-0 w-full md:w-[45%] lg:w-[50%] 
-            h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] xl:h-[700px] 
+            h-[500px] sm:h-[300px] md:h-[400px] md:h-[400px] lg:h-[500px] xl:h-[700px] 
             2xl:h-[600px] 3xl:h-[1000px] 4xl:h-[2000px]
             flex justify-center items-center
           "
