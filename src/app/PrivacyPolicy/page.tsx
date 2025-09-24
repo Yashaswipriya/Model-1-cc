@@ -6,7 +6,7 @@ import React from "react";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="relative bg-black text-white px-6 py-12 2xl:py-20 mx-auto">
+    <div className="dark-section relative bg-black text-white px-6 py-12 2xl:py-20 mx-auto">
       {/* Logo top-left */}
       <div className="absolute top-6 left-6 sm:top-10 sm:left-10 invert fill">
         <Link href="/">

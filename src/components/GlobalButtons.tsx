@@ -9,25 +9,45 @@ export default function GlobalButtons() {
   const [darkMode, setDarkMode] = useState(false);
 
   // Detect if "dark-section" is in view
-  useEffect(() => {
+ useEffect(() => {
+  const handleScroll = () => {
     const darkSections = document.querySelectorAll<HTMLElement>(".dark-section");
-    if (!darkSections) return;
+    const viewportHeight = window.innerHeight;
+    const scrollTop = window.scrollY;
+    const viewportCenter = scrollTop + viewportHeight / 2;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setDarkMode(entry.isIntersecting);
-        });
-      },
-      {
-        rootMargin: "-30% 0px -30% 0px",
-        threshold: 0.1,
+    let shouldBeDark = false;
+    
+    darkSections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = scrollTop + rect.top;
+      const sectionBottom = sectionTop + rect.height;
+      
+      if (viewportCenter >= sectionTop && viewportCenter <= sectionBottom) {
+        shouldBeDark = true;
       }
-    );
+    });
 
-    darkSections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
+    setDarkMode(shouldBeDark);
+  };
+
+  // Throttle scroll events
+  let ticking = false;
+  const throttledScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        handleScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+
+  window.addEventListener('scroll', throttledScroll);
+  handleScroll(); // Initial check
+
+  return () => window.removeEventListener('scroll', throttledScroll);
+}, []);
 
   const menuItems = [
     { label: "Home", href: "/" },
