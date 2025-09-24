@@ -2,12 +2,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 interface ClientCard {
   name: string;
   role: string;
   testimonial: string;
   bgColor: string;
+  logo: string;
 }
 
 const clients: ClientCard[] = [
@@ -16,24 +18,28 @@ const clients: ClientCard[] = [
     role: " Founder, GopalEstate",
     testimonial: "Illuminora has been a game-changer for GopalEstate. Their content strategy and social media management helped us stand out in a crowded real estate market. The team's creativity and consistency not only grew our audience but also built genuine trust with our clients.",
     bgColor: "bg-pink-200",
+    logo:"/logos/gopal.png"
   },
   {
     name: "Nitya",
     role: " Beauty Influencer, @nitya.vibes",
     testimonial: "Working with Illuminora has been amazing! They truly understood my vibe and helped me create content that felt authentic while still reaching a wider audience. From motion edits to strategy, they made my brand presence stronger and more consistent.",
     bgColor: "bg-blue-200",
+    logo:"/logos/nykaa.png"
   },
   {
     name: "Divyank Atwal",
     role: "Founder, ComputerChacha",
     testimonial: "Illuminora played a vital role in shaping ComputerChacha's digital journey. From building our website to managing social media, paid ads, and overall digital marketing, they helped us grow from a simple idea into a recognized custom PC brand. Their strategies were clear, creative, and always result-driven.",
     bgColor: "bg-yellow-200",
+    logo:"/logos/cc.png"
   },
   {
     name: "Deepshikha Sharma",
     role: "Marketing Head, WhyNoTravel",
     testimonial: "Illuminora has been a true partner in our growth. From content creation to paid ads and brand strategy, their team brought fresh ideas that aligned perfectly with our vision at WhyNoTravel. The consistency, creativity, and attention to detail helped us connect better with our audience and elevate our brand presence.",
     bgColor: "bg-green-200",
+    logo:"/logos/WhynoTravel.png"
   },
 ];
 
@@ -107,6 +113,10 @@ export default function OurClientsSay() {
                     <ArrowRight size={24} />
                   </button>
                 </div> 
+                {/* Logo at the bottom */}
+                <div className="absolute bottom-10 left-4">
+                  <Image src={client.logo} alt={`${client.name} Logo`} width={110} height={40} className="object-contain" />
+                </div>
               </motion.div>
             );
           })}
