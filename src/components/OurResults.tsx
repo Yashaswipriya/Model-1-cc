@@ -18,7 +18,7 @@ const results: ResultCardProps[] = [
     logo: "/logos/cc.png",
     percentage: "67.6%",
     text: "rise in engaged sessions per user after 1 month.",
-    images: ["/results/1.png", "/results/2.png", "/results/3.png"],
+    images: ["/results/3.png", "/results/2.png", "/results/1.png"],
     link: "https://www.computerchacha.in/",
   },
   {
@@ -253,19 +253,19 @@ export default function OurResults() {
                 </div>
 
                 {/* Right Side Images - Fixed Layout */}
-                <div className="flex items-center gap-3 px-4 md:px-8 py-8 md:py-12">
+                <div className="flex items-center gap-4 px-2 md:px-6 py-4 md:py-6 w-full max-w-7xl mx-auto -ml-20">
                   {/* Left Image */}
-                  <div className="relative flex-1 aspect-[9/16] rounded-lg overflow-hidden min-h-0">
+                  <div className="relative flex-[2] aspect-[9/16] min-w-[180px] rounded-lg overflow-hidden min-h-0">
                     <Image src={current.images[0]} alt="img1" fill className="object-cover" />
                   </div>
 
                   {/* Middle (Bigger) Image */}
-                  <div className="relative flex-[1.4] aspect-[9/16] rounded-lg overflow-hidden min-h-0">
+                  <div className="relative flex-[3] aspect-[9/16] min-w-[200px] rounded-lg overflow-hidden ">
                     <Image src={current.images[1]} alt="img2" fill className="object-cover" />
                   </div>
 
                   {/* Right Image */}
-                  <div className="relative flex-1 aspect-[9/16] rounded-lg overflow-hidden min-h-0">
+                  <div className="relative flex-[2] aspect-[9/16] min-w-[180px] rounded-lg overflow-hidden min-h-0">
                     <Image src={current.images[2]} alt="img3" fill className="object-cover" />
                   </div>
                 </div>
