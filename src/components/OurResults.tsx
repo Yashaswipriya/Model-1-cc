@@ -1,7 +1,7 @@
 "use client";
 import { CircleArrowRightIcon, CircleArrowLeftIcon, ArrowRight } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence, useAnimation, easeOut } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import Aurora from "@/components/Aurora";
 
@@ -75,7 +75,7 @@ export default function OurResults() {
         style={{ display: "inline-block" }}
         initial={{ opacity: 1, y: 0 }}
         animate={{ opacity: headingOpacity, y: 0 }}
-        transition={{ duration: 0 }} // no fade-in effect
+        transition={{ duration: 0 }}
       >
         {char === " " ? "\u00A0" : char}
       </motion.span>
@@ -111,20 +111,19 @@ export default function OurResults() {
     };
   }, []);
 
-  const [screenWidth, setScreenWidth] = useState(1024); // safe default for SSR
+  const [screenWidth, setScreenWidth] = useState(1024);
 
   useEffect(() => {
     const updateWidth = () => setScreenWidth(window.innerWidth);
-    updateWidth(); // initial value
+    updateWidth();
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // Updated getCardProps with mobile considerations
   const getCardProps = (cardIndex: number) => {
     const diff = (cardIndex - index + results.length) % results.length;
 
-    // Mobile - simpler stacking
+    // Mobile
     if (screenWidth < 768) {
       switch (diff) {
         case 0:
@@ -136,7 +135,7 @@ export default function OurResults() {
       }
     }
 
-    // Desktop - your existing logic
+    // Desktop
     switch (diff) {
       case 0:
         return { scale: 1, x: 0, opacity: 1, zIndex: 10 };
@@ -203,7 +202,7 @@ export default function OurResults() {
                 rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] 
                 flex flex-col shadow-2xl border border-white/40 overflow-hidden"
             >
-              {/* Aurora Background - Now scoped to the card */}
+              {/* Aurora Background */}
               <div className="absolute w-full inset-0 rounded-tr-[2rem] sm:rounded-tr-[4rem] md:rounded-tr-[10rem] rounded-tl-[2rem] rounded-br-[2rem] rounded-bl-[2rem] overflow-hidden">
                 <Aurora
                   colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
@@ -215,11 +214,7 @@ export default function OurResults() {
 
               {/* Content Container - Responsive Layout */}
               <div className="relative z-10 w-full h-full flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8">
-                
-                {/* Left Side - Mobile: Takes less vertical space, Desktop: Your existing layout */}
                 <div className="flex flex-col px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-8 lg:py-12 flex-shrink-0 md:flex-shrink">
-                  
-                  {/* Logo Container - Mobile: Smaller, Desktop: Your existing size */}
                   <div className="h-[60px] sm:h-[80px] md:h-[120px] flex items-start mb-4 sm:mb-6 md:mb-8">
                     <div className="relative w-[100px] h-[60px] sm:w-[120px] sm:h-[80px] md:w-[160px] md:h-[120px] flex items-center justify-start">
                       <Image 
@@ -230,24 +225,17 @@ export default function OurResults() {
                       />
                     </div>
                   </div>
-
-                  {/* Content Container - Mobile: Compact, Desktop: Your existing layout */}
                   <div className="flex-1 flex flex-col justify-between min-h-0">
                     
                     {/* Stats Section */}
                     <div className="flex-1 flex flex-col justify-center">
-                      {/* Percentage - Mobile: Smaller, Desktop: Your existing size */}
                       <h3 className="text-[clamp(4rem,12vw,6rem)] sm:text-[clamp(6rem,10vw,8rem)] md:text-[clamp(9rem,8vw,8rem)] font-extrabold bg-gradient-to-r from-pink-500 to-rose-700 bg-clip-text text-transparent leading-none mb-2 sm:mb-3 md:mb-4">
                         {current.percentage}
                       </h3>
-
-                      {/* Text - Mobile: Smaller, Desktop: Your existing size */}
                       <p className="text-[clamp(0.9rem,3vw,1.1rem)] sm:text-[clamp(1rem,2.5vw,1.3rem)] md:text-[clamp(1.2rem,1.8vw,1.8rem)] text-gray-300 leading-relaxed max-w-[400px]">
                         {current.text}
                       </p>
                     </div>
-
-                    {/* Button - Mobile: Smaller, Desktop: Your existing size */}
                     <div className="mt-4 sm:mt-6 md:mt-8">
                       <a
                         href={current.link}
@@ -265,29 +253,21 @@ export default function OurResults() {
                   </div>
                 </div>
 
-                {/* Right Side Images - Mobile: Vertical layout, Desktop: Your existing layout */}
+                {/* Images Section */}
                 <div className="flex-1 md:flex-none flex flex-row md:items-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-3 md:px-2 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-6 w-full max-w-7xl mx-auto md:-ml-20 min-h-0">
-                  {/* Mobile: Horizontal layout with smaller images, Desktop: Your existing layout */}
-                  
-                  {/* Left Image */}
-                  <div className="relative flex-[2] aspect-[9/16] min-w-[80px] sm:min-w-[120px] md:min-w-[180px] rounded-md sm:rounded-lg overflow-hidden">
+                  <div className="relative flex-[2] h-50 sm:h-auto sm:aspect-[9/16] min-w-[80px] sm:min-w-[120px] md:min-w-[180px] rounded-md sm:rounded-lg overflow-hidden">
                     <Image src={current.images[0]} alt="img1" fill className="object-cover object-center" />
                   </div>
-
-                  {/* Middle (Bigger) Image */}
-                  <div className="relative flex-[3] aspect-[9/16] min-w-[100px] sm:min-w-[140px] md:min-w-[200px] rounded-md sm:rounded-lg overflow-hidden">
+                  <div className="relative flex-[3] h-50 sm:h-auto sm:aspect-[9/16] min-w-[100px] sm:min-w-[140px] md:min-w-[200px] rounded-md sm:rounded-lg overflow-hidden">
                     <Image src={current.images[1]} alt="img2" fill className="object-cover object-center" />
                   </div>
-
-                  {/* Right Image */}
-                  <div className="relative flex-[2] aspect-[9/16] min-w-[80px] sm:min-w-[120px] md:min-w-[180px] rounded-md sm:rounded-lg overflow-hidden">
+                  <div className="relative flex-[2] h-50 sm:h-auto sm:aspect-[9/16] min-w-[80px] sm:min-w-[120px] md:min-w-[180px] rounded-md sm:rounded-lg overflow-hidden">
                     <Image src={current.images[2]} alt="img3" fill className="object-cover object-center" />
                   </div>
                 </div>
-
               </div>
 
-              {/* Navigation - Mobile: Smaller and repositioned, Desktop: Your existing position */}
+              {/* Navigation*/}
               {cardIndex === index && (
                 <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-6 md:right-8 flex gap-2 sm:gap-3 md:gap-4 z-20">
                   <button 
