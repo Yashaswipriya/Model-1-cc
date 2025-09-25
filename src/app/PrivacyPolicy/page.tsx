@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
             alt="Logo"
             width={200}
             height={200}
-            className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+            className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer w-30 sm:w-28 md:w-40 lg:w-48"
           />
         </Link>
       </div>
