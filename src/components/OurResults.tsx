@@ -267,23 +267,24 @@ export default function OurResults() {
                 </div>
               </div>
 
-              {/* Navigation*/}
-              {cardIndex === index && (
-                <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-6 md:right-8 flex gap-2 sm:gap-3 md:gap-4 z-20">
-                  <button 
-                    onClick={nextCard}
-                    className="hover:scale-110 transition-transform"
-                  >
-                    <CircleArrowLeftIcon size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
-                  </button>
-                  <button 
-                    onClick={prevCard}
-                    className="hover:scale-110 transition-transform"
-                  >
-                    <CircleArrowRightIcon size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
-                  </button>
-                </div>
-              )}
+              {/* Navigation */}
+              <div
+                className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 md:bottom-6 md:right-8 flex gap-2 sm:gap-3 md:gap-4 z-20
+                ${cardIndex === index ? "opacity-100" : "opacity-0 pointer-events-none"} transition-opacity`}
+              >
+                <button
+                  onClick={prevCard} // ✅ left arrow goes prev
+                  className="hover:scale-110 transition-transform"
+                >
+                  <CircleArrowLeftIcon size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
+                </button>
+                <button
+                  onClick={nextCard} // ✅ right arrow goes next
+                  className="hover:scale-110 transition-transform"
+                >
+                  <CircleArrowRightIcon size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
+                </button>
+              </div>
             </motion.div>
           );
         })}
