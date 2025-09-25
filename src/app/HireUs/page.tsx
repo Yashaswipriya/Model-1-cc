@@ -67,26 +67,27 @@ export default function HireUsPage() {
       {/* Hero Section */}
 <section className="relative z-10 py-20 px-4 lg:px-16 flex flex-col lg:flex-row justify-between min-h-screen items-center">
   {/* Left Side: Heading + Paragraph */}
- <div className="absolute top-10 left-2 invert fill">
+ <div className="absolute top-8 left-4 invert fill">
   <Link href="/">
     <Image
       src="/Logo.png"
       alt="Logo"
-      width={200}
-      height={200}
-      className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+      width={120}
+      height={120}
+      className="opacity-90 hover:opacity-100 transition-opacity cursor-pointer w-30 sm:w-28 md:w-40 lg:w-48"
     />
   </Link>
 </div>
-  <div className="max-w-lg lg:max-w-xl flex flex-col justify-center h-full">
-    <h1 className="whitespace-nowrap text-4xl lg:text-5xl 2xl:text-7xl font-bold leading-tight">
-      Let's get your project started
-    </h1>
-    <p className="mt-6 text-lg max-w-xl">
-      Tell us about your project idea, budget, and goals. We'll get back to you with how we can help.
-      
-    </p>
-  </div>
+
+<div className="max-w-md sm:max-w-xl lg:max-w-xl flex flex-col justify-center h-full px-4 sm:px-6 lg:px-0 pt-20 sm:pt-0">
+  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 2xl:text-7xl font-bold leading-tight">
+    Let's get your project started
+  </h1>
+  <p className="mt-4 sm:mt-6 text-base sm:text-lg max-w-md sm:max-w-lg">
+    Tell us about your project idea, budget, and goals. We'll get back to you with how we can help.
+  </p>
+</div>
+
 
   {/* Right Side: Contact Details */}
   <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full">
