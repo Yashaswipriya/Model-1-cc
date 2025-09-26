@@ -69,7 +69,7 @@ export default function GlobalButtons() {
       <div className="flex gap-2">
         <Link href="/HireUs" onClick={() => setMenuOpen(false)}>
           <button
-            className={`group flex items-center px-10 py-3 rounded-full text-md font-medium shadow-lg transition
+            className={`group flex items-center px-4 py-2 sm:px-10 sm:py-3 rounded-full text-md font-medium shadow-lg transition
             ${
               darkMode
                 ? "bg-white text-black hover:bg-pink-600"
