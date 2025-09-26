@@ -90,7 +90,7 @@ export default function HireUsPage() {
 
 
   {/* Right Side: Contact Details */}
-  <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full">
+  <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full mb-30 sm:mb-0">
     <p className="text-gray-500">New Business?</p>
     <p>+91-9310674298</p>
     <p>
