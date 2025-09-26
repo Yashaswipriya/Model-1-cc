@@ -79,7 +79,7 @@ export default function CardContent({
         <div
           className="
             flex-shrink-0 w-full md:w-[45%] lg:w-[50%] 
-            h-[500px] sm:h-[300px] md:h-[400px] md:h-[400px] lg:h-[500px] xl:h-[700px] 
+            h-[300px] sm:h-[500px] md:h-[400px] md:h-[400px] lg:h-[500px] xl:h-[700px] 2xl:h-[800px]
             2xl:h-[600px] 3xl:h-[1000px] 4xl:h-[2000px]
             flex justify-center items-center
           "
