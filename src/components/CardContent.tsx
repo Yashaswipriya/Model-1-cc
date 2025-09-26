@@ -20,7 +20,7 @@ export default function CardContent({
   return (
     <div
       className="
-        bg-white h-full rounded-4xl overflow-hidden p-3 sm:p-6 md:p-8 
+        bg-white h-[80vh] sm:h-full mt-10 sm:mt-0 rounded-4xl overflow-hidden p-3 sm:p-6 md:p-8 
         flex flex-col md:flex-row items-center gap-6 md:gap-12
         w-[90vw] 2xl:w-[90vw] 3xl:w-[90vw] 4xl:w-[90vw]
         max-w-[1400px] 2xl:max-w-none 3xl:max-w-none 4xl:max-w-none
