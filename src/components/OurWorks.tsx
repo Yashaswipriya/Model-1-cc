@@ -140,7 +140,7 @@ function ProjectCard({ title, year, video, description, tags, link, large = fals
   return (
     <div
       className={`relative overflow-hidden rounded-2xl shadow-lg border border-white/40 transition-all duration-300 ${
-        large ? "w-full h-[90vh]" : "aspect-[16/9]"
+        large ? "aspect-[16/9] sm:w-full sm:h-[90vh]" : "aspect-[16/9]"
       }  hover:scale-105`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
