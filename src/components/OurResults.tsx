@@ -256,13 +256,13 @@ export default function OurResults() {
                 {/* Images Section */}
                 <div className="flex-1 md:flex-none flex flex-row md:items-center gap-2 sm:gap-3 md:gap-4 px-2 sm:px-3 md:px-2 lg:px-6 py-2 sm:py-3 md:py-4 lg:py-6 w-full max-w-7xl mx-auto md:-ml-20 min-h-0">
                   <div className="relative flex-[2] h-50 sm:h-auto sm:aspect-[9/16] min-w-[80px] sm:min-w-[120px] md:min-w-[180px] rounded-md sm:rounded-lg overflow-hidden">
-                    <Image src={current.images[0]} alt="img1" fill className="object-cover object-center" />
+                    <Image src={current.images[0]} alt="result1" fill className="object-cover object-center" />
                   </div>
                   <div className="relative flex-[3] h-50 sm:h-auto sm:aspect-[9/16] min-w-[100px] sm:min-w-[140px] md:min-w-[200px] rounded-md sm:rounded-lg overflow-hidden">
-                    <Image src={current.images[1]} alt="img2" fill className="object-cover object-center" />
+                    <Image src={current.images[1]} alt="result2" fill className="object-cover object-center" />
                   </div>
                   <div className="relative flex-[2] h-50 sm:h-auto sm:aspect-[9/16] min-w-[80px] sm:min-w-[120px] md:min-w-[180px] rounded-md sm:rounded-lg overflow-hidden">
-                    <Image src={current.images[2]} alt="img3" fill className="object-cover object-center" />
+                    <Image src={current.images[2]} alt="result3" fill className="object-cover object-center" />
                   </div>
                 </div>
               </div>

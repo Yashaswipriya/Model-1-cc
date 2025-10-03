@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 interface CardContentProps {
   imgSrc?: string;
@@ -90,7 +91,7 @@ export default function CardContent({
                 <source src={videoSrc} type="video/mp4" />
               </video>
             ) : (
-              <img
+              <Image
                 src={imgSrc!}
                 alt="Card Visual"
                 className="w-full h-full object-cover"
