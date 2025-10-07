@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import useIsMobile from "@/hooks/useIsMobile"; // your hook
 
 interface ScrollStackProps {
   children: React.ReactNode[];
@@ -15,7 +16,7 @@ const getBreakpoint = (width: number): Breakpoint => {
   if (width >= 1920) return "3xl";
   if (width >= 1536) return "2xl";
   if (width >= 1280) return "xl";
-  return "xl"; // default fallback
+  return "xl"; 
 };
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
@@ -30,6 +31,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const [breakpoint, setBreakpoint] = useState<Breakpoint>("xl");
   const ticking = useRef(false);
   const cardCount = children.length;
+  const isMobile = useIsMobile();
 
   // Update breakpoint on resize
   useEffect(() => {
@@ -39,7 +41,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Desktop scroll logic
   useEffect(() => {
+    if (isMobile) return; // skip on mobile
+
     const handleScroll = () => {
       if (!containerRef.current || !sectionRef.current) return;
       if (ticking.current) return;
@@ -72,14 +77,33 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [cardCount]);
+  }, [cardCount, isMobile]);
 
   const getCardStyle = (index: number) => {
+    if (isMobile) {
+      // Mobile: normal stacked cards
+      return {
+        position: "relative" as const,
+        top: "auto",
+        left: "auto",
+        transform: "none",
+        width: "90%",
+        maxWidth: "600px",
+        height: "auto",
+        opacity: 1,
+        zIndex: 10,
+        pointerEvents: "auto",
+        margin: "1.5rem auto",
+        borderRadius: "1rem",
+        overflow: "hidden",
+      } as React.CSSProperties;
+    }
+
+    // Desktop: original scroll stack
     const isVisible = activeIndex >= index;
     const translateY = isVisible ? "0px" : "40px";
     const opacity = isVisible ? 1 : 0;
 
-    // Tailwind-like responsive adjustments
     let width = "95%";
     let maxWidth = "1400px";
     let height = "90vh";
@@ -97,7 +121,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         maxWidth = "2560px";
         height = "90vh";
         break;
-      default: // xl
+      default:
         maxWidth = "1400px";
         height = "90vh";
     }
@@ -128,16 +152,21 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       <div
         ref={sectionRef}
         className="relative w-full"
-        style={{ height: `${sectionHeightMultiplier * 100}vh` }}
+        style={{
+          height: isMobile ? "auto" : `${sectionHeightMultiplier * 100}vh`,
+          paddingBottom: isMobile ? "2rem" : 0,
+        }}
       >
-        <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden -mt-40">
-          <div className="relative w-full h-full">
-            {children.map((child, index) => (
-              <div key={index} style={getCardStyle(index)}>
-                {child}
-              </div>
-            ))}
-          </div>
+        <div
+          className={`w-full flex flex-col items-center justify-center overflow-hidden ${
+            isMobile ? "relative space-y-6 mt-6 mb-6" : "sticky top-0 h-screen -mt-40"
+          }`}
+        >
+          {children.map((child, index) => (
+            <div key={index} style={getCardStyle(index)}>
+              {child}
+            </div>
+          ))}
         </div>
       </div>
     </section>
