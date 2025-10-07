@@ -1,23 +1,27 @@
 "use client";
 import { motion, useAnimation, easeOut, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import useIsMobile from "@/hooks/useIsMobile"; // Make sure the path to your hook is correct
 
 export default function ServicesHeading() {
+  const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
 
-  // ---------- Letter animation trigger (only on scroll entry, not on refresh) ----------
-  // We keep flags in a ref so checks don't re-trigger the effect loops.
+  // ---------- Letter animation trigger (disabled on mobile) ----------
   const enterFlags = useRef({
     initiallyVisible: false,
     canAnimateOnReenter: false,
   });
 
   useEffect(() => {
+    // 1. Disable the entire Intersection Observer logic on mobile
+    if (isMobile) return;
+
     const node = ref.current;
     if (!node) return;
 
-    // detect if element is inside viewport right after mount (initial page load)
+    // Detect if element is inside viewport right after mount
     const rect = node.getBoundingClientRect();
     enterFlags.current.initiallyVisible =
       rect.top < window.innerHeight && rect.bottom > 0;
@@ -25,17 +29,14 @@ export default function ServicesHeading() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          // If the heading was initially visible, wait for it to leave then re-enter.
           if (enterFlags.current.initiallyVisible) {
             if (!entry.isIntersecting) {
-              // user scrolled away — now allow animation on next enter
               enterFlags.current.canAnimateOnReenter = true;
             } else if (entry.isIntersecting && enterFlags.current.canAnimateOnReenter) {
               controls.start("visible");
               observer.disconnect();
             }
           } else {
-            // Not initially visible: animate on first intersection
             if (entry.isIntersecting) {
               controls.start("visible");
               observer.disconnect();
@@ -48,32 +49,33 @@ export default function ServicesHeading() {
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [controls]);
+  }, [controls, isMobile]); // Added isMobile to dependency array
 
-  // ---------- Scroll-based floating + scale + disappear ----------
+  // ---------- Scroll-based transforms (disabled on mobile) ----------
   const [startScroll, setStartScroll] = useState(0);
   const [endScroll, setEndScroll] = useState(0);
   const { scrollY } = useScroll();
 
   useEffect(() => {
+    // 2. Disable scroll position calculations on mobile
+    if (isMobile) return;
+
     const calc = () => {
       if (!ref.current) return;
       const top = ref.current.offsetTop;
       const height = ref.current.offsetHeight;
-      // start when heading is around the middle of viewport, end after it's well above cards
       setStartScroll(top + window.innerHeight / 1.2);
-      setEndScroll(top + window.innerHeight + height * 0.8); // adjust 0.8 → 0.7/0.9 as needed
+      setEndScroll(top + window.innerHeight + height * 0.8);
     };
 
     calc();
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
-  }, []);
+  }, [isMobile]); // Added isMobile to dependency array
 
-  // only apply transforms once endScroll is calculated to avoid initial flicker
   const scale = useTransform(scrollY, [startScroll, endScroll], [1, 0.6], { clamp: true });
-  const y = useTransform(scrollY, [startScroll, endScroll], [0, -210], { clamp: true }); // floats up as it shrinks
-  const opacity = useTransform(scrollY, [endScroll - 1, endScroll], [1, 0]); // fully disappears at the end
+  const y = useTransform(scrollY, [startScroll, endScroll], [0, -210], { clamp: true });
+  const opacity = useTransform(scrollY, [endScroll - 1, endScroll], [1, 0]);
 
   // ---------- Letter variants & renderer ----------
   const letterVariants = {
@@ -84,9 +86,18 @@ export default function ServicesHeading() {
       transition: { delay: i * 0.05, duration: 0.8, ease: easeOut },
     }),
   };
+  
+  const renderLetters = (text: string, offset = 0) => {
+    // 3. On mobile, render static spans. On desktop, render animated motion.spans.
+    if (isMobile) {
+      return text.split("").map((char, i) => (
+        <span key={`${text}-${i}`} className="inline-block">
+          {char === " " ? "\u00A0" : char}
+        </span>
+      ));
+    }
 
-  const renderLetters = (text: string, offset = 0) =>
-    text.split("").map((char, i) => (
+    return text.split("").map((char, i) => (
       <motion.span
         key={`${text}-${i}`}
         custom={i + offset}
@@ -98,9 +109,10 @@ export default function ServicesHeading() {
         {char === " " ? "\u00A0" : char}
       </motion.span>
     ));
-
-  // Avoid passing transforms before endScroll is set (to prevent transient effects)
-  const motionStyle = endScroll > 0 ? { scale, y, opacity } : {};
+  };
+  
+  // 4. Apply transforms only on desktop. On mobile, this will be an empty object.
+  const motionStyle = endScroll > 0 && !isMobile ? { scale, y, opacity } : {};
 
   return (
     <motion.div
@@ -109,12 +121,12 @@ export default function ServicesHeading() {
       className="relative flex flex-col items-start justify-center min-h-[50vh] px-6 sm:px-12 md:px-20 lg:px-32"
     >
       <div className="relative -translate-x-6 sm:-translate-x-12 md:-translate-x-20 lg:-translate-x-40">
-        <motion.h2 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold uppercase leading-[1]">
+        <h2 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-semibold uppercase leading-[1]">
           <div className="text-left">{renderLetters("Our")}</div>
           <div className="text-left mt-2 sm:mt-3 md:mt-4 md:ml-10 lg:ml-25">
             {renderLetters("Radiance", 3)}
           </div>
-        </motion.h2>
+        </h2>
       </div>
 
       {/* Arrow */}
