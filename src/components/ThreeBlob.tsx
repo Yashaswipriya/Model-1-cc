@@ -5,12 +5,13 @@ import * as THREE from "three";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import useIsMobile from "@/hooks/useIsMobile"; // Make sure the path is correct
 
 interface ThreeBlobProps {
-  triangleCount?: number;      // default 160000
-  rotationSpeedX?: number;     // default 0.25
-  rotationSpeedY?: number;     // default 0.5
-  startAnimation?: boolean;    // control animation
+  triangleCount?: number;
+  rotationSpeedX?: number;
+  rotationSpeedY?: number;
+  startAnimation?: boolean;
 }
 
 const ThreeBlob: React.FC<ThreeBlobProps> = memo(
@@ -21,6 +22,12 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
     startAnimation = false,
   }) => {
     const mountRef = useRef<HTMLDivElement>(null);
+    const isMobile = useIsMobile();
+
+    // Conditionally set parameters based on device
+    const currentTriangleCount = isMobile ? 30000 : triangleCount;
+    const n = isMobile ? 400 : 800; // Size of the generation volume
+    const cameraZ = isMobile ? 2000 : 2750; // Camera distance
 
     useEffect(() => {
       if (!mountRef.current) return;
@@ -31,11 +38,11 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         mesh: THREE.Mesh;
 
       const width = mountRef.current.clientWidth;
-      const height =  mountRef.current.clientHeight;
+      const height = mountRef.current.clientHeight;
 
       // Camera
       camera = new THREE.PerspectiveCamera(27, width / height, 1, 3500);
-      camera.position.z = 2750;
+      camera.position.z = cameraZ;
 
       // Scene
       scene = new THREE.Scene();
@@ -58,8 +65,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       const colors: number[] = [];
       const color = new THREE.Color();
 
-      const n = 800,
-        n2 = n / 2;
+      const n2 = n / 2;
       const d = 12,
         d2 = d / 2;
 
@@ -69,7 +75,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       const cb = new THREE.Vector3();
       const ab = new THREE.Vector3();
 
-      for (let i = 0; i < triangleCount; i++) {
+      for (let i = 0; i < currentTriangleCount; i++) {
         const x = Math.random() * n - n2;
         const y = Math.random() * n - n2;
         const z = Math.random() * n - n2;
@@ -111,18 +117,9 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         const alpha = Math.random();
 
         colors.push(
-          color.r,
-          color.g,
-          color.b,
-          alpha,
-          color.r,
-          color.g,
-          color.b,
-          alpha,
-          color.r,
-          color.g,
-          color.b,
-          alpha
+          color.r, color.g, color.b, alpha,
+          color.r, color.g, color.b, alpha,
+          color.r, color.g, color.b, alpha
         );
       }
 
@@ -159,13 +156,14 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
 
       // Renderer
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setPixelRatio(window.devicePixelRatio);
+      // Performance boost: Cap the pixel ratio on mobile
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setSize(width, height);
       renderer.setClearColor(0x000000, 0);
       mountRef.current.appendChild(renderer.domElement);
-
-      // Animate
+      
       const animate = () => {
+        requestAnimationFrame(animate);
         if (!startAnimation) return;
         const time = Date.now() * 0.001;
         mesh.rotation.x = time * rotationSpeedX;
@@ -173,26 +171,28 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         renderer.render(scene, camera);
       };
 
-      renderer.setAnimationLoop(animate);
+      animate(); // Changed from setAnimationLoop to requestAnimationFrame for better control
 
-      // Resize handler
       const handleResize = () => {
         if (!mountRef.current) return;
         const newWidth = mountRef.current.clientWidth;
-        const newHeight = window.innerHeight;
+        const newHeight = mountRef.current.clientHeight; // Use component height
         camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(newWidth, newHeight);
       };
       window.addEventListener("resize", handleResize);
 
-      // Cleanup
       return () => {
         window.removeEventListener("resize", handleResize);
+        if (mountRef.current) {
+          mountRef.current.removeChild(renderer.domElement);
+        }
         renderer.dispose();
-        mountRef.current?.removeChild(renderer.domElement);
+        geometry.dispose();
+        material.dispose();
       };
-    }, [triangleCount, rotationSpeedX, rotationSpeedY, startAnimation]);
+    }, [isMobile, triangleCount, rotationSpeedX, rotationSpeedY, startAnimation]); // Added isMobile to dependency array
 
     return (
       <div className="relative w-full h-full">
@@ -201,12 +201,12 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         {/* Illuminora Text Belt */}
         <div className="absolute top-1/2 left-0 w-full overflow-hidden pointer-events-none -translate-y-1/2">
           <motion.div
-            className="flex whitespace-nowrap text-white text-[5rem] lg:text-9rem 2xl:text-[10rem] font-bold"
+            className="flex whitespace-nowrap text-white text-[3rem] sm:text-[5rem] lg:text-9rem 2xl:text-[10rem] font-bold"
             animate={{ x: ["0%", "-50%"] }}
             transition={{
               repeat: Infinity,
               repeatType: "loop",
-              duration: 5,
+              duration: 10, // Slowed down slightly
               ease: "linear",
             }}
           >
