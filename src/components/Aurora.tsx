@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, memo } from 'react';
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -117,6 +118,8 @@ interface AuroraProps {
 }
 
 function Aurora(props: AuroraProps) {
+  const isMobile = useIsMobile();
+
   const { colorStops = ["#8e84fa", "#FF94B4", "#71cafe"], amplitude = 1.0, blend = 1.0 } = props;
   const propsRef = useRef<AuroraProps>(props);
   propsRef.current = props;
@@ -127,49 +130,30 @@ function Aurora(props: AuroraProps) {
     const ctn = ctnDom.current;
     if (!ctn) return;
 
-    const renderer = new Renderer({
-      alpha: true,
-      premultipliedAlpha: true,
-      antialias: true
-    });
+    const renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: true });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.canvas.style.backgroundColor = 'transparent';
 
-    let program: Program | undefined;
-
-    function resize() {
-      if (!ctn) return;
-      const width = ctn.offsetWidth;
-      const height = ctn.offsetHeight;
-      renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
-    }
-    window.addEventListener('resize', resize);
-
     const geometry = new Triangle(gl);
-    if (geometry.attributes.uv) {
-      delete geometry.attributes.uv;
-    }
+    if (geometry.attributes.uv) delete geometry.attributes.uv;
 
     const colorStopsArray = colorStops.map(hex => {
       const c = new Color(hex);
       return [c.r, c.g, c.b];
     });
 
-    program = new Program(gl, {
+    const program = new Program(gl, {
       vertex: VERT,
       fragment: FRAG,
       uniforms: {
         uTime: { value: 0 },
-        uAmplitude: { value: amplitude },
+        uAmplitude: { value: isMobile ? 0.3 : amplitude },
         uColorStops: { value: colorStopsArray },
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
-        uBlend: { value: blend }
+        uBlend: { value: blend },
       }
     });
 
@@ -177,45 +161,49 @@ function Aurora(props: AuroraProps) {
     ctn.appendChild(gl.canvas);
 
     Object.assign(gl.canvas.style, {
-  position: "absolute",
-  top: "0",
-  left: "0",
-  width: "100%",
-  height: "100%",
-  zIndex: "0", // sits behind
-  pointerEvents: "none", // avoid blocking Hero interactions
-});
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      width: '100%',
+      height: '100%',
+      zIndex: '0',
+      pointerEvents: 'none',
+    });
 
-    let animateId = 0;
-    const update = (t: number) => {
-      animateId = requestAnimationFrame(update);
-      const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      if (program) {
-        program.uniforms.uTime.value = time * speed * 0.1;
-        program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
-        program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-        const stops = propsRef.current.colorStops ?? colorStops;
-        program.uniforms.uColorStops.value = stops.map((hex: string) => {
-          const c = new Color(hex);
-          return [c.r, c.g, c.b];
-        });
-        renderer.render({ scene: mesh });
-      }
-    };
-    animateId = requestAnimationFrame(update);
+    function resize() {
+      if (!ctn) return;
+      const width = ctn.offsetWidth;
+      const height = ctn.offsetHeight;
+      renderer.setSize(width, height);
+      program.uniforms.uResolution.value = [width, height];
+      renderer.render({ scene: mesh }); // always render once
+    }
 
+    window.addEventListener('resize', resize);
     resize();
 
+    let animateId: number | undefined;
+
+    if (!isMobile) {
+      const update = (t: number) => {
+        animateId = requestAnimationFrame(update);
+        const { time = t * 0.01, speed = 1.0 } = propsRef.current;
+        program.uniforms.uTime.value = time * speed * 0.1;
+        renderer.render({ scene: mesh });
+      };
+      animateId = requestAnimationFrame(update);
+    }
+
+    // ✅ single cleanup for both desktop and mobile
     return () => {
-      cancelAnimationFrame(animateId);
+      if (animateId) cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
-      if (ctn && gl.canvas.parentNode === ctn) {
-        ctn.removeChild(gl.canvas);
-      }
+      if (ctn && gl.canvas.parentNode === ctn) ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [amplitude]);
+  }, [amplitude, blend, colorStops, isMobile]);
 
   return <div ref={ctnDom} className="w-full h-full relative" />;
 }
+
 export default memo(Aurora);
