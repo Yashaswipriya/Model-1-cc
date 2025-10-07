@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import useIsMobile from "@/hooks/useIsMobile"; // Make sure the path is correct
 
 interface CardContentProps {
   imgSrc?: string;
@@ -18,6 +19,8 @@ export default function CardContent({
   tags = [],
   description,
 }: CardContentProps) {
+  const isMobile = useIsMobile();
+
   return (
     <div
       className="
@@ -80,27 +83,28 @@ export default function CardContent({
         <div
           className="
             flex-shrink-0 w-full md:w-[45%] lg:w-[50%] 
-            h-[300px] sm:h-[500px] md:h-[400px] md:h-[400px] lg:h-[500px] xl:h-[700px] 2xl:h-[800px]
+            h-[300px] sm:h-[500px] md:h-[400px] lg:h-[500px] xl:h-[700px] 
             2xl:h-[600px] 3xl:h-[1000px] 4xl:h-[2000px]
             flex justify-center items-center
           "
         >
-          <div className="rounded-tr-[4rem] rounded-bl-none rounded-br-none rounded-tl-none overflow-hidden shadow-2xl w-full h-full">
-            {videoSrc ? (
-              <video autoPlay loop muted playsInline className="w-full h-full object-cover">
-                <source src={videoSrc} type="video/mp4" />
-              </video>
-            ) : (
-              <Image
-                src={imgSrc!}
-                alt="Card Visual"
-                className="w-full h-full object-cover"
-              />
-            )}
-          </div>
+          <div className="rounded-tr-[4rem] overflow-hidden shadow-2xl w-full h-full relative">
+  {videoSrc && !isMobile ? (
+    <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+      <source src={videoSrc} type="video/mp4" />
+    </video>
+  ) : imgSrc ? (
+    <Image
+      src={imgSrc.startsWith("/") ? imgSrc : `/${imgSrc}`}
+      alt={title || "Card Visual"}
+      fill
+      className="object-cover"
+    />
+  ) : null}
+</div>
+
         </div>
       )}
     </div>
   );
 }
-

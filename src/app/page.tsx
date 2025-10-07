@@ -22,6 +22,7 @@ const cardsData = [
     description:
       "Crafting digital experiences where beauty meets ROI, turning heads and unlocking revenue potential with every click.",
     videoSrc: "/servicesVideos/WebDesign.mp4",
+    imgSrc: "/ServicesMobile/img1.png",
   },
   {
     title: "Brand Strategy",
@@ -29,6 +30,7 @@ const cardsData = [
     description:
       "Build a memorable brand that resonates with your audience and grows your business.",
     videoSrc: "/servicesVideos/brandStrategy.mp4",
+    imgSrc: "/ServicesMobile/img2.png",
   },
   {
     title: "Content Creation",
@@ -36,6 +38,7 @@ const cardsData = [
     description:
       "We craft compelling content that amplifies your brand, connects with your audience, and drives real results.",
     videoSrc: "/servicesVideos/contentCreation.mp4",
+    imgSrc: "/ServicesMobile/img3.png",
   },
   {
     title: "Paid Advertising",
@@ -43,6 +46,7 @@ const cardsData = [
     description:
       "Design and run powerful, attention-grabbing ads that connect with your audience, boost engagement, and drive measurable results for your business.",
     videoSrc: "/servicesVideos/PaidAds.mp4",
+    imgSrc: "/ServicesMobile/img4.png",
   },
   {
     title: "Social Media Management",
@@ -50,6 +54,7 @@ const cardsData = [
     description:
       "Build and nurture a vibrant online community that amplifies your brand message, fosters loyalty, and drives meaningful interactions across all your social platforms.",
     videoSrc: "/servicesVideos/socialMedia.mp4",
+    imgSrc: "/ServicesMobile/img5.png",
   },
 ];
 
@@ -108,6 +113,7 @@ export default function Page() {
                 tags={card.tags}
                 description={card.description}
                 videoSrc={card.videoSrc}
+                imgSrc={card.imgSrc}
               />
             ))}
           </ScrollStack>
