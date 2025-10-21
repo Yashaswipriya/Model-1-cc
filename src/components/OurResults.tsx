@@ -1,9 +1,10 @@
 "use client";
-import { CircleArrowRightIcon, CircleArrowLeftIcon, ArrowRight } from "lucide-react";
+import { CircleArrowRight, CircleArrowLeft, ArrowRight } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import Aurora from "@/components/Aurora";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface ResultCardProps {
   logo: string;
@@ -50,6 +51,7 @@ export default function OurResults() {
   const controls = useAnimation();
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [headingOpacity, setHeadingOpacity] = useState(0);
+  const isMobile = useIsMobile();
 
   const nextCard = () => setIndex((prev) => (prev + 1) % results.length);
   const prevCard = () => setIndex((prev) => (prev - 1 + results.length) % results.length);
@@ -82,19 +84,22 @@ export default function OurResults() {
     ));
 
   useEffect(() => {
+    if (isMobile) {
+      setHeadingOpacity(1);
+      return;
+    }
+
     const handleScroll = () => {
       if (!headingRef.current) return;
       const rect = headingRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      // Distance from center
       const centerOffset = Math.abs(rect.top + rect.height / 2 - windowHeight / 2);
       const maxOffset = windowHeight / 2 + rect.height / 2;
 
       let opacity = 1 - centerOffset / maxOffset;
       opacity = Math.min(Math.max(opacity, 0), 1);
 
-      // Force full opacity when first entering viewport
       if (rect.top > 0 && rect.top < windowHeight * 0.4) {
         opacity = 1;
       }
@@ -109,7 +114,7 @@ export default function OurResults() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, []);
+  }, [isMobile]);
 
   const [screenWidth, setScreenWidth] = useState(1024);
 
@@ -123,16 +128,9 @@ export default function OurResults() {
   const getCardProps = (cardIndex: number) => {
     const diff = (cardIndex - index + results.length) % results.length;
 
-    // Mobile
+    // Mobile - no animation
     if (screenWidth < 768) {
-      switch (diff) {
-        case 0:
-          return { scale: 1, x: 0, opacity: 1, zIndex: 10 };
-        case 1:
-          return { scale: 0.95, x: -20, opacity: 0.6, zIndex: 9 };
-        default:
-          return { scale: 0.9, x: -40, opacity: 0, zIndex: 8 };
-      }
+      return { scale: 1, x: 0, opacity: 1, zIndex: 10 };
     }
 
     // Desktop
@@ -158,6 +156,95 @@ export default function OurResults() {
     }
   };
 
+  if (isMobile) {
+    return (
+      <section className="relative w-full min-h-screen bg-black text-white flex flex-col items-center justify-start overflow-hidden py-6 px-3">
+        {/* Heading - No Animation */}
+        <div className="mb-8 text-center w-full">
+          <h2 className="text-[clamp(4rem,12vw,10rem)] font-bold tracking-tight text-white leading-[1.05]">
+            <div>Radiant</div>
+            <div className="-mt-2">Results</div>
+          </h2>
+        </div>
+
+        {/* Cards Stacked Vertically */}
+        <div className="w-full flex flex-col gap-6">
+          {results.map((current, cardIndex) => (
+            <div
+              key={cardIndex}
+              className="w-full bg-black rounded-2xl flex flex-col shadow-2xl border border-white/40 overflow-hidden relative"
+            >
+              {/* Aurora Background */}
+              <div className="absolute w-full inset-0 rounded-2xl overflow-hidden">
+                <Aurora
+                  colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
+                  blend={0.7}
+                  amplitude={2.0}
+                  speed={1.0}
+                />
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 w-full flex flex-col">
+                <div className="flex flex-col px-4 py-4">
+                  <div className="h-[60px] flex items-start mb-4">
+                    <div className="relative w-[100px] h-[60px] flex items-center justify-start">
+                      <Image 
+                        src={current.logo} 
+                        alt="logo" 
+                        fill
+                        className="object-contain object-left"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Stats */}
+                  <div className="mb-4">
+                    <h3 className="text-[clamp(4rem,12vw,6rem)] font-extrabold bg-gradient-to-r from-pink-500 to-rose-700 bg-clip-text text-transparent leading-none mb-2">
+                      {current.percentage}
+                    </h3>
+                    <p className="text-[clamp(0.9rem,3vw,1.1rem)] text-gray-300 leading-relaxed">
+                      {current.text}
+                    </p>
+                  </div>
+                  
+                  <div className="mb-4">
+                    <a
+                      href={current.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-2 border border-white/60 px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors text-[0.9rem]"
+                    >
+                      View Project
+                      <ArrowRight
+                        className="transform transition-transform duration-300 group-hover:translate-x-1"
+                        size={16}
+                      />
+                    </a>
+                  </div>
+                </div>
+
+                {/* Images */}
+                <div className="flex flex-row gap-2 px-2 py-2">
+                  <div className="relative flex-[2] h-48 rounded-md overflow-hidden">
+                    <Image src={current.images[0]} alt="result1" fill className="object-cover object-center" />
+                  </div>
+                  <div className="relative flex-[3] h-48 rounded-md overflow-hidden">
+                    <Image src={current.images[1]} alt="result2" fill className="object-cover object-center" />
+                  </div>
+                  <div className="relative flex-[2] h-48 rounded-md overflow-hidden">
+                    <Image src={current.images[2]} alt="result3" fill className="object-cover object-center" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop version - unchanged
   return (
     <section
       ref={sectionRef}
@@ -212,7 +299,7 @@ export default function OurResults() {
                 />
               </div>
 
-              {/* Content Container - Responsive Layout */}
+              {/* Content Container */}
               <div className="relative z-10 w-full h-full flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-8">
                 <div className="flex flex-col px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-8 lg:py-12 flex-shrink-0 md:flex-shrink">
                   <div className="h-[60px] sm:h-[80px] md:h-[120px] flex items-start mb-4 sm:mb-6 md:mb-8">
@@ -273,16 +360,16 @@ export default function OurResults() {
                 ${cardIndex === index ? "opacity-100" : "opacity-0 pointer-events-none"} transition-opacity`}
               >
                 <button
-                  onClick={prevCard} // ✅ left arrow goes prev
+                  onClick={prevCard}
                   className="hover:scale-110 transition-transform"
                 >
-                  <CircleArrowLeftIcon size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
+                  <CircleArrowLeft size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
                 </button>
                 <button
-                  onClick={nextCard} // ✅ right arrow goes next
+                  onClick={nextCard}
                   className="hover:scale-110 transition-transform"
                 >
-                  <CircleArrowRightIcon size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
+                  <CircleArrowRight size={screenWidth < 640 ? 24 : screenWidth < 768 ? 28 : 32} />
                 </button>
               </div>
             </motion.div>

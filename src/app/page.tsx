@@ -104,7 +104,7 @@ export default function Page() {
           <ServicesHeading />
         </motion.div>
 
-        <div className="mt-40 w-full flex justify-center">
+        <div className="sm:mt-60 md:mt-80 mt-0 w-full flex justify-center">
           <ScrollStack sectionHeightMultiplier={cardsData.length}>
             {cardsData.map((card, idx) => (
               <CardContent

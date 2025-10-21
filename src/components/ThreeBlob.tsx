@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import useIsMobile from "@/hooks/useIsMobile"; // Make sure the path is correct
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface ThreeBlobProps {
   triangleCount?: number;
@@ -24,10 +24,9 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
     const mountRef = useRef<HTMLDivElement>(null);
     const isMobile = useIsMobile();
 
-    // Conditionally set parameters based on device
     const currentTriangleCount = isMobile ? 30000 : triangleCount;
-    const n = isMobile ? 400 : 800; // Size of the generation volume
-    const cameraZ = isMobile ? 2000 : 2750; // Camera distance
+    const n = isMobile ? 400 : 800;
+    const cameraZ = isMobile ? 2000 : 2750;
 
     useEffect(() => {
       if (!mountRef.current) return;
@@ -35,7 +34,9 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       let camera: THREE.PerspectiveCamera,
         scene: THREE.Scene,
         renderer: THREE.WebGLRenderer,
-        mesh: THREE.Mesh;
+        mesh: THREE.Mesh,
+        animationFrameId: number | null = null,
+        isUnmounted = false;
 
       const width = mountRef.current.clientWidth;
       const height = mountRef.current.clientHeight;
@@ -58,7 +59,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       light2.position.set(0, -1, 0);
       scene.add(light2);
 
-      // Geometry
+      // Geometry setup
       const geometry = new THREE.BufferGeometry();
       const positions: number[] = [];
       const normals: number[] = [];
@@ -117,9 +118,18 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         const alpha = Math.random();
 
         colors.push(
-          color.r, color.g, color.b, alpha,
-          color.r, color.g, color.b, alpha,
-          color.r, color.g, color.b, alpha
+          color.r,
+          color.g,
+          color.b,
+          alpha,
+          color.r,
+          color.g,
+          color.b,
+          alpha,
+          color.r,
+          color.g,
+          color.b,
+          alpha
         );
       }
 
@@ -156,48 +166,60 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
 
       // Renderer
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      // Performance boost: Cap the pixel ratio on mobile
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setSize(width, height);
       renderer.setClearColor(0x000000, 0);
       mountRef.current.appendChild(renderer.domElement);
-      
+
       const animate = () => {
-        requestAnimationFrame(animate);
+        if (isUnmounted || !renderer) return; // <- 💥 Prevent rendering after unmount
+        animationFrameId = requestAnimationFrame(animate);
         if (!startAnimation) return;
         const time = Date.now() * 0.001;
         mesh.rotation.x = time * rotationSpeedX;
         mesh.rotation.y = time * rotationSpeedY;
-        renderer.render(scene, camera);
+        try {
+          renderer.render(scene, camera);
+        } catch {
+          // silently ignore WebGL context loss
+        }
       };
 
-      animate(); // Changed from setAnimationLoop to requestAnimationFrame for better control
+      animate();
 
       const handleResize = () => {
-        if (!mountRef.current) return;
+        if (!mountRef.current || !renderer) return;
         const newWidth = mountRef.current.clientWidth;
-        const newHeight = mountRef.current.clientHeight; // Use component height
+        const newHeight = mountRef.current.clientHeight;
         camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(newWidth, newHeight);
       };
+
       window.addEventListener("resize", handleResize);
 
       return () => {
+        isUnmounted = true;
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
         window.removeEventListener("resize", handleResize);
-        if (mountRef.current) {
-          mountRef.current.removeChild(renderer.domElement);
-        }
-        renderer.dispose();
+
+        try {
+          renderer.dispose();
+        } catch {}
         geometry.dispose();
         material.dispose();
+        scene.clear();
+
+        if (mountRef.current && renderer?.domElement?.parentElement) {
+          mountRef.current.removeChild(renderer.domElement);
+        }
       };
-    }, [isMobile, triangleCount, rotationSpeedX, rotationSpeedY, startAnimation]); // Added isMobile to dependency array
+    }, [isMobile, triangleCount, rotationSpeedX, rotationSpeedY, startAnimation]);
 
     return (
       <div className="relative w-full h-full">
         <div ref={mountRef} className="w-full h-full" />
-        
+
         {/* Illuminora Text Belt */}
         <div className="absolute top-1/2 left-0 w-full overflow-hidden pointer-events-none -translate-y-1/2">
           <motion.div
@@ -206,7 +228,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
             transition={{
               repeat: Infinity,
               repeatType: "loop",
-              duration: 10, // Slowed down slightly
+              duration: 10,
               ease: "linear",
             }}
           >
@@ -217,13 +239,13 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         {/* Button below the belt */}
         <div className="absolute top-[65%] left-1/2 -translate-x-1/2">
           <Link href="/AboutUs">
-          <button className="group inline-flex items-center bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-pink-600 transition">
-            About Us
-            <ArrowRight
-              className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
-              size={25}
-            />
-          </button>
+            <button className="group inline-flex items-center bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-pink-600 transition">
+              About Us
+              <ArrowRight
+                className="ml-3 transform transition-transform duration-300 group-hover:translate-x-1"
+                size={25}
+              />
+            </button>
           </Link>
         </div>
       </div>
@@ -232,5 +254,4 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
 );
 
 ThreeBlob.displayName = "ThreeBlob";
-
 export default ThreeBlob;

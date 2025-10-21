@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import useIsMobile from "@/hooks/useIsMobile"; // your hook
 
 interface ScrollStackProps {
   children: React.ReactNode[];
@@ -17,6 +16,20 @@ const getBreakpoint = (width: number): Breakpoint => {
   if (width >= 1536) return "2xl";
   if (width >= 1280) return "xl";
   return "xl"; 
+};
+
+// Simple mobile detection hook
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  return isMobile;
 };
 
 const ScrollStack: React.FC<ScrollStackProps> = ({
@@ -36,14 +49,14 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   // Update breakpoint on resize
   useEffect(() => {
     const handleResize = () => setBreakpoint(getBreakpoint(window.innerWidth));
-    handleResize(); // initialize
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Desktop scroll logic
   useEffect(() => {
-    if (isMobile) return; // skip on mobile
+    if (isMobile) return;
 
     const handleScroll = () => {
       if (!containerRef.current || !sectionRef.current) return;
@@ -81,21 +94,15 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
   const getCardStyle = (index: number) => {
     if (isMobile) {
-      // Mobile: normal stacked cards
       return {
         position: "relative" as const,
-        top: "auto",
-        left: "auto",
-        transform: "none",
-        width: "90%",
-        maxWidth: "600px",
+        width: "100%",
+        maxWidth: "100%",
         height: "auto",
         opacity: 1,
         zIndex: 10,
         pointerEvents: "auto",
-        margin: "1.5rem auto",
-        borderRadius: "1rem",
-        overflow: "hidden",
+        marginBottom: index === children.length - 1 ? "0" : "2rem",
       } as React.CSSProperties;
     }
 
@@ -154,12 +161,13 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         className="relative w-full"
         style={{
           height: isMobile ? "auto" : `${sectionHeightMultiplier * 100}vh`,
-          paddingBottom: isMobile ? "2rem" : 0,
         }}
       >
         <div
-          className={`w-full flex flex-col items-center justify-center overflow-hidden ${
-            isMobile ? "relative space-y-6 mt-6 mb-6" : "sticky top-0 h-screen -mt-40"
+          className={`w-full flex items-center justify-center ${
+            isMobile 
+              ? "relative flex-col gap-8 py-8 px-4" 
+              : "sticky top-0 h-screen"
           }`}
         >
           {children.map((child, index) => (
