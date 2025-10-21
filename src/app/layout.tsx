@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Bricolage_Grotesque, Syne } from "next/font/google";
 import SplashCursor from "@/components/SplashCursor";
 import GlobalButtons from "@/components/GlobalButtons";
@@ -29,13 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bricolage.variable} ${syne.variable}`}>
       <body className={`${bricolage.className} bg-[#fdfaf6]`}>
-        <SplashCursor />
+        {/* SplashCursor visible only on desktop */}
+        <div className="hidden sm:block">
+          <SplashCursor />
+        </div>
         <GlobalButtons />
-        <SpeedInsights/>
+        <SpeedInsights />
         {children}
       </body>
     </html>
   );
 }
-
-
