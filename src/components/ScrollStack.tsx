@@ -18,7 +18,6 @@ const getBreakpoint = (width: number): Breakpoint => {
   return "xl"; 
 };
 
-// Simple mobile detection hook
 const useIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false);
   
@@ -46,7 +45,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const cardCount = children.length;
   const isMobile = useIsMobile();
 
-  // Update breakpoint on resize
   useEffect(() => {
     const handleResize = () => setBreakpoint(getBreakpoint(window.innerWidth));
     handleResize();
@@ -106,7 +104,6 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       } as React.CSSProperties;
     }
 
-    // Desktop: original scroll stack
     const isVisible = activeIndex >= index;
     const translateY = isVisible ? "0px" : "40px";
     const opacity = isVisible ? 1 : 0;

@@ -31,7 +31,6 @@ export default function GlobalButtons() {
     setDarkMode(shouldBeDark);
   };
 
-  // Throttle scroll events
   let ticking = false;
   const throttledScroll = () => {
     if (!ticking) {
@@ -44,7 +43,7 @@ export default function GlobalButtons() {
   };
 
   window.addEventListener('scroll', throttledScroll);
-  handleScroll(); // Initial check
+  handleScroll(); 
 
   return () => window.removeEventListener('scroll', throttledScroll);
 }, []);

@@ -159,7 +159,6 @@ export default function OurResults() {
   if (isMobile) {
     return (
       <section className="relative w-full min-h-screen bg-black text-white flex flex-col items-center justify-start overflow-hidden py-6 px-3">
-        {/* Heading - No Animation */}
         <div className="mb-8 text-center w-full">
           <h2 className="text-[clamp(4rem,12vw,10rem)] font-bold tracking-tight text-white leading-[1.05]">
             <div>Radiant</div>
@@ -167,14 +166,12 @@ export default function OurResults() {
           </h2>
         </div>
 
-        {/* Cards Stacked Vertically */}
         <div className="w-full flex flex-col gap-6">
           {results.map((current, cardIndex) => (
             <div
               key={cardIndex}
               className="w-full bg-black rounded-2xl flex flex-col shadow-2xl border border-white/40 overflow-hidden relative"
             >
-              {/* Aurora Background */}
               <div className="absolute w-full inset-0 rounded-2xl overflow-hidden">
                 <Aurora
                   colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
@@ -184,7 +181,6 @@ export default function OurResults() {
                 />
               </div>
 
-              {/* Content */}
               <div className="relative z-10 w-full flex flex-col">
                 <div className="flex flex-col px-4 py-4">
                   <div className="h-[60px] flex items-start mb-4">
@@ -198,7 +194,6 @@ export default function OurResults() {
                     </div>
                   </div>
                   
-                  {/* Stats */}
                   <div className="mb-4">
                     <h3 className="text-[clamp(4rem,12vw,6rem)] font-extrabold bg-gradient-to-r from-pink-500 to-rose-700 bg-clip-text text-transparent leading-none mb-2">
                       {current.percentage}
@@ -224,7 +219,6 @@ export default function OurResults() {
                   </div>
                 </div>
 
-                {/* Images */}
                 <div className="flex flex-row gap-2 px-2 py-2">
                   <div className="relative flex-[2] h-48 rounded-md overflow-hidden">
                     <Image src={current.images[0]} alt="result1" fill className="object-cover object-center" />

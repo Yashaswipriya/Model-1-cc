@@ -45,11 +45,11 @@ const clients: ClientCard[] = [
 
 export default function OurClientsSay() {
   const [index, setIndex] = useState(0);
-  const [screenWidth, setScreenWidth] = useState(1024); // safe default for SSR
+  const [screenWidth, setScreenWidth] = useState(1024);
 
   useEffect(() => {
     const updateWidth = () => setScreenWidth(window.innerWidth);
-    updateWidth(); // initial value
+    updateWidth();
     window.addEventListener("resize", updateWidth);
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
@@ -57,11 +57,9 @@ export default function OurClientsSay() {
   const next = () => setIndex((prev) => (prev + 1) % clients.length);
   const prev = () => setIndex((prev) => (prev - 1 + clients.length) % clients.length);
 
-  // Returns the transform for each card - mobile gets tighter stack
   const getCardStyle = (i: number) => {
     const diff = (i - index + clients.length) % clients.length;
     
-    // Mobile: Tighter stack with more overlap to hide text
     if (screenWidth < 768) {
       if (diff === 0) return { x: 0, scale: 1, zIndex: 10, opacity: 1 };
       if (diff === 1) return { x: -15, scale: 0.98, zIndex: 9, opacity: 1 };
@@ -69,7 +67,6 @@ export default function OurClientsSay() {
       return { x: -45, scale: 0.94, zIndex: 7, opacity: 1 };
     }
     
-    // Desktop: Your existing stacked effect
     if (diff === 0) return { x: 0, scale: 1, zIndex: 10, opacity: 1 };
     if (diff === 1) return { x: -30, scale: 0.95, zIndex: 9, opacity: 1 };
     if (diff === 2) return { x: -60, scale: 0.9, zIndex: 8, opacity: 1 };
@@ -82,7 +79,6 @@ export default function OurClientsSay() {
         gap-[4rem] sm:gap-[6rem] md:gap-[8rem] lg:gap-[20rem] 2xl:gap-[30rem] 3xl:gap-[0rem] 
         max-w-none 3xl:max-w-[2400px]">
         
-        {/* Left Side Heading - Mobile Responsive */}
         <h2 className="text-[clamp(3rem,8vw,6rem)] md:text-7xl font-bold text-left leading-tight">
           <div className="ml-0">What</div>
           <div className="ml-4 sm:ml-6 md:ml-12 lg:ml-30 2xl:ml-20">Our</div>
@@ -90,7 +86,6 @@ export default function OurClientsSay() {
           <div className="ml-16 sm:ml-20 md:ml-40 lg:ml-80 2xl:ml-80">Say</div>
         </h2>
 
-        {/* Right Side Cards */}
         <div className="w-72 sm:w-80 md:w-72 lg:w-80 xl:w-96 3xl:w-[400px] relative flex items-center justify-center min-h-[450px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[650px] xl:min-h-[700px] 2xl:min-h-[750px] 3xl:min-h-[800px]">
           {clients.map((client, i) => {
             const style = getCardStyle(i);
@@ -106,23 +101,17 @@ export default function OurClientsSay() {
                     rounded-tr-[3rem] sm:rounded-tr-[4rem] md:rounded-tr-[6rem] p-4 sm:p-5 md:p-6 flex flex-col justify-between
                     ${client.bgColor}`}
               >
-                {/* Content Container with proper spacing */}
                 <div className="flex-1 flex flex-col justify-start space-y-3 sm:space-y-4">
-                  {/* Header Section */}
                   <div className="flex-shrink-0">
                     <h4 className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-black leading-tight">{client.name}</h4>
                     <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-700 mt-1">{client.role}</p>
                   </div>
-                  
-                  {/* Testimonial Section */}
                   <div className="flex-1">
                     <p className="text-gray-900 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed">
                       {client.testimonial}
                     </p>
                   </div>
                 </div>
-                
-                {/* Navigation - Fixed Position */}
                 <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 flex gap-2 sm:gap-3 z-20">
                   <button onClick={prev} className="invert fill p-1.5 sm:p-2 rounded-full hover:bg-black/10 transition-colors">
                     <ArrowLeft size={screenWidth < 640 ? 20 : 24} />
@@ -131,8 +120,6 @@ export default function OurClientsSay() {
                     <ArrowRight size={screenWidth < 640 ? 20 : 24} />
                   </button>
                 </div> 
-                
-                {/* Logo at the bottom */}
                 <div className="absolute bottom-8 sm:bottom-10 left-3 sm:left-4">
                   <Image src={client.logo} alt={`${client.name} Logo`} width={screenWidth < 640 ? 90 : 110} height={screenWidth < 640 ? 32 : 40} className="object-contain" />
                 </div>

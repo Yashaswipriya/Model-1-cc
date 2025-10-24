@@ -1,27 +1,23 @@
 "use client";
 import { motion, useAnimation, easeOut, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import useIsMobile from "@/hooks/useIsMobile"; // Make sure the path to your hook is correct
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function ServicesHeading() {
   const isMobile = useIsMobile();
   const ref = useRef<HTMLDivElement | null>(null);
   const controls = useAnimation();
 
-  // ---------- Letter animation trigger (disabled on mobile) ----------
   const enterFlags = useRef({
     initiallyVisible: false,
     canAnimateOnReenter: false,
   });
 
   useEffect(() => {
-    // 1. Disable the entire Intersection Observer logic on mobile
     if (isMobile) return;
 
     const node = ref.current;
     if (!node) return;
-
-    // Detect if element is inside viewport right after mount
     const rect = node.getBoundingClientRect();
     enterFlags.current.initiallyVisible =
       rect.top < window.innerHeight && rect.bottom > 0;
@@ -49,15 +45,13 @@ export default function ServicesHeading() {
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [controls, isMobile]); // Added isMobile to dependency array
+  }, [controls, isMobile]);
 
-  // ---------- Scroll-based transforms (disabled on mobile) ----------
   const [startScroll, setStartScroll] = useState(0);
   const [endScroll, setEndScroll] = useState(0);
   const { scrollY } = useScroll();
 
   useEffect(() => {
-    // 2. Disable scroll position calculations on mobile
     if (isMobile) return;
 
     const calc = () => {
@@ -71,13 +65,12 @@ export default function ServicesHeading() {
     calc();
     window.addEventListener("resize", calc);
     return () => window.removeEventListener("resize", calc);
-  }, [isMobile]); // Added isMobile to dependency array
+  }, [isMobile]);
 
   const scale = useTransform(scrollY, [startScroll, endScroll], [1, 0.6], { clamp: true });
   const y = useTransform(scrollY, [startScroll, endScroll], [0, -210], { clamp: true });
   const opacity = useTransform(scrollY, [endScroll - 1, endScroll], [1, 0]);
 
-  // ---------- Letter variants & renderer ----------
   const letterVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -88,7 +81,6 @@ export default function ServicesHeading() {
   };
   
   const renderLetters = (text: string, offset = 0) => {
-    // 3. On mobile, render static spans. On desktop, render animated motion.spans.
     if (isMobile) {
       return text.split("").map((char, i) => (
         <span key={`${text}-${i}`} className="inline-block">
@@ -111,7 +103,6 @@ export default function ServicesHeading() {
     ));
   };
   
-  // 4. Apply transforms only on desktop. On mobile, this will be an empty object.
   const motionStyle = endScroll > 0 && !isMobile ? { scale, y, opacity } : {};
 
   return (
@@ -129,7 +120,6 @@ export default function ServicesHeading() {
         </h2>
       </div>
 
-      {/* Arrow */}
       <div className="hidden sm:block sm:absolute sm:right-5 sm:top-1/2 sm:-translate-y-1/2">
         <svg
           xmlns="http://www.w3.org/2000/svg"

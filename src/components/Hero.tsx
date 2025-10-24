@@ -4,9 +4,7 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <main className="relative flex h-screen items-center justify-center">
-      {/* Hero Text Section */}
   <div className="flex flex-col md:flex-row items-center md:items-end justify-center gap-2">
-  {/* Heading */}
   <h1 className="font-syne text-[14vw] sm:text-[10vw] md:text-[12vw] leading-[1.2] font-bold mx-auto text-center mb-20">
     <motion.span
       className="block transform md:translate-x-10"
@@ -47,7 +45,6 @@ export default function Hero() {
     </motion.span>
   </h1>
 
-  {/* Paragraph box next to "glow" */}
   <motion.p
     className="max-w-xs md:max-w-sm text-base md:text-xl text-black md:ml-15 font-bricolage text-3xl mb-20"
     initial={{ opacity: 0, y: 10 }}
@@ -59,10 +56,10 @@ export default function Hero() {
    
   </motion.p>
 </div>
-{/* ✅ Bottom-left logo */}
+
       <div className="absolute bottom-4 left-2">
         <Image
-          src="/Logo.png" // <-- place logo.png inside /public folder
+          src="/Logo.png" 
           alt="Logo"
           width={200}
           height={200}

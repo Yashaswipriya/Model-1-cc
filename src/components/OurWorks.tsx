@@ -178,7 +178,6 @@ function ProjectCard({
         <video src={video} autoPlay loop muted className="w-full h-full object-cover" />
       )}
 
-      {/* Hover Overlay (desktop only) */}
       {!isMobile && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -205,12 +204,10 @@ function ProjectCard({
         </motion.div>
       )}
 
-      {/* Top-right Year */}
       <span className="absolute top-3 right-3 bg-black/70 border border-white/50 text-white text-xs px-2 py-1 rounded">
         {year}
       </span>
 
-      {/* Top-left Diagonal Arrow Link */}
       <a
         href={link}
         target="_blank"

@@ -28,10 +28,8 @@ const AboutPage: React.FC = () => {
           </Link>
         </div>
       
-      {/* Why we exist section */}
       <section className="py-20 relative z-10">
         <div className="mx-auto px-6">
-          {/* Large section header */}
           <div className="text-center mb-20">
             <h2 className="text-6xl md:text-7xl font-black tracking-tight mb-8">
               WHY WE EXIST.
@@ -73,10 +71,8 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* What we've built section */}
       <section className="py-20 relative z-10">
         <div className="mx-auto px-6">
-          {/* Large section header */}
           <div className="text-center mb-20">
             <h2 className="text-6xl md:text-7xl font-black tracking-tight mb-8">
               WHAT WE'VE BUILT.
@@ -111,10 +107,8 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Our mission section */}
       <section className="py-20 relative z-10">
         <div className="mx-auto px-6">
-          {/* Large section header */}
           <div className="text-center mb-20">
             <h2 className="text-6xl md:text-7xl font-black tracking-tight mb-8">
               OUR MISSION.

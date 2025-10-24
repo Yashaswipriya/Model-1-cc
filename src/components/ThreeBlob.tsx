@@ -164,7 +164,6 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
 
-      // Renderer
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
       renderer.setSize(width, height);
@@ -172,7 +171,7 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
       mountRef.current.appendChild(renderer.domElement);
 
       const animate = () => {
-        if (isUnmounted || !renderer) return; // <- 💥 Prevent rendering after unmount
+        if (isUnmounted || !renderer) return;
         animationFrameId = requestAnimationFrame(animate);
         if (!startAnimation) return;
         const time = Date.now() * 0.001;
@@ -181,7 +180,6 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
         try {
           renderer.render(scene, camera);
         } catch {
-          // silently ignore WebGL context loss
         }
       };
 
@@ -235,8 +233,6 @@ const ThreeBlob: React.FC<ThreeBlobProps> = memo(
             {"ILLUMINORA • ".repeat(20)}
           </motion.div>
         </div>
-
-        {/* Button below the belt */}
         <div className="absolute top-[65%] left-1/2 -translate-x-1/2">
           <Link href="/AboutUs">
             <button className="group inline-flex items-center bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-pink-600 transition">

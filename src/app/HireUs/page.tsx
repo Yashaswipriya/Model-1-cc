@@ -54,7 +54,6 @@ export default function HireUsPage() {
 
   return (
     <main className="dark-section w-full min-h-screen bg-black text-white relative">
-      {/* Aurora Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <Aurora
           colorStops={["#978ff3", "#FF94B4", "#6cc7f9"]}
@@ -63,10 +62,8 @@ export default function HireUsPage() {
           speed={1.0}
         />
       </div>
-
-      {/* Hero Section */}
+{/* Contact Info Section */}
 <section className="relative z-10 py-20 px-4 lg:px-16 flex flex-col lg:flex-row justify-between min-h-screen items-center">
-  {/* Left Side: Heading + Paragraph */}
  <div className="absolute top-8 left-4 invert fill">
   <Link href="/">
     <Image
@@ -88,8 +85,6 @@ export default function HireUsPage() {
   </p>
 </div>
 
-
-  {/* Right Side: Contact Details */}
   <div className="mt-8 lg:mt-0 flex flex-col justify-center text-3xl 2xl:text-5xl gap-4 h-full mb-30 sm:mb-0">
     <p className="text-gray-500">New Business?</p>
     <p>+91-9310674298</p>
@@ -111,8 +106,6 @@ export default function HireUsPage() {
   </div>
 </section>
 
-
-{/* Pills Section */}
 <section className="relative z-10 py-2 px-6 lg:px-16 -mt-30 2xl:-mt-50">
   <h2 className="text-2xl font-semibold mb-6">What do you need?</h2>
   <div className="flex flex-wrap gap-3">
@@ -136,7 +129,6 @@ export default function HireUsPage() {
       {/* Form Section */}
 <section className="relative z-10 py-20 px-6 lg:px-16">
   <form onSubmit={handleSubmit} className="w-full max-w-screen-3xl mx-auto space-y-10 px-4 lg:px-16">
-    {/* Row 1: First, Last, Email */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div>
         <label className="block mb-2 text-sm font-medium">First name*</label>

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";  // ✅ import Image
+import Image from "next/image";
 
 const logos = [
   { src: "/logos/Adventure.png", name: "Adventure" },
@@ -18,8 +18,8 @@ const logos = [
   { src: "/logos/WhynoTravel.png", name: "WhyNoTravel" },
 ];
 
-// 👉 choose which ones you want inverted (by index in the array)
-const invertedIndexes = [4, 10, 8]; // here: ComputerChacha & Nykaa
+
+const invertedIndexes = [4, 10, 8];
 
 export default function Partners() {
   const [paused, setPaused] = useState(false);
@@ -45,7 +45,6 @@ export default function Partners() {
         </div>
       </div>
 
-      {/* Full-width marquee container */}
       <div
         className="relative w-full overflow-hidden"
         onMouseEnter={() => setPaused(true)}
@@ -58,7 +57,6 @@ export default function Partners() {
           style={{ animationPlayState: paused ? "paused" : "running" }}
         >
           {[...logos, ...logos].map((logo, i) => {
-            // detect original index before duplication
             const originalIndex = i % logos.length;
             const isInverted = invertedIndexes.includes(originalIndex);
 

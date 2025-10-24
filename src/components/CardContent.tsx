@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import useIsMobile from "@/hooks/useIsMobile"; // Make sure the path is correct
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface CardContentProps {
   imgSrc?: string;

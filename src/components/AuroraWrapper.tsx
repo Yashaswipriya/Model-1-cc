@@ -1,4 +1,3 @@
-// AuroraWrapper.tsx
 "use client";
 import Aurora from "./Aurora";
 

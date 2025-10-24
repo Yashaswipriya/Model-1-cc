@@ -7,7 +7,6 @@ import React from "react";
 export default function PrivacyPolicy() {
   return (
     <div className="dark-section relative bg-black text-white px-6 py-12 2xl:py-20 mx-auto">
-      {/* Logo top-left */}
       <div className="absolute top-6 left-6 sm:top-10 sm:left-10 invert fill">
         <Link href="/">
           <Image
@@ -20,7 +19,6 @@ export default function PrivacyPolicy() {
         </Link>
       </div>
 
-      {/* Main heading */}
       <h1 className="text-4xl 2xl:text-5xl font-bold mb-6 text-pink-500 mt-24 pt-4">
         Privacy Policy - Illuminora
       </h1>
@@ -33,7 +31,6 @@ export default function PrivacyPolicy() {
         At <strong>Illuminora</strong> (“we,” “our,” “us”), your privacy matters to us. This Privacy Policy explains how we collect, use, and protect your information when you interact with our website and services. It applies globally, including compliance with Indian IT rules, GDPR (EU), and CCPA (California, US).
       </p>
 
-      {/* Sections */}
       {[
         {
           title: "1. Information We Collect",
@@ -160,7 +157,6 @@ export default function PrivacyPolicy() {
         </section>
       ))}
 
-      {/* Footer */}
       <Footer />
     </div>
   );
